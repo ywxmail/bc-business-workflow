@@ -1,0 +1,4 @@
+<div>
+<!-- 退出营运车辆列表 -->
+<div>车号：<input type="text" name="plate" /></div>
+</div>

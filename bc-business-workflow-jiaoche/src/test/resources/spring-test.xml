@@ -31,6 +31,9 @@
 	
 	<!-- activiti的配置 -->
 	<import resource="classpath:spring-test-activiti.xml"/>
+	
+	<!-- 本模块的配置 -->
+	<import resource="classpath:cn/bc/business/workflow/jiaoche/spring.xml"/>
 
 	<!-- ehcache的配置 -->
 	<bean id="cacheManager"

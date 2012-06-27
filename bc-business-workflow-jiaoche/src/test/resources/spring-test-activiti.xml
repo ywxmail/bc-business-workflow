@@ -79,7 +79,7 @@
 	<bean id="identityService" factory-bean="processEngine"
 		factory-method="getIdentityService" />
 
-	<bean id="activitiRule" class="org.activiti.engine.test.ActivitiRule">
+	<bean id="activitiRule" class="cn.bc.workflow.test.activiti.ActivitiRule">
 		<property name="processEngine" ref="processEngine" />
 	</bean>
 </beans>
