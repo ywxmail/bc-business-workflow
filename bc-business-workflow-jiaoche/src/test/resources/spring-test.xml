@@ -25,6 +25,7 @@
 	
 	<!-- 平台相关模块的配置 -->
 	<import resource="classpath:cn/bc/identity/spring.xml"/>
+	<import resource="classpath:cn/bc/template/spring.xml"/>
 	<import resource="classpath:cn/bc/workflow/spring.xml"/>
 
 	<!-- activiti的配置 -->

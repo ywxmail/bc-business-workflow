@@ -59,11 +59,15 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- 自定义Activiti的用户和用户组管理 -->
+	<bean id="customUserManager" class="cn.bc.workflow.activiti.CustomUserManager"/>
+	<bean id="customGroupManager" class="cn.bc.workflow.activiti.CustomGroupManager"/>
 
+	<!-- Activiti引擎服务 -->
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
 		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
 	</bean>
-
 	<bean id="repositoryService" factory-bean="processEngine"
 		factory-method="getRepositoryService" />
 	<bean id="runtimeService" factory-bean="processEngine"
@@ -79,6 +83,7 @@
 	<bean id="identityService" factory-bean="processEngine"
 		factory-method="getIdentityService" />
 
+	<!-- Activiti测试驱动 -->
 	<bean id="activitiRule" class="cn.bc.workflow.test.activiti.ActivitiRule">
 		<property name="processEngine" ref="processEngine" />
 	</bean>
