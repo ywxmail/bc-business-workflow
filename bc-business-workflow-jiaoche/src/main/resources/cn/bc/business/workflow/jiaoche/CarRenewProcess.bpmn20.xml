@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.bctaxi.com.cn/workflow">
-  <process id="JiaoCheProcess" name="交车流程">
+  <process id="CarRenewProcess" name="车辆续保处理流程">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <userTask id="usertask4" name="分公司通知责任人回公司续保" activiti:assignee="${fgs_assignee}"></userTask>
@@ -11,8 +11,8 @@
     <sequenceFlow id="flow8" name="" sourceRef="usertask5" targetRef="usertask6"></sequenceFlow>
     <sequenceFlow id="flow9" name="" sourceRef="startevent1" targetRef="usertask4"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_JiaoCheProcess">
-    <bpmndi:BPMNPlane bpmnElement="JiaoCheProcess" id="BPMNPlane_JiaoCheProcess">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_CarRenewProcess">
+    <bpmndi:BPMNPlane bpmnElement="CarRenewProcess" id="BPMNPlane_CarRenewProcess">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35" width="35" x="60" y="20"></omgdc:Bounds>
       </bpmndi:BPMNShape>

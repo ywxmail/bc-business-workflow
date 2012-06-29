@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.bctaxi.com.cn/workflow">
-  <process id="JiaoCheProcess" name="交车流程">
+  <process id="CarExitOperationProcess" name="车辆交车处理流程">
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <userTask id="usertask11" name="办公室核查确认"></userTask>
@@ -8,29 +8,29 @@
     <userTask id="usertask13" name="综合业务组核实处理"></userTask>
     <userTask id="usertask14" name="财务部结算"></userTask>
     <userTask id="usertask15" name="综合业务组归档"></userTask>
+    <userTask id="usertask3" name="车队长核查"></userTask>
+    <userTask id="usertask16" name="安全员核查"></userTask>
+    <userTask id="usertask17" name="分公司经理核实"></userTask>
+    <userTask id="usertask22" name="厂长核实"></userTask>
+    <userTask id="usertask21" name="修理厂驻点人员核查"></userTask>
+    <userTask id="usertask20" name="修理厂经办人核查车质车况"></userTask>
+    <userTask id="usertask24" name="修理厂财务处理"></userTask>
     <sequenceFlow id="flow13" name="" sourceRef="usertask11" targetRef="usertask12"></sequenceFlow>
     <sequenceFlow id="flow14" name="" sourceRef="usertask12" targetRef="usertask13"></sequenceFlow>
     <sequenceFlow id="flow15" name="" sourceRef="usertask13" targetRef="usertask14"></sequenceFlow>
     <sequenceFlow id="flow16" name="" sourceRef="usertask14" targetRef="usertask15"></sequenceFlow>
     <sequenceFlow id="flow17" name="" sourceRef="usertask15" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask3" name="车队长核查"></userTask>
     <sequenceFlow id="flow18" name="" sourceRef="usertask3" targetRef="usertask16"></sequenceFlow>
-    <userTask id="usertask16" name="安全员核查"></userTask>
     <sequenceFlow id="flow19" name="" sourceRef="usertask16" targetRef="usertask17"></sequenceFlow>
-    <userTask id="usertask17" name="分公司经理核实"></userTask>
     <sequenceFlow id="flow10" name="" sourceRef="usertask17" targetRef="usertask20"></sequenceFlow>
     <sequenceFlow id="flow27" name="" sourceRef="startevent1" targetRef="usertask3"></sequenceFlow>
-    <userTask id="usertask22" name="厂长核实"></userTask>
-    <userTask id="usertask21" name="修理厂驻点人员核查"></userTask>
     <sequenceFlow id="flow24" name="" sourceRef="usertask21" targetRef="usertask24"></sequenceFlow>
-    <userTask id="usertask20" name="修理厂经办人核查车质车况"></userTask>
     <sequenceFlow id="flow23" name="" sourceRef="usertask20" targetRef="usertask21"></sequenceFlow>
-    <userTask id="usertask24" name="修理厂财务处理"></userTask>
     <sequenceFlow id="flow25" name="" sourceRef="usertask24" targetRef="usertask22"></sequenceFlow>
     <sequenceFlow id="flow28" name="" sourceRef="usertask22" targetRef="usertask11"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_JiaoCheProcess">
-    <bpmndi:BPMNPlane bpmnElement="JiaoCheProcess" id="BPMNPlane_JiaoCheProcess">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_CarExitOperationProcess">
+    <bpmndi:BPMNPlane bpmnElement="CarExitOperationProcess" id="BPMNPlane_CarExitOperationProcess">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35" width="35" x="115" y="25"></omgdc:Bounds>
       </bpmndi:BPMNShape>
