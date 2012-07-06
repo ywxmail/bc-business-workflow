@@ -22,14 +22,20 @@ import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.bc.identity.domain.ActorHistory;
+import cn.bc.identity.web.SystemContext;
+import cn.bc.identity.web.SystemContextHolder;
+import cn.bc.identity.web.SystemContextImpl;
 import cn.bc.workflow.activiti.ActivitiUtils;
 
 /**
@@ -65,11 +71,26 @@ public class CheckExitOperationCarsProcessTest {
 	@Rule
 	public ActivitiRule activitiSpringRule;
 
+	@Before
+	public void setUp() throws Exception {
+		SystemContext context = new SystemContextImpl();
+		SystemContextHolder.set(context);
+		ActorHistory h = new ActorHistory();
+		h.setId(new Long(1146));
+		h.setActorId(new Long(9));
+		h.setActorType(4);
+		h.setCode("admin");
+		h.setName("系统管理员");
+		h.setPname("宝城总部/信息技术部");
+		context.setAttr(SystemContext.KEY_USER_HISTORY, h);
+	}
+
 	/**
 	 * 交车+续保 流程处理
 	 * 
 	 * @throws Exception
 	 */
+	@Rollback(false)
 	@Test
 	@Deployment(resources = {
 			"cn/bc/business/workflow/jiaoche/CheckExitOperationCarsProcess.bpmn20.xml",
@@ -96,6 +117,10 @@ public class CheckExitOperationCarsProcessTest {
 		Assert.assertNotNull(task);
 		Assert.assertEquals("gatherCars", task.getTaskDefinitionKey());
 		String taskId = task.getId();
+
+		// 验证这个任务的监听器设置的流程变量
+		// Assert.assertEquals("c1,c2", taskService.getVariable(task.getId(),
+		// "cars"));
 
 		// 表单验证
 		TaskFormData d = formService.getTaskFormData(task.getId());
