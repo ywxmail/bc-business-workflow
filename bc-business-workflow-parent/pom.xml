@@ -74,30 +74,10 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-		<dependency>
 			<groupId>cn.bc.workflow</groupId>
 			<artifactId>bc-workflow-core</artifactId>
 			<version>${workflow.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<inherited>true</inherited>
-				<configuration>
-					<classpathContainers>
-						<classpathContainer>org.eclipse.jdt.USER_LIBRARY/Activiti Designer Extensions</classpathContainer>
-					</classpathContainers>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
