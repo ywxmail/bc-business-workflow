@@ -22,14 +22,21 @@
 
 	<!-- 标准的crud事务拦截配置：拦截所有实现CrudService接口的类 -->
 	<import resource="classpath:cn/bc/core/spring.xml" />
+	<import resource="classpath:cn/bc/identity/spring.xml" />
+	<import resource="classpath:cn/bc/log/spring.xml"/>
 	
 	<!-- 平台相关模块的配置 -->
 	<import resource="classpath:cn/bc/identity/spring.xml"/>
 	<import resource="classpath:cn/bc/template/spring.xml"/>
-	<import resource="classpath:cn/bc/workflow/spring.xml"/>
 
 	<!-- activiti的配置 -->
 	<import resource="classpath:spring-test-activiti.xml"/>
+	
+	<!-- bc平台:Workflow -->
+	<import resource="classpath:cn/bc/workflow/spring.xml" />
+	<import resource="classpath:cn/bc/workflow/todo/spring.xml"/>
+	<import resource="classpath:cn/bc/workflow/deploy/spring.xml"/>
+	<import resource="classpath:cn/bc/workflow/flowattach/spring.xml"/>
 	
 	<!-- 本模块的配置 -->
 	<import resource="classpath:cn/bc/business/workflow/jiaoche/spring.xml"/>
