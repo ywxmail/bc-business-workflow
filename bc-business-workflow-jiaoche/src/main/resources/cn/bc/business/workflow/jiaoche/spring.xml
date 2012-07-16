@@ -15,8 +15,14 @@
 	<!-- 流程监听器：启动流程 -->
 	<bean id="processInstanceListener4Start" class="cn.bc.business.workflow.jiaoche.ProcessInstanceListener4Start"/>
 
-	<!-- 任务监听器：自动初始化本月要交车的车辆列表信息 -->
-	<bean id="taskListener4InitExitOperationCars" class="cn.bc.business.workflow.jiaoche.TaskListener4InitExitOperationCars"/>
+	<!-- 任务监听器：自动初始化本月要交车的车辆列表信息
+	<bean id="taskListener4InitExitOperationCars" class="cn.bc.business.workflow.jiaoche.TaskListener4InitExitOperationCars"/> -->
+
+	<!-- 任务监听器：自动将任务分派到"分公司合同管理员"岗 -->
+	<bean id="assign2UnitContractHandlerListener" class="cn.bc.business.workflow.delegate.Assign2UnitContractHandlerListener"/>
+
+	<!-- 任务监听器：自动将任务分派到"分公司经理"岗 -->
+	<bean id="assign2UnitManagerListener" class="cn.bc.business.workflow.delegate.Assign2UnitManagerListener"/>
 
 	<!-- 批量发起交车流程的服务任务 -->
 	<bean id="serviceTask4BatchStartCarExitOperationProcess" class="cn.bc.business.workflow.jiaoche.ServiceTask4BatchStartCarExitOperationProcess"/>

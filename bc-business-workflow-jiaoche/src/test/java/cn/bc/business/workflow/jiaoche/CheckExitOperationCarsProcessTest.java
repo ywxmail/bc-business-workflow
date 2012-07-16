@@ -1,5 +1,10 @@
 package cn.bc.business.workflow.jiaoche;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
@@ -127,7 +132,10 @@ public class CheckExitOperationCarsProcessTest {
 			return;
 
 		// 提交表单数据（会自动完成当前任务）
-		// this.taskService.setVariableLocal(task.getId(), "cars", cars);
+		List<Map<String, Object>> cars = new ArrayList<Map<String, Object>>();
+		Map<String, Object> car = new LinkedHashMap<String, Object>();
+		cars.add(car);
+		this.taskService.setVariableLocal(task.getId(), "cars", JSONUtils.toJson(cars));
 		this.taskService.setVariableLocal(task.getId(), "fenGongSi", "admin");// 指定下一任务的分公司办理人
 		taskService.complete(task.getId());
 		task = taskService.createTaskQuery()

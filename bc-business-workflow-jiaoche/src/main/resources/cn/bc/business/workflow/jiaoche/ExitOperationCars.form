@@ -1,5 +1,5 @@
 <div title='交车确认流程' data-type='form' class="bc-page"
-	data-js='${contextPath}/bc-business-workflow/jiaoche/CheckExitOperationCarsProcess.js,js:identity,${contextPath}/bc-business/bs.js'
+	data-js='bc-business-workflow/jiaoche/CheckExitOperationCarsProcess.js,js:identity,bc-business/bs.js'
 	data-initMethod='bs.CheckExitOperationCarsProcessForm.init'
 	data-option="{'minWidth':300
 	,'minHeight':300
