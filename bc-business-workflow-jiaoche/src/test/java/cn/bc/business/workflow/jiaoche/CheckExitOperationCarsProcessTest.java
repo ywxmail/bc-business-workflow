@@ -1,11 +1,5 @@
 package cn.bc.business.workflow.jiaoche;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
@@ -13,16 +7,11 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.TaskFormData;
-import org.activiti.engine.history.HistoricDetail;
-import org.activiti.engine.history.HistoricFormProperty;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -40,6 +29,7 @@ import cn.bc.identity.web.SystemContextHolder;
 import cn.bc.identity.web.SystemContextImpl;
 import cn.bc.workflow.activiti.ActivitiUtils;
 import cn.bc.workflow.activiti.form.BcFormEngine;
+import cn.bc.workflow.activiti.test.ActivitiRule;
 
 /**
  * 月即将退出营运车辆确认流程
@@ -128,15 +118,16 @@ public class CheckExitOperationCarsProcessTest {
 		// 表单验证
 		TaskFormData d = formService.getTaskFormData(task.getId());
 		Assert.assertEquals(formResourceName, d.getFormKey());
-		//this.taskService.setVariableLocal(task.getId(), "cars1", cars);
+		// this.taskService.setVariableLocal(task.getId(), "cars1", cars);
 		Object from = formService.getRenderedTaskForm(task.getId(),
 				BcFormEngine.NAME);
 		Assert.assertNotNull(from);
 		Assert.assertEquals(String.class, from.getClass());
-		if(true) return;
+		if (true)
+			return;
 
 		// 提交表单数据（会自动完成当前任务）
-//		this.taskService.setVariableLocal(task.getId(), "cars", cars);
+		// this.taskService.setVariableLocal(task.getId(), "cars", cars);
 		this.taskService.setVariableLocal(task.getId(), "fenGongSi", "admin");// 指定下一任务的分公司办理人
 		taskService.complete(task.getId());
 		task = taskService.createTaskQuery()
@@ -145,22 +136,23 @@ public class CheckExitOperationCarsProcessTest {
 		Assert.assertNull(task);
 
 		// 验证提交的数据
-//		List<HistoricDetail> hfps = historyService.createHistoricDetailQuery()
-//				.formProperties().taskId(taskId).orderByFormPropertyId().asc()
-//				.list();
-//		Assert.assertNotNull(hfps);
-//		Assert.assertEquals(2, hfps.size());
-//		HistoricFormProperty hfp = (HistoricFormProperty) hfps.get(0);
-//		Assert.assertEquals(taskId, hfp.getTaskId());// 这里证明你懂的
-//		Assert.assertEquals("cars", hfp.getPropertyId());
-//		Assert.assertNotNull(hfp.getPropertyValue());
-//		cars = new JSONArray(hfp.getPropertyValue());
-//		Assert.assertEquals("c1", cars.getJSONObject(0).get("plate"));
-//		Assert.assertEquals("c2", cars.getJSONObject(1).get("plate"));
-//		Assert.assertEquals("c3", cars.getJSONObject(2).get("plate"));
-//		hfp = (HistoricFormProperty) hfps.get(1);
-//		Assert.assertEquals("fenGongSi", hfp.getPropertyId());
-//		Assert.assertEquals("admin", hfp.getPropertyValue());
+		// List<HistoricDetail> hfps =
+		// historyService.createHistoricDetailQuery()
+		// .formProperties().taskId(taskId).orderByFormPropertyId().asc()
+		// .list();
+		// Assert.assertNotNull(hfps);
+		// Assert.assertEquals(2, hfps.size());
+		// HistoricFormProperty hfp = (HistoricFormProperty) hfps.get(0);
+		// Assert.assertEquals(taskId, hfp.getTaskId());// 这里证明你懂的
+		// Assert.assertEquals("cars", hfp.getPropertyId());
+		// Assert.assertNotNull(hfp.getPropertyValue());
+		// cars = new JSONArray(hfp.getPropertyValue());
+		// Assert.assertEquals("c1", cars.getJSONObject(0).get("plate"));
+		// Assert.assertEquals("c2", cars.getJSONObject(1).get("plate"));
+		// Assert.assertEquals("c3", cars.getJSONObject(2).get("plate"));
+		// hfp = (HistoricFormProperty) hfps.get(1);
+		// Assert.assertEquals("fenGongSi", hfp.getPropertyId());
+		// Assert.assertEquals("admin", hfp.getPropertyValue());
 
 		// 验证下一任务
 		task = taskService.createTaskQuery()
