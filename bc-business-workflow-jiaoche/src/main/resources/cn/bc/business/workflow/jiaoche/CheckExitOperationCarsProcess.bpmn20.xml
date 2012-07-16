@@ -7,7 +7,7 @@
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:formKey="aa/bb.form" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="gatherCars" name="综合业务组：汇总月即将退出营运车辆" activiti:assignee="${initiator}" activiti:formKey="cn/bc/business/workflow/jiaoche/ExitOperationCars.form">
+    <userTask id="gatherCars" name="综合业务组：汇总月即将退出营运车辆" activiti:assignee="${initiator}" activiti:formKey="fm:cn/bc/business/workflow/jiaoche/ExitOperationCars.form">
       <documentation>确认即将退出营运的车辆</documentation>
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${taskListener4InitExitOperationCars}"></activiti:taskListener>
@@ -83,9 +83,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="207" y="45"></omgdi:waypoint>
         <omgdi:waypoint x="207" y="72"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="207" y="127"></omgdi:waypoint>
@@ -135,9 +132,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="207" y="216"></omgdi:waypoint>
         <omgdi:waypoint x="207" y="248"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

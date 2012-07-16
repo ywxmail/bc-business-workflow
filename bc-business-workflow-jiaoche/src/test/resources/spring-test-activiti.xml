@@ -58,6 +58,13 @@
 					p:groupManager-ref="customGroupManager" />
 			</list>
 		</property>
+
+		<!-- 自定义表单引擎配置 -->
+		<property name="customFormEngines">
+			<list>
+				<ref bean="bcFormEngine"/>
+			</list>
+		</property>
 	</bean>
 	
 	<!-- 自定义Activiti的用户和用户组管理 -->
