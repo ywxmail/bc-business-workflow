@@ -24,6 +24,16 @@
 	   </layout>
 	</appender>
 	
+	<category name="org.hibernate.SQL">
+	  <priority value="DEBUG" />
+	</category>
+	<category name="cn.bc.orm.hibernate.jpa.HibernateJpaNativeQuery">
+	  <priority value="DEBUG" />
+	</category>
+	
+ 	<category name="cn.bc.identity.dao.hibernate.jpa.ActorDaoImpl">
+	  <priority value="DEBUG" />
+	</category>
  	<category name="cn.bc.workflow">
 	  <priority value="DEBUG" />
 	</category>

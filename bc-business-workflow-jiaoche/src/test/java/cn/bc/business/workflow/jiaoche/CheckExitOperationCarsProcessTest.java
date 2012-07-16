@@ -1,6 +1,7 @@
 package cn.bc.business.workflow.jiaoche;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.bc.core.util.JsonUtils;
 import cn.bc.identity.domain.ActorHistory;
 import cn.bc.identity.web.SystemContext;
 import cn.bc.identity.web.SystemContextHolder;
@@ -92,9 +94,12 @@ public class CheckExitOperationCarsProcessTest {
 	@Test
 	@Deployment(resources = {
 			"cn/bc/business/workflow/jiaoche/CheckExitOperationCarsProcess.bpmn20.xml",
-			"cn/bc/business/workflow/jiaoche/ExitOperationCars.form" })
+			"cn/bc/business/workflow/jiaoche/GatherCars.form",
+			"cn/bc/business/workflow/jiaoche/VerifyDate.form",
+			"cn/bc/business/workflow/jiaoche/ManagerVerify.form",
+			"cn/bc/business/workflow/jiaoche/LastVerify.form" })
 	public void testAgreeRequest() throws Exception {
-		String formResourceName = "fm:cn/bc/business/workflow/jiaoche/ExitOperationCars.form";
+		// 测试固定信息：一分公司的车：分公司合同管理员-曾祥汉zeng、分公司经理-胡志勇hzy
 		String initiator = "may";
 		String processKey = "CheckExitOperationCarsProcess";
 
@@ -108,35 +113,39 @@ public class CheckExitOperationCarsProcessTest {
 		Assert.assertEquals(initiator, runtimeService.getVariable(
 				pi.getProcessInstanceId(), "initiator"));
 
-		// 验证任务：实际环境中向用户展示表单
+		// 任务1：验证
 		Task task = taskService.createTaskQuery()
 				.processInstanceId(pi.getProcessInstanceId())
 				.taskAssignee(initiator).singleResult();
 		Assert.assertNotNull(task);
 		Assert.assertEquals("gatherCars", task.getTaskDefinitionKey());
-		String taskId = task.getId();
 
-		// 验证这个任务的监听器设置的流程变量
-		// Assert.assertEquals("c1,c2", taskService.getVariable(task.getId(),
-		// "cars"));
-
-		// 表单验证
+		// 任务1：表单验证
 		TaskFormData d = formService.getTaskFormData(task.getId());
-		Assert.assertEquals(formResourceName, d.getFormKey());
-		// this.taskService.setVariableLocal(task.getId(), "cars1", cars);
+		System.out.println(d.getFormKey());
+		Assert.assertTrue(d.getFormKey().endsWith("GatherCars.form"));
 		Object from = formService.getRenderedTaskForm(task.getId(),
 				BcFormEngine.NAME);
 		Assert.assertNotNull(from);
 		Assert.assertEquals(String.class, from.getClass());
-		if (true)
-			return;
 
-		// 提交表单数据（会自动完成当前任务）
+		// 任务1：完成办理
 		List<Map<String, Object>> cars = new ArrayList<Map<String, Object>>();
 		Map<String, Object> car = new LinkedHashMap<String, Object>();
+		car.put("plate", "XXXX1");
+		car.put("unit", "一分公司");
 		cars.add(car);
-		this.taskService.setVariableLocal(task.getId(), "cars", JSONUtils.toJson(cars));
-		this.taskService.setVariableLocal(task.getId(), "fenGongSi", "admin");// 指定下一任务的分公司办理人
+		car = new LinkedHashMap<String, Object>();
+		car.put("plate", "XXXX2");
+		car.put("unit", "一分公司");
+		cars.add(car);
+		// Map<String, Object> args = new HashMap<String, Object>();
+		// args.put("list_gatherCars", JsonUtils.toJson(cars));// 指定交车列表
+		// args.put("orgId", new Long(3));// 指定车辆所属分公司的ID
+		// taskService.complete(task.getId(), args);
+		taskService.setVariable(task.getId(), "list_gatherCars",
+				JsonUtils.toJson(cars));// 指定交车列表
+		taskService.setVariable(task.getId(), "orgId", new Long(3));// 指定车辆所属分公司的ID
 		taskService.complete(task.getId());
 		task = taskService.createTaskQuery()
 				.processInstanceId(pi.getProcessInstanceId())
@@ -162,52 +171,82 @@ public class CheckExitOperationCarsProcessTest {
 		// Assert.assertEquals("fenGongSi", hfp.getPropertyId());
 		// Assert.assertEquals("admin", hfp.getPropertyValue());
 
-		// 验证下一任务
+		// 任务2：验证
 		task = taskService.createTaskQuery()
 				.processInstanceId(pi.getProcessInstanceId())
-				.taskAssignee("admin").singleResult();
+				.taskAssignee("zeng").singleResult();
 		Assert.assertNotNull(task);
-		Assert.assertEquals("verifyExitOperationDate",
-				task.getTaskDefinitionKey());
+		Assert.assertEquals("verifyDate", task.getTaskDefinitionKey());
 
-		// 完成当前任务:
-		// -- 确定交车车辆 TODO 使用恰当的数据类型
-		taskService.setVariable(task.getId(), "exitOperationCars",
-				new Object[] { "c1,c2" });
-		// -- 确定续保车辆 TODO 使用恰当的数据类型
-		taskService.setVariable(task.getId(), "renewCars",
-				new Object[] { "c3" });
+		// 任务2：表单验证
+		d = formService.getTaskFormData(task.getId());
+		Assert.assertTrue(d.getFormKey().endsWith("VerifyDate.form"));
+		from = formService.getRenderedTaskForm(task.getId(), BcFormEngine.NAME);
+		Assert.assertNotNull(from);
+		Assert.assertEquals(String.class, from.getClass());
 
+		// 任务2：完成办理
+		cars = new ArrayList<Map<String, Object>>();
+		car = new LinkedHashMap<String, Object>();
+		car.put("plate", "XXXX1");
+		car.put("returnDate", "2012-01-01");
+		car.put("xubao", false);
+		cars.add(car);
+		car = new LinkedHashMap<String, Object>();
+		car.put("plate", "XXXX2");
+		car.put("xubao", true);
+		car.put("returnDate", "2012-01-02");
+		cars.add(car);
+		taskService.setVariable(task.getId(), "list_verifyCars",
+				JsonUtils.toJson(cars));// 交车确认信息
 		taskService.complete(task.getId());
 		task = taskService.createTaskQuery()
 				.processInstanceId(pi.getProcessInstanceId())
-				.taskAssignee("admin").singleResult();
+				.taskAssignee("zeng").singleResult();
 		Assert.assertNull(task);
 
-		// 验证下一任务
+		// 任务3：验证
 		task = taskService.createTaskQuery()
 				.processInstanceId(pi.getProcessInstanceId())
-				.taskCandidateGroup("zongHeYeWuZu").singleResult();
+				.taskAssignee("hzy").singleResult();
 		Assert.assertNotNull(task);
-		Assert.assertEquals("lastVerify", task.getTaskDefinitionKey());
+		Assert.assertEquals("managerVerify", task.getTaskDefinitionKey());
 
-		// 领取任务:
-		taskService.claim(task.getId(), initiator);
+		// 任务3：表单验证
+		d = formService.getTaskFormData(task.getId());
+		Assert.assertTrue(d.getFormKey().endsWith("ManagerVerify.form"));
+		from = formService.getRenderedTaskForm(task.getId(), BcFormEngine.NAME);
+		Assert.assertNotNull(from);
+		Assert.assertEquals(String.class, from.getClass());
+
+		// 任务3：完成办理
+		taskService.setVariable(task.getId(), "back", false);// 同意
+		taskService.complete(task.getId());
+		task = taskService.createTaskQuery()
+				.processInstanceId(pi.getProcessInstanceId())
+				.taskAssignee("hzy").singleResult();
+		Assert.assertNull(task);
+
+		// 任务4：验证
 		task = taskService.createTaskQuery()
 				.processInstanceId(pi.getProcessInstanceId())
 				.taskAssignee(initiator).singleResult();
 		Assert.assertNotNull(task);
 		Assert.assertEquals("lastVerify", task.getTaskDefinitionKey());
 
-		// 完成当前任务:
-		if (taskService.getVariable(task.getId(), "exitOperationCars") != null) {// 自动交车
-			taskService.setVariable(task.getId(),
-					"autoStartCarExitOperationProcess", true);
-		}
-		if (taskService.getVariable(task.getId(), "renewCars") != null) {// 自动续保
-			taskService.setVariable(task.getId(), "autoStartCarRenewProcess",
-					true);
-		}
+		// 任务4：表单验证
+		d = formService.getTaskFormData(task.getId());
+		Assert.assertTrue(d.getFormKey().endsWith("LastVerify.form"));
+		from = formService.getRenderedTaskForm(task.getId(), BcFormEngine.NAME);
+		Assert.assertNotNull(from);
+		Assert.assertEquals(String.class, from.getClass());
+
+		// 任务4：完成办理
+		taskService.setVariable(task.getId(),
+				"autoStartCarExitOperationProcess", false);// 自动发起交车流程
+		taskService.setVariable(task.getId(), "autoStartCarRenewProcess",
+				false);// 自动发起续保流程
+		taskService.setVariable(task.getId(), "manual", true);// 手工处理
 		taskService.complete(task.getId());
 		task = taskService.createTaskQuery()
 				.processInstanceId(pi.getProcessInstanceId())
