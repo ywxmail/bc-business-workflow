@@ -7,7 +7,7 @@
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="gatherCars" name="汇总月即将退出营运车辆" activiti:assignee="${initiator}" activiti:formKey="fm:cn/bc/business/workflow/jiaoche/GatherCars.form">
+    <userTask id="gatherCars" name="汇总月即将退出营运车辆" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/jiaoche/GatherCars.jsp">
       <documentation>确认即将退出营运的车辆</documentation>
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>

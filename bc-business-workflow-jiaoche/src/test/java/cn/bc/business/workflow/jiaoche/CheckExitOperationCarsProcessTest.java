@@ -107,13 +107,16 @@ public class CheckExitOperationCarsProcessTest {
 		identityService.setAuthenticatedUserId(initiator);
 
 		// 启动流程（指定编码流程的最新版本，编码对应xml文件中process节点的id值）
+		logger.debug("--------start process--------");
 		ProcessInstance pi = runtimeService
 				.startProcessInstanceByKey(processKey);
 		logger.debug("pi=" + ActivitiUtils.toString(pi));
+		logger.debug("--------process getVariable--------");
 		Assert.assertEquals(initiator, runtimeService.getVariable(
 				pi.getProcessInstanceId(), "initiator"));
 
 		// 任务1：验证
+		logger.debug("--------task1 query--------");
 		Task task = taskService.createTaskQuery()
 				.processInstanceId(pi.getProcessInstanceId())
 				.taskAssignee(initiator).singleResult();
@@ -121,9 +124,10 @@ public class CheckExitOperationCarsProcessTest {
 		Assert.assertEquals("gatherCars", task.getTaskDefinitionKey());
 
 		// 任务1：表单验证
+		logger.debug("--------task1 getTaskFormData--------");
 		TaskFormData d = formService.getTaskFormData(task.getId());
-		System.out.println(d.getFormKey());
 		Assert.assertTrue(d.getFormKey().endsWith("GatherCars.form"));
+		logger.debug("--------task1 getRenderedTaskForm--------");
 		Object from = formService.getRenderedTaskForm(task.getId(),
 				BcFormEngine.NAME);
 		Assert.assertNotNull(from);
@@ -143,10 +147,13 @@ public class CheckExitOperationCarsProcessTest {
 		// args.put("list_gatherCars", JsonUtils.toJson(cars));// 指定交车列表
 		// args.put("orgId", new Long(3));// 指定车辆所属分公司的ID
 		// taskService.complete(task.getId(), args);
+		logger.debug("--------task1 setVariable--------");
 		taskService.setVariable(task.getId(), "list_gatherCars",
 				JsonUtils.toJson(cars));// 指定交车列表
 		taskService.setVariable(task.getId(), "orgId", new Long(3));// 指定车辆所属分公司的ID
+		logger.debug("--------task1 complete--------");
 		taskService.complete(task.getId());
+		logger.debug("--------task1 complete verify--------");
 		task = taskService.createTaskQuery()
 				.processInstanceId(pi.getProcessInstanceId())
 				.taskAssignee(initiator).singleResult();
@@ -172,6 +179,7 @@ public class CheckExitOperationCarsProcessTest {
 		// Assert.assertEquals("admin", hfp.getPropertyValue());
 
 		// 任务2：验证
+		logger.debug("--------task2 query--------");
 		task = taskService.createTaskQuery()
 				.processInstanceId(pi.getProcessInstanceId())
 				.taskAssignee("zeng").singleResult();
@@ -179,6 +187,7 @@ public class CheckExitOperationCarsProcessTest {
 		Assert.assertEquals("verifyDate", task.getTaskDefinitionKey());
 
 		// 任务2：表单验证
+		logger.debug("--------task2 form--------");
 		d = formService.getTaskFormData(task.getId());
 		Assert.assertTrue(d.getFormKey().endsWith("VerifyDate.form"));
 		from = formService.getRenderedTaskForm(task.getId(), BcFormEngine.NAME);
