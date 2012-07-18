@@ -23,4 +23,9 @@ public class Assign2UnitContractHandlerListener extends
 	protected String getGroupName() {
 		return GROUP_NAME;
 	}
+	
+	@Override
+	protected String getVariableName() {
+		return "verifyUnitId";
+	}
 }
