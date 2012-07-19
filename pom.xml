@@ -13,6 +13,8 @@
 	<description>营运系统业务流程</description>
 	<modules>
 		<module>bc-business-workflow-parent</module>
+		<module>bc-business-workflow-common</module>
+		<module>bc-business-workflow-confirmretiredcars</module>
 		<module>bc-business-workflow-jiaoche</module>
 	</modules>
 	<scm>
