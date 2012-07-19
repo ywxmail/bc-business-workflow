@@ -5,10 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.activiti.engine.FormService;
-import org.activiti.engine.IdentityService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
@@ -16,25 +12,17 @@ import org.activiti.engine.test.Deployment;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.bc.core.util.JsonUtils;
-import cn.bc.identity.domain.ActorHistory;
-import cn.bc.identity.web.SystemContext;
-import cn.bc.identity.web.SystemContextHolder;
-import cn.bc.identity.web.SystemContextImpl;
-import cn.bc.web.util.WebUtils;
 import cn.bc.workflow.activiti.ActivitiUtils;
 import cn.bc.workflow.activiti.form.BcFormEngine;
-import cn.bc.workflow.activiti.test.ActivitiRule;
+import cn.bc.workflow.activiti.test.AbstractActivitiTest;
 
 /**
  * 月即将退出营运车辆确认流程
@@ -45,46 +33,16 @@ import cn.bc.workflow.activiti.test.ActivitiRule;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration("classpath:spring-test.xml")
-public class ConfirmRetiredCarsProcessTest {
+public class ConfirmRetiredCarsProcessTest extends AbstractActivitiTest {
 	private static final Log logger = LogFactory
 			.getLog(ConfirmRetiredCarsProcessTest.class);
-	@Autowired
-	private RuntimeService runtimeService;
-	@Autowired
-	private IdentityService identityService;
-
-	@Autowired
-	private TaskService taskService;
-
-	@Autowired
-	private FormService formService;
-
-	@Autowired
-	@Rule
-	public ActivitiRule activitiSpringRule;
-
-	@Before
-	public void setUp() throws Exception {
-		SystemContext context = new SystemContextImpl();
-		SystemContextHolder.set(context);
-		ActorHistory h = new ActorHistory();
-		h.setId(new Long(1146));
-		h.setActorId(new Long(9));
-		h.setActorType(4);
-		h.setCode("admin");
-		h.setName("系统管理员");
-		h.setPname("宝城总部/信息技术部");
-		context.setAttr(SystemContext.KEY_USER_HISTORY, h);
-		
-		WebUtils.rootPath = "/Work/bc/bc-system/src/main/webapp";
-	}
 
 	/**
 	 * 常规流程处理
 	 * 
 	 * @throws Exception
 	 */
-	@Rollback(false)
+	@Rollback(true)
 	@Test
 	@Deployment(resources = { "cn/bc/business/workflow/confirmretiredcars/ConfirmRetiredCars.bpmn20.xml" })
 	public void testAgreeRequest() throws Exception {
@@ -93,7 +51,7 @@ public class ConfirmRetiredCarsProcessTest {
 		String processKey = "ConfirmRetiredCars";
 
 		// 设置认证用户
-		identityService.setAuthenticatedUserId(initiator);
+		setAuthenticatedUser(initiator);
 
 		// 启动流程（指定编码流程的最新版本，编码对应xml文件中process节点的id值）
 		logger.debug("--------start process--------");
@@ -215,10 +173,8 @@ public class ConfirmRetiredCarsProcessTest {
 		Assert.assertEquals(String.class, from.getClass());
 
 		// 任务4：完成办理
-		taskService.setVariable(task.getId(),
-				"fireCarRetiredProcess", false);// 自动发起交车流程
-		taskService
-				.setVariable(task.getId(), "fireCarRenewProcess", false);// 自动发起续保流程
+		taskService.setVariable(task.getId(), "fireCarRetiredProcess", false);// 自动发起交车流程
+		taskService.setVariable(task.getId(), "fireCarRenewProcess", false);// 自动发起续保流程
 		taskService.setVariable(task.getId(), "manual", true);// 手工处理
 		taskService.complete(task.getId());
 		task = taskService.createTaskQuery()
