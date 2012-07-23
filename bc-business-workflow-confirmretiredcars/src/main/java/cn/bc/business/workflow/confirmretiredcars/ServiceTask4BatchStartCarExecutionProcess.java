@@ -49,7 +49,7 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 			variables.put("car", car);// 车辆信息
 			@SuppressWarnings("unchecked")
 			Map<String,String> carMap=(Map<String,String>) car;
-			if("fireCarRetiredProcesscarMap".equals(carMap.get("executionType"))){
+			if("fireCarRetiredProcess".equals(carMap.get("executionType"))){
 				//发起车辆退出流程
 				runtimeService.startProcessInstanceByKey("CarExitOperationProcess", "CarExitOperationProcess:" + car, variables);
 			}else if("fireCarRenewProcess".equals(carMap.get("executionType"))){
