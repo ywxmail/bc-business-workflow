@@ -7,27 +7,27 @@
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="assignCar" name="指定续保车辆" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/carRenew/AssignCar.form">
+    <userTask id="AssignCar" name="指定续保车辆" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/carRenew/AssignCar.form">
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="signPolicy" name="通知责任人签投保单" activiti:formKey="fm:file:bc-business-workflow/carRenew/SignPolicy.form">
+    <userTask id="SignPolicy" name="通知责任人签投保单" activiti:formKey="fm:file:bc-business-workflow/carRenew/SignPolicy.form">
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${assign2UnitContractHandlerListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="reviewAndRenew" name="复核投保单并续保" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/carRenew/AssignReturnDate.form">
+    <userTask id="ReviewAndRenew" name="复核投保单并续保" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/carRenew/AssignReturnDate.form">
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${assign2UnitManagerListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow1" name="车辆续保处理流程" sourceRef="startevent1" targetRef="assignCar"></sequenceFlow>
-    <sequenceFlow id="flow2" name="" sourceRef="assignCar" targetRef="signPolicy"></sequenceFlow>
-    <sequenceFlow id="flow4" name="" sourceRef="reviewAndRenew" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow3" name="" sourceRef="signPolicy" targetRef="reviewAndRenew"></sequenceFlow>
+    <sequenceFlow id="flow1" name="车辆续保处理流程" sourceRef="startevent1" targetRef="AssignCar"></sequenceFlow>
+    <sequenceFlow id="flow2" name="" sourceRef="AssignCar" targetRef="SignPolicy"></sequenceFlow>
+    <sequenceFlow id="flow4" name="" sourceRef="ReviewAndRenew" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow3" name="" sourceRef="SignPolicy" targetRef="ReviewAndRenew"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ConfirmRetiredCars">
     <bpmndi:BPMNPlane bpmnElement="ConfirmRetiredCars" id="BPMNPlane_ConfirmRetiredCars">
@@ -37,13 +37,13 @@
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35" width="35" x="73" y="338"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="assignCar" id="BPMNShape_assignCar">
+      <bpmndi:BPMNShape bpmnElement="AssignCar" id="BPMNShape_AssignCar">
         <omgdc:Bounds height="55" width="161" x="10" y="70"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="signPolicy" id="BPMNShape_signPolicy">
+      <bpmndi:BPMNShape bpmnElement="SignPolicy" id="BPMNShape_SignPolicy">
         <omgdc:Bounds height="55" width="161" x="10" y="159"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="reviewAndRenew" id="BPMNShape_reviewAndRenew">
+      <bpmndi:BPMNShape bpmnElement="ReviewAndRenew" id="BPMNShape_ReviewAndRenew">
         <omgdc:Bounds height="55" width="161" x="10" y="248"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
