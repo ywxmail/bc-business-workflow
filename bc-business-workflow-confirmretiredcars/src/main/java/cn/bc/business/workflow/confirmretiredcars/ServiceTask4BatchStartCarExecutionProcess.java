@@ -31,7 +31,7 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 	}
 
 	public void execute(DelegateExecution execution) throws Exception {
-		String carsStr = (String) execution.getVariable("list_lv_cars");
+		String carsStr = (String) execution.getVariable("list_vd_cars_gl");
 		if (logger.isDebugEnabled()) {
 			logger.debug("from=" + execution.getProcessInstanceId());
 			logger.debug("exitOperationCars="
