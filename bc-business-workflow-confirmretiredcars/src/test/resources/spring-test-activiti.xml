@@ -23,7 +23,7 @@
 			audit-默认，存档所有的流程实例、活动实例以及提交的表单属性，以便通过表单进行的用户交互可被追溯和查证；
 			full-这是历史归档的最高级别，因此执行时最慢，这一级别存储了所有在 audit 中存储的信息，以及其它所有可能的细节如流程变量的更新
 		-->
-		<property name="history" value="audit" />
+		<property name="history" value="full" />
 
 		<!-- 邮件服务器的配置：mailServerHost、mailServerPort、mailServerDefaultFrom、mailServerUsername、mailServerPassword -->
 		<property name="mailServerHost" value="localhost" />

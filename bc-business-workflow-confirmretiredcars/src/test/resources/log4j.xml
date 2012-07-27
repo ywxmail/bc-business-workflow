@@ -37,7 +37,7 @@
  	<category name="cn.bc.workflow">
 	  <priority value="WARN" />
 	</category>
- 	<category name="cn.bc.business.workflow.jiaoche">
+ 	<category name="cn.bc.business.workflow">
 	  <priority value="DEBUG" />
 	</category>
 	
@@ -48,10 +48,10 @@
 	  <priority value="WARN" />
 	</category>
 	<category name="java.sql.Connection">
-		<priority value="DEBUG" />
+		<priority value="WARN" />
 	</category>
 	<category name="java.sql.PreparedStatement">
-		<priority value="DEBUG" />
+		<priority value="WARN" />
 	</category>
 	<category name="java.sql.ResultSet">
 		<priority value="WARN" />
