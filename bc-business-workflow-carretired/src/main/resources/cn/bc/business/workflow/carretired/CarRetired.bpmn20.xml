@@ -1,24 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.bctaxi.com.cn/workflow">
   <process id="CarExitOperationProcess" name="车辆交车处理流程">
+    <extensionElements>
+      <activiti:executionListener event="start" delegateExpression="${processLogListener}"></activiti:executionListener>
+      <activiti:executionListener event="end" delegateExpression="${processLogListener}"></activiti:executionListener>
+    </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="OfficeCheck" name="办公室办理离职停保手续"></userTask>
-    <userTask id="returnCertificates" name="分公司交回证件等相关资料"></userTask>
-    <userTask id="BusinessGroupTransactorCheckCertificates" name="业务组经办人验收证件、落实情况"></userTask>
-    <userTask id="FinanceTransactorCheck" name="财务部经办人结算"></userTask>
-    <userTask id="BusinessGroupArchive" name="业务组归档"></userTask>
-    <userTask id="MotorcadeLeaderCheck" name="分公司车队长核查"></userTask>
-    <userTask id="UnitSafetyOfficerCheck" name="分公司安全员核查"></userTask>
-    <userTask id="UnitManagerConfirm" name="分公司经理确认"></userTask>
-    <userTask id="GarageManagerConfirm" name="修理厂厂长确认"></userTask>
-    <userTask id="GaragePointerCheck" name="修理厂驻点人员核查"></userTask>
-    <userTask id="GarageTransactorCheck" name="修理厂经办人核查"></userTask>
-    <userTask id="GarageFinancerCheck" name="修理厂财务处理"></userTask>
-    <userTask id="AssignCar" name="指定交车车辆"></userTask>
-    <userTask id="BusinessGroupLeaderConfirm" name="业务组主管确认"></userTask>
-    <userTask id="FinanceManagerConfirm" name="财务部经理确认"></userTask>
-    <sequenceFlow id="flow10" name="" sourceRef="OfficeCheck" targetRef="returnCertificates"></sequenceFlow>
+    <userTask id="HRCheck" name="人力资源组办理离职停保手续" default="">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="returnCertificates" name="分公司交回证件等相关资料">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="BusinessGroupTransactorCheckCertificates" name="业务组经办人验收证件、落实情况">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="FinanceTransactorCheck" name="财务部经办人结算">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="BusinessGroupArchive" name="业务组归档">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="MotorcadeLeaderCheck" name="分公司车队长核查">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="UnitSafetyOfficerCheck" name="分公司安全员核查">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="UnitManagerConfirm" name="分公司经理确认">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="GarageManagerConfirm" name="修理厂厂长确认">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="GaragePointerCheck" name="修理厂驻点人员核查">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="GarageTransactorCheck" name="修理厂经办人核查">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="GarageFinancerCheck" name="修理厂财务处理">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="AssignCar" name="指定交车车辆" activiti:assignee="${initiator}">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="BusinessGroupLeaderConfirm" name="业务组主管确认">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="FinanceManagerConfirm" name="财务部经理确认">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow10" name="" sourceRef="TechnicalGroupCheck" targetRef="returnCertificates"></sequenceFlow>
     <sequenceFlow id="flow11" name="" sourceRef="returnCertificates" targetRef="BusinessGroupTransactorCheckCertificates"></sequenceFlow>
     <sequenceFlow id="flow13" name="" sourceRef="BusinessGroupLeaderConfirm" targetRef="FinanceTransactorCheck"></sequenceFlow>
     <sequenceFlow id="flow15" name="" sourceRef="FinanceManagerConfirm" targetRef="BusinessGroupArchive"></sequenceFlow>
@@ -30,10 +94,22 @@
     <sequenceFlow id="flow7" name="" sourceRef="GaragePointerCheck" targetRef="GarageFinancerCheck"></sequenceFlow>
     <sequenceFlow id="flow6" name="" sourceRef="GarageTransactorCheck" targetRef="GaragePointerCheck"></sequenceFlow>
     <sequenceFlow id="flow8" name="" sourceRef="GarageFinancerCheck" targetRef="GarageManagerConfirm"></sequenceFlow>
-    <sequenceFlow id="flow9" name="" sourceRef="GarageManagerConfirm" targetRef="OfficeCheck"></sequenceFlow>
+    <sequenceFlow id="flow9" name="" sourceRef="SecurityGroupCheck" targetRef="HRCheck"></sequenceFlow>
     <sequenceFlow id="flow1" name="" sourceRef="startevent1" targetRef="AssignCar"></sequenceFlow>
     <sequenceFlow id="flow12" name="" sourceRef="BusinessGroupTransactorCheckCertificates" targetRef="BusinessGroupLeaderConfirm"></sequenceFlow>
     <sequenceFlow id="flow14" name="" sourceRef="FinanceTransactorCheck" targetRef="FinanceManagerConfirm"></sequenceFlow>
+    <userTask id="SecurityGroupCheck" name="安全组核查">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow17" name="" sourceRef="GarageManagerConfirm" targetRef="SecurityGroupCheck"></sequenceFlow>
+    <userTask id="TechnicalGroupCheck" name="技术组核查">
+      <extensionElements>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow18" name="" sourceRef="HRCheck" targetRef="TechnicalGroupCheck"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_CarExitOperationProcess">
     <bpmndi:BPMNPlane bpmnElement="CarExitOperationProcess" id="BPMNPlane_CarExitOperationProcess">
@@ -43,8 +119,8 @@
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35" width="35" x="920" y="20"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="OfficeCheck" id="BPMNShape_OfficeCheck">
-        <omgdc:Bounds height="55" width="105" x="515" y="295"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="HRCheck" id="BPMNShape_HRCheck">
+        <omgdc:Bounds height="55" width="105" x="515" y="382"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="returnCertificates" id="BPMNShape_returnCertificates">
         <omgdc:Bounds height="55" width="122" x="507" y="105"></omgdc:Bounds>
@@ -53,7 +129,7 @@
         <omgdc:Bounds height="55" width="123" x="506" y="10"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="FinanceTransactorCheck" id="BPMNShape_FinanceTransactorCheck">
-        <omgdc:Bounds height="55" width="105" x="654" y="382"></omgdc:Bounds>
+        <omgdc:Bounds height="55" width="105" x="654" y="560"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="BusinessGroupArchive" id="BPMNShape_BusinessGroupArchive">
         <omgdc:Bounds height="55" width="105" x="785" y="10"></omgdc:Bounds>
@@ -86,11 +162,17 @@
         <omgdc:Bounds height="55" width="105" x="654" y="10"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="FinanceManagerConfirm" id="BPMNShape_FinanceManagerConfirm">
-        <omgdc:Bounds height="55" width="105" x="785" y="382"></omgdc:Bounds>
+        <omgdc:Bounds height="55" width="105" x="785" y="560"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="SecurityGroupCheck" id="BPMNShape_SecurityGroupCheck">
+        <omgdc:Bounds height="55" width="105" x="515" y="294"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TechnicalGroupCheck" id="BPMNShape_TechnicalGroupCheck">
+        <omgdc:Bounds height="55" width="105" x="515" y="469"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="620" y="322"></omgdi:waypoint>
-        <omgdi:waypoint x="650" y="321"></omgdi:waypoint>
+        <omgdi:waypoint x="620" y="496"></omgdi:waypoint>
+        <omgdi:waypoint x="650" y="495"></omgdi:waypoint>
         <omgdi:waypoint x="650" y="134"></omgdi:waypoint>
         <omgdi:waypoint x="629" y="132"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
@@ -100,10 +182,10 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="706" y="65"></omgdi:waypoint>
-        <omgdi:waypoint x="706" y="382"></omgdi:waypoint>
+        <omgdi:waypoint x="706" y="560"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="837" y="382"></omgdi:waypoint>
+        <omgdi:waypoint x="837" y="560"></omgdi:waypoint>
         <omgdi:waypoint x="837" y="65"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
@@ -128,7 +210,7 @@
         <omgdi:waypoint x="142" y="65"></omgdi:waypoint>
         <omgdi:waypoint x="142" y="105"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42" width="100" x="-127" y="-20"></omgdc:Bounds>
+          <omgdc:Bounds height="42" width="100" x="150" y="-68"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
@@ -144,8 +226,8 @@
         <omgdi:waypoint x="515" y="232"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="567" y="260"></omgdi:waypoint>
-        <omgdi:waypoint x="567" y="295"></omgdi:waypoint>
+        <omgdi:waypoint x="567" y="349"></omgdi:waypoint>
+        <omgdi:waypoint x="567" y="382"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="45" y="37"></omgdi:waypoint>
@@ -156,8 +238,16 @@
         <omgdi:waypoint x="654" y="37"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
-        <omgdi:waypoint x="759" y="409"></omgdi:waypoint>
-        <omgdi:waypoint x="785" y="409"></omgdi:waypoint>
+        <omgdi:waypoint x="759" y="587"></omgdi:waypoint>
+        <omgdi:waypoint x="785" y="587"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="567" y="260"></omgdi:waypoint>
+        <omgdi:waypoint x="567" y="294"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="567" y="437"></omgdi:waypoint>
+        <omgdi:waypoint x="567" y="469"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
