@@ -19,11 +19,6 @@
         <activiti:taskListener event="create" delegateExpression="${assign2UnitContractHandlerListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="lastVerify" name="确认并发起交车或续保处理" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/LastVerify.form">
-      <extensionElements>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
-      </extensionElements>
-    </userTask>
     <serviceTask id="autoCarsOperation" name="自动发起车辆处理流程" activiti:delegateExpression="${serviceTask4BatchStartCarExecutionProcess}">
       <extensionElements>
         <activiti:executionListener event="start" delegateExpression="${excutionLogListener}"></activiti:executionListener>
@@ -39,7 +34,6 @@
     <sequenceFlow id="flow1" name="月即将退出营运车辆确认流程" sourceRef="startevent1" targetRef="gatherCars"></sequenceFlow>
     <sequenceFlow id="flow2" name="" sourceRef="gatherCars" targetRef="verifyDate"></sequenceFlow>
     <sequenceFlow id="flow11" name="" sourceRef="verifyDate" targetRef="managerVerify"></sequenceFlow>
-    <sequenceFlow id="agreeFlow" name="确认" sourceRef="exclusivegateway1" targetRef="lastVerify"></sequenceFlow>
     <sequenceFlow id="flow13" name="" sourceRef="managerVerify" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="fallbackFlow" name="退回重新确认" sourceRef="exclusivegateway1" targetRef="verifyDate">
       <extensionElements>
@@ -47,8 +41,10 @@
       </extensionElements>
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${fallback}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow15" name="" sourceRef="lastVerify" targetRef="autoCarsOperation"></sequenceFlow>
     <sequenceFlow id="flow16" name="" sourceRef="autoCarsOperation" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="agreeFlow" name="确定" sourceRef="exclusivegateway1" targetRef="autoCarsOperation">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${fallback}]]></conditionExpression>
+    </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ConfirmRetiredCars">
     <bpmndi:BPMNPlane bpmnElement="ConfirmRetiredCars" id="BPMNPlane_ConfirmRetiredCars">
@@ -56,7 +52,7 @@
         <omgdc:Bounds height="35" width="35" x="190" y="10"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35" width="35" x="190" y="590"></omgdc:Bounds>
+        <omgdc:Bounds height="35" width="35" x="190" y="500"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="gatherCars" id="BPMNShape_gatherCars">
         <omgdc:Bounds height="55" width="161" x="127" y="72"></omgdc:Bounds>
@@ -64,11 +60,8 @@
       <bpmndi:BPMNShape bpmnElement="verifyDate" id="BPMNShape_verifyDate">
         <omgdc:Bounds height="55" width="161" x="127" y="161"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="lastVerify" id="BPMNShape_lastVerify">
-        <omgdc:Bounds height="55" width="161" x="127" y="413"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="autoCarsOperation" id="BPMNShape_autoCarsOperation">
-        <omgdc:Bounds height="55" width="161" x="127" y="504"></omgdc:Bounds>
+        <omgdc:Bounds height="55" width="161" x="127" y="410"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="managerVerify" id="BPMNShape_managerVerify">
         <omgdc:Bounds height="55" width="161" x="127" y="250"></omgdc:Bounds>
@@ -91,13 +84,6 @@
         <omgdi:waypoint x="207" y="216"></omgdi:waypoint>
         <omgdi:waypoint x="207" y="250"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="agreeFlow" id="BPMNEdge_agreeFlow">
-        <omgdi:waypoint x="207" y="373"></omgdi:waypoint>
-        <omgdi:waypoint x="207" y="413"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="5" y="-8"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="207" y="305"></omgdi:waypoint>
         <omgdi:waypoint x="207" y="333"></omgdi:waypoint>
@@ -111,13 +97,16 @@
           <omgdc:Bounds height="14" width="100" x="-120" y="34"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="207" y="468"></omgdi:waypoint>
-        <omgdi:waypoint x="207" y="504"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
-        <omgdi:waypoint x="207" y="559"></omgdi:waypoint>
-        <omgdi:waypoint x="207" y="590"></omgdi:waypoint>
+        <omgdi:waypoint x="207" y="465"></omgdi:waypoint>
+        <omgdi:waypoint x="207" y="500"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="agreeFlow" id="BPMNEdge_agreeFlow">
+        <omgdi:waypoint x="207" y="373"></omgdi:waypoint>
+        <omgdi:waypoint x="207" y="410"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="10" y="-11"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
