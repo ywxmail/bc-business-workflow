@@ -7,7 +7,7 @@
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="HRCheck" name="人力资源组办理离职停保手续" default="">
+    <userTask id="HRCheck" name="人力资源组办理离职停保手续" >
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
       </extensionElements>
