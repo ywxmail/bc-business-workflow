@@ -15,8 +15,8 @@
     </userTask>
     <userTask id="verifyDate" name="确认交车日期" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/VerifyDate.form">
       <extensionElements>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${assign2UnitContractHandlerListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <serviceTask id="autoCarsOperation" name="自动发起车辆处理流程" activiti:delegateExpression="${serviceTask4BatchStartCarExecutionProcess}">
