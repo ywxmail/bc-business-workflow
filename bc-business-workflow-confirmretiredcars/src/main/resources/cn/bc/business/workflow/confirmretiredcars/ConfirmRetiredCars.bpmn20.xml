@@ -11,6 +11,7 @@
       <documentation>确认即将退出营运的车辆</documentation>
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="verifyDate" name="确认交车日期" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/VerifyDate.form">
@@ -24,11 +25,12 @@
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <serviceTask id="autoCarsOperation" name="自动发起车辆处理流程" activiti:delegateExpression="${serviceTask4BatchStartCarExecutionProcess}">
       <extensionElements>
-        <activiti:executionListener event="start" delegateExpression="${excutionLogListener}"></activiti:executionListener>
+        <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.AutoTaskLogListener"></activiti:executionListener>
       </extensionElements>
     </serviceTask>
     <userTask id="managerVerify" name="分公司经理确认" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/fallback.form">
@@ -42,6 +44,7 @@
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway" default="agreeFlow"></exclusiveGateway>
