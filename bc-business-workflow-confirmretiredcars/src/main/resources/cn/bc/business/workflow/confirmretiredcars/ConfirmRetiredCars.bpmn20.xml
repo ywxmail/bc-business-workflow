@@ -2,21 +2,28 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.bctaxi.com.cn/workflow">
   <process id="ConfirmRetiredCars" name="月即将退出营运车辆确认流程">
     <extensionElements>
-      <activiti:executionListener event="start" delegateExpression="${processLogListener}"></activiti:executionListener>
-      <activiti:executionListener event="end" delegateExpression="${processLogListener}"></activiti:executionListener>
+      <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
+      <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <userTask id="gatherCars" name="汇总月即将退出营运车辆" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/GatherCars.form">
       <documentation>确认即将退出营运的车辆</documentation>
       <extensionElements>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="verifyDate" name="确认交车日期" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/VerifyDate.form">
       <extensionElements>
-        <activiti:taskListener event="create" delegateExpression="${assign2UnitContractHandlerListener}"></activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>分公司合同管理员</activiti:string>
+          </activiti:field>
+          <activiti:field name="orgVariableName">
+            <activiti:string>verifyUnitId</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <serviceTask id="autoCarsOperation" name="自动发起车辆处理流程" activiti:delegateExpression="${serviceTask4BatchStartCarExecutionProcess}">
@@ -26,8 +33,15 @@
     </serviceTask>
     <userTask id="managerVerify" name="分公司经理确认" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/fallback.form">
       <extensionElements>
-        <activiti:taskListener event="create" delegateExpression="${assign2UnitManagerListener}"></activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="orgVariableName">
+            <activiti:string>verifyUnitId</activiti:string>
+          </activiti:field>
+          <activiti:field name="groupName">
+            <activiti:string>分公司经理</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway" default="agreeFlow"></exclusiveGateway>
@@ -37,7 +51,7 @@
     <sequenceFlow id="flow13" name="" sourceRef="managerVerify" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="fallbackFlow" name="退回重新确认" sourceRef="exclusivegateway1" targetRef="verifyDate">
       <extensionElements>
-        <activiti:executionListener event="take" delegateExpression="${flowLogListener}"></activiti:executionListener>
+        <activiti:executionListener event="take" class="cn.bc.workflow.activiti.delegate.FlowLogListener"></activiti:executionListener>
       </extensionElements>
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${fallback}]]></conditionExpression>
     </sequenceFlow>

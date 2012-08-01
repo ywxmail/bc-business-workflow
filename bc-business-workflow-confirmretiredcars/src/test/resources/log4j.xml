@@ -35,7 +35,7 @@
 	  <priority value="WARN" />
 	</category>
  	<category name="cn.bc.workflow">
-	  <priority value="WARN" />
+	  <priority value="DEBUG" />
 	</category>
  	<category name="cn.bc.business.workflow">
 	  <priority value="DEBUG" />
