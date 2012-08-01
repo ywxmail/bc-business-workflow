@@ -1,8 +1,10 @@
 package cn.bc.business.workflow.confirmretiredcars;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -31,30 +33,53 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 	}
 
 	public void execute(DelegateExecution execution) throws Exception {
-		String carsStr = (String) execution.getVariable("list_vd_cars_gl");
+		String carsVdStr = (String) execution.getVariable("list_vd_cars_gl");
+		//车辆更多的信息
+		String carsGcStr = (String)execution.getVariable("list_gc_cars");
+		
+		long verifyUnitId= (Long) execution.getVariable("verifyUnitId");
+		
 		if (logger.isDebugEnabled()) {
 			logger.debug("from=" + execution.getProcessInstanceId());
 			logger.debug("exitOperationCars="
-					+ carsStr);
+					+ carsVdStr);
 		}
-
-		List<Object> carList=(List<Object>) JsonUtils.toCollection(carsStr);
+		List<Object> carVdList=(List<Object>) JsonUtils.toCollection(carsVdStr);
+		List<Object> carGcList=(List<Object>) JsonUtils.toCollection(carsGcStr);
 		
+		List<Map<String,String>> carList=new ArrayList<Map<String,String>>();
+		
+		for(Object carVd: carVdList){
+			@SuppressWarnings("unchecked")
+			Map<String, String> carVdMap=(Map<String, String>) carVd;
+			for(Object carGc: carGcList){
+				@SuppressWarnings("unchecked")
+				Map<String, String> carGcMap=(Map<String, String>) carGc;
+				if(carVdMap.get("id").equals(carGcMap.get("id"))){
+					Set<String> carGcSet=carGcMap.keySet();
+					for(String gckey:carGcSet){
+						if(!carVdMap.containsKey(gckey)){
+							carVdMap.put(gckey, carGcMap.get(gckey));
+						}
+					}	
+				}
+			}
+			carList.add(carVdMap);
+		}		
 		
 		Map<String, Object> variables;
-		for(Object car:carList){
+		for(Map<String, String> car:carList){
 			// 设置流程变量
 			variables = new HashMap<String, Object>();
 			variables.put("from", execution.getProcessInstanceId());// 来源信息
 			variables.put("car", car);// 车辆信息
-			@SuppressWarnings("unchecked")
-			Map<String,String> carMap=(Map<String,String>) car;
-			if("fireCarRetiredProcess".equals(carMap.get("executionType"))){
+			variables.put("verifyUnitId", verifyUnitId);//分公司ID
+			if("fireCarRetiredProcess".equals(car.get("executionType"))){
 				//发起车辆退出流程
-				runtimeService.startProcessInstanceByKey("CarExitOperationProcess", "CarExitOperationProcess:" + car, variables);
-			}else if("fireCarRenewProcess".equals(carMap.get("executionType"))){
+				runtimeService.startProcessInstanceByKey("CarExitOperationProcess",car.get("id"), variables);
+			}else if("fireCarRenewProcess".equals(car.get("executionType"))){
 				//发起车辆续保流程
-				runtimeService.startProcessInstanceByKey("CarRenewProcess", "CarRenewProcess:" + car, variables);
+				runtimeService.startProcessInstanceByKey("CarRenewProcess",car.get("id"), variables);
 			}
 		}
 	}

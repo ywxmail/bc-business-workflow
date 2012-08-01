@@ -16,4 +16,10 @@
 
 	<!-- 任务监听器：自动将任务分派到"分公司经理"岗 -->
 	<bean id="assign2UnitManagerListener" class="cn.bc.business.workflow.delegate.Assign2UnitManagerListener"/>
+	
+	<!-- 任务监听器：自动将任务分派到分公司车队长 -->
+	<bean id="assign2MotorcadeLeaderListener" class="cn.bc.business.workflow.delegate.Assign2MotorcadeLeaderListener"/>
+	
+	<!-- 任务监听器：自动将任务分派到"分公司安全员"岗 -->
+	<bean id="assign2UnitSecurityOfficerListener" class="cn.bc.business.workflow.delegate.Assign2UnitSecurityOfficerListener"/>
 </beans>
