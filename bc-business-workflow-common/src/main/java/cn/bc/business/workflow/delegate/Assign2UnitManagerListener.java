@@ -13,6 +13,7 @@ import cn.bc.workflow.activiti.delegate.AbstractAssign2GroupOrUserListener;
  * </p>
  * 
  * @author dragon
+ * @deprecated 请使用<code>Assign2GroupUserListener</code>代替此类
  * 
  */
 public class Assign2UnitManagerListener extends
