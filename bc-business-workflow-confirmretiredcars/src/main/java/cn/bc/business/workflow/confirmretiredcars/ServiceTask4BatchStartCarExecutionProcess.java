@@ -47,14 +47,14 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 		List<Object> carVdList=(List<Object>) JsonUtils.toCollection(carsVdStr);
 		List<Object> carGcList=(List<Object>) JsonUtils.toCollection(carsGcStr);
 		
-		List<Map<String,String>> carList=new ArrayList<Map<String,String>>();
+		List<Map<String,Object>> carList=new ArrayList<Map<String,Object>>();
 		
 		for(Object carVd: carVdList){
 			@SuppressWarnings("unchecked")
-			Map<String, String> carVdMap=(Map<String, String>) carVd;
+			Map<String, Object> carVdMap=(Map<String, Object>) carVd;
 			for(Object carGc: carGcList){
 				@SuppressWarnings("unchecked")
-				Map<String, String> carGcMap=(Map<String, String>) carGc;
+				Map<String, Object> carGcMap=(Map<String, Object>) carGc;
 				if(carVdMap.get("id").equals(carGcMap.get("id"))){
 					Set<String> carGcSet=carGcMap.keySet();
 					for(String gckey:carGcSet){
@@ -68,18 +68,18 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 		}		
 		
 		Map<String, Object> variables;
-		for(Map<String, String> car:carList){
+		for(Map<String, Object> car:carList){
 			// 设置流程变量
 			variables = new HashMap<String, Object>();
 			variables.put("from", execution.getProcessInstanceId());// 来源信息
 			variables.put("car", car);// 车辆信息
 			variables.put("verifyUnitId", verifyUnitId);//分公司ID
-			if("fireCarRetiredProcess".equals(car.get("executionType"))){
+			if("fireCarRetiredProcess".equals(car.get("executionType").toString())){
 				//发起车辆退出流程
-				runtimeService.startProcessInstanceByKey("CarExitOperationProcess",car.get("id"), variables);
-			}else if("fireCarRenewProcess".equals(car.get("executionType"))){
+				runtimeService.startProcessInstanceByKey("CarExitOperationProcess", variables);
+			}else if("fireCarRenewProcess".equals(car.get("executionType").toString())){
 				//发起车辆续保流程
-				runtimeService.startProcessInstanceByKey("CarRenewProcess",car.get("id"), variables);
+				runtimeService.startProcessInstanceByKey("CarRenewProcess", variables);
 			}
 		}
 	}
