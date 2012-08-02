@@ -12,5 +12,11 @@
 	<description>bc-business-workflow 的公共信息配置</description>
 	
 	<dependencies>
+		<!-- 车队 -->
+		<dependency>
+			<groupId>cn.bc.business</groupId>
+			<artifactId>bc-business-motorcade</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>
