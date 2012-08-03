@@ -41,7 +41,7 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 		
 		if (logger.isDebugEnabled()) {
 			logger.debug("from=" + execution.getProcessInstanceId());
-			logger.debug("exitOperationCars="
+			logger.debug("ConfirmRetiredCars="
 					+ carsVdStr);
 		}
 		List<Object> carVdList=(List<Object>) JsonUtils.toCollection(carsVdStr);
@@ -76,10 +76,10 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 			variables.put("verifyUnitId", verifyUnitId);//分公司ID
 			if("fireCarRetiredProcess".equals(car.get("executionType").toString())){
 				//发起车辆退出流程
-				runtimeService.startProcessInstanceByKey("CarExitOperationProcess", variables);
+				runtimeService.startProcessInstanceByKey("CarRetired", variables);
 			}else if("fireCarRenewProcess".equals(car.get("executionType").toString())){
 				//发起车辆续保流程
-				runtimeService.startProcessInstanceByKey("CarRenewProcess", variables);
+				runtimeService.startProcessInstanceByKey("CarRenew", variables);
 			}
 		}
 	}
