@@ -15,7 +15,7 @@
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<property name="dataSource" ref="dataSource" />
 		<property name="transactionManager" ref="transactionManager" />
-		<property name="databaseSchemaUpdate" value="true" />
+		<property name="databaseSchemaUpdate" value="false" />
 
 		<!-- 历史的配置：
 			none-忽略所有历史归档；
