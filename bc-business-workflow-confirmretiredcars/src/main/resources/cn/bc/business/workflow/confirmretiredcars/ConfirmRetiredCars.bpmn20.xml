@@ -33,9 +33,22 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <serviceTask id="autoCarsOperation" name="自动发起车辆处理流程" activiti:delegateExpression="${serviceTask4BatchStartCarExecutionProcess}">
+    <serviceTask id="autoCarsOperation" name="自动发起车辆处理流程" activiti:class="cn.bc.business.workflow.confirmretiredcars.ServiceTask4BatchStartCarExecutionProcess">
       <extensionElements>
         <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.AutoTaskLogListener"></activiti:executionListener>
+        <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.AutoTaskLogListener"></activiti:executionListener>
+        <activiti:field name="carRetiredSubject">
+          <activiti:expression>${plate}交车处理流程（${unitCompany}）</activiti:expression>
+        </activiti:field>
+        <activiti:field name="carRetiredKey">
+          <activiti:string>CarRetired</activiti:string>
+        </activiti:field>
+        <activiti:field name="carRenewSubject">
+          <activiti:expression>${plate}续保处理流程（${unitCompany}）</activiti:expression>
+        </activiti:field>
+        <activiti:field name="carRenewKey">
+          <activiti:string>CarRenew</activiti:string>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <userTask id="managerVerify" name="分公司经理确认" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/fallback.form">

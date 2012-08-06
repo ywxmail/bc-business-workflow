@@ -14,7 +14,8 @@
             <activiti:string>人力资源组合同管理员</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="returnCertificates" name="分公司交回证件等相关资料">
@@ -27,6 +28,8 @@
             <activiti:string>verifyUnitId</activiti:string>
           </activiti:field>
         </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="BGCheckCert" name="业务组经办人验收证件" activiti:formKey="fm:file:bc-business-workflow/carRetired/BGCheckCert.form">
@@ -36,7 +39,8 @@
             <activiti:string>业务组交车经办人</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="FinanceTransactorCheck" name="财务部经办人结算" activiti:formKey="fm:file:bc-business-workflow/carRetired/FinanceTransactorCheck.form">
@@ -46,7 +50,8 @@
             <activiti:string>财务部交车经办人</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="BGArchive" name="业务组归档">
@@ -56,12 +61,15 @@
             <activiti:string>业务组交车经办人</activiti:string>
           </activiti:field>
         </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="MotorcadeLeaderCheck" name="分公司车队长核查" activiti:formKey="fm:file:bc-business-workflow/carRetired/MotorcadeLeaderCheck.form">
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${assign2MotorcadeLeaderListener}"></activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="UnitSafetyOfficerCheck" name="分公司安全员核查" activiti:formKey="fm:file:bc-business-workflow/carRetired/UnitSafetyOfficerCheck.form">
@@ -74,7 +82,8 @@
             <activiti:string>分公司安全员</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="UnitManagerConfirm" name="分公司经理确认" activiti:formKey="fm:file:bc-business-workflow/carRetired/UnitManagerConfirm.form">
@@ -87,7 +96,8 @@
             <activiti:string>verifyUnitId</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="GarageManagerConfirm" name="修理厂厂长确认" activiti:formKey="fm:file:bc-business-workflow/carRetired/GarageManagerConfirm.form">
@@ -97,7 +107,8 @@
             <activiti:string>修理厂厂长</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="GarageTransactorCheck" name="修理厂经办人核查车质车况且确认羊城通驻点人员签名" activiti:formKey="fm:file:bc-business-workflow/carRetired/GarageTransactorCheck.form">
@@ -107,7 +118,8 @@
             <activiti:string>修理厂交车经办人</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="GarageFinancerCheck" name="修理厂财务处理" activiti:formKey="fm:file:bc-business-workflow/carRetired/GarageFinancerCheck.form">
@@ -117,7 +129,8 @@
             <activiti:string>修理厂财务</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="AssignCar" name="指定交车车辆" activiti:formKey="fm:file:bc-business-workflow/carRetired/AssignCar.form">
@@ -133,7 +146,8 @@
             <activiti:string>verifyUnitId</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="BGLeaderConfirm" name="业务组主管确认" activiti:formKey="fm:file:bc-business-workflow/carRetired/BGLeaderConfirm.form">
@@ -143,7 +157,8 @@
             <activiti:string>业务组主管</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="FinanceManagerConfirm" name="财务部经理确认" activiti:formKey="fm:file:bc-business-workflow/carRetired/FinanceManagerConfirm.form">
@@ -153,7 +168,8 @@
             <activiti:string>财务部经理</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="SecurityGroupCheck" name="安全组核查" activiti:formKey="fm:file:bc-business-workflow/carRetired/SecurityGroupCheck.form">
@@ -163,7 +179,8 @@
             <activiti:string>安全组交车经办人</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="TechnicalGroupCheck" name="技术组核查" activiti:formKey="fm:file:bc-business-workflow/carRetired/TechnicalGroupCheck.form">
@@ -173,7 +190,8 @@
             <activiti:string>技术组交车经办人</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
@@ -185,7 +203,8 @@
             <activiti:string>业务组交车经办人</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="HRTakeBackCard" name="人力资源组收回服务资格证" activiti:formKey="fm:file:bc-business-workflow/carRetired/HRTakeBackCard.form">
@@ -195,7 +214,8 @@
             <activiti:string>人力资源组服务资格证管理员</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${taskLogListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow16" name="" sourceRef="BGArchive" targetRef="endevent1"></sequenceFlow>

@@ -9,11 +9,13 @@ import java.util.Set;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
+import org.activiti.engine.impl.el.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.bc.core.util.JsonUtils;
+import cn.bc.core.util.SpringUtils;
+import cn.bc.core.util.TemplateUtils;
 
 /**
  * 批量发起交车流程的服务任务
@@ -27,10 +29,32 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 			.getLog(ServiceTask4BatchStartCarExecutionProcess.class);
 	private RuntimeService runtimeService;
 
-	@Autowired
-	public void setRuntimeService(RuntimeService runtimeService) {
-		this.runtimeService = runtimeService;
+	
+	public ServiceTask4BatchStartCarExecutionProcess(){
+		runtimeService=SpringUtils.getBean(RuntimeService.class);
 	}
+	
+	/**	
+	 * 交车流程的自定义标题
+	 */
+	private Expression carRetiredSubject;
+	
+	/**
+	 * 续保流程的自定义标题
+	 */
+	private Expression carRenewSubject;
+	
+	/**
+	 * 交车流程的键值
+	 */
+	private Expression carRetiredKey;
+	
+	/**
+	 * 续保流程的键值
+	 */
+	private Expression carRenewKey;
+	
+	
 
 	public void execute(DelegateExecution execution) throws Exception {
 		String carsVdStr = (String) execution.getVariable("list_vd_cars_gl");
@@ -66,20 +90,26 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 			}
 			carList.add(carVdMap);
 		}		
-		
+		Map<String,Object> params;
 		Map<String, Object> variables;
 		for(Map<String, Object> car:carList){
+			//设置标题的替换参数
+			params= new HashMap<String, Object>();
+			params.put("plate", car.get("plate"));
+			params.put("unitCompany", car.get("unitCompany"));
 			// 设置流程变量
 			variables = new HashMap<String, Object>();
 			variables.put("from", execution.getProcessInstanceId());// 来源信息
 			variables.put("car", car);// 车辆信息
 			variables.put("verifyUnitId", verifyUnitId);//分公司ID
 			if("fireCarRetiredProcess".equals(car.get("executionType").toString())){
+				variables.put("subject", TemplateUtils.format(carRetiredSubject.getExpressionText(), params));
 				//发起车辆退出流程
-				runtimeService.startProcessInstanceByKey("CarRetired", variables);
+				runtimeService.startProcessInstanceByKey(carRetiredKey.getExpressionText(), variables);
 			}else if("fireCarRenewProcess".equals(car.get("executionType").toString())){
+				variables.put("subject", TemplateUtils.format(carRenewSubject.getExpressionText(), params));
 				//发起车辆续保流程
-				runtimeService.startProcessInstanceByKey("CarRenew", variables);
+				runtimeService.startProcessInstanceByKey(carRenewKey.getExpressionText(), variables);
 			}
 		}
 	}
