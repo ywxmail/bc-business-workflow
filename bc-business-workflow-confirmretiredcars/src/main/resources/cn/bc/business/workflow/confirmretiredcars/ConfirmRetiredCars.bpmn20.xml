@@ -38,13 +38,13 @@
         <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.AutoTaskLogListener"></activiti:executionListener>
         <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.AutoTaskLogListener"></activiti:executionListener>
         <activiti:field name="carRetiredSubject">
-          <activiti:expression>${plate}交车处理流程（${unitCompany}）</activiti:expression>
+          <activiti:expression>${plate}退出营运验收审批（${unitCompany}）</activiti:expression>
         </activiti:field>
         <activiti:field name="carRetiredKey">
           <activiti:string>CarRetired</activiti:string>
         </activiti:field>
         <activiti:field name="carRenewSubject">
-          <activiti:expression>${plate}续保处理流程（${unitCompany}）</activiti:expression>
+          <activiti:expression>${plate}续保处理（${unitCompany}）</activiti:expression>
         </activiti:field>
         <activiti:field name="carRenewKey">
           <activiti:string>CarRenew</activiti:string>
