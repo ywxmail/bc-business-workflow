@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Image" id="2" x="16" y="8" measuredWidth="271" measuredHeight="510" src="CarRenew.origin.png"/>
+  <widgets xsi:type="model:Arrow" id="4" x="232" y="80" width="121" height="17" measuredWidth="121" measuredHeight="17" annotation="true" foreground="#999999" lineStyle="dashed" left="false" direction="bottom"/>
+  <widgets xsi:type="model:Note" id="5" x="352" y="56" width="164" height="65" text="分公司安全员确认交车车辆及相关续保信息" measuredWidth="164" measuredHeight="65" annotation="true" textAlignment="Left" background="#ffffff">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Arrow" id="8" x="232" y="168" width="121" height="17" measuredWidth="121" measuredHeight="17" annotation="true" foreground="#999999" lineStyle="dashed" left="false" direction="bottom"/>
+  <widgets xsi:type="model:Note" id="11" x="352" y="152" width="164" height="65" text="分公司经理审批安全员的处理情况" measuredWidth="164" measuredHeight="65" annotation="true" textAlignment="Left" background="#ffffff">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Arrow" id="12" x="232" y="328" width="121" height="17" measuredWidth="121" measuredHeight="17" annotation="true" foreground="#999999" lineStyle="dashed" left="false" direction="bottom"/>
+  <widgets xsi:type="model:Note" id="13" x="352" y="304" width="164" height="65" text="财务部续保员根据分公司经理确认的结果对车辆执行续保处理" measuredWidth="164" measuredHeight="65" annotation="true" textAlignment="Left" background="#ffffff">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font/>
+</model:Screen>
