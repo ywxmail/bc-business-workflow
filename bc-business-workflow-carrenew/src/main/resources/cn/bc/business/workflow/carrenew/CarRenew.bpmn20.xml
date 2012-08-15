@@ -7,7 +7,7 @@
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="AssignCar" name="指定续保车辆" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/carRenew/AssignCar.form">
+    <userTask id="AssignCar" name="指定续保车辆" activiti:formKey="fm:file:bc-business-workflow/carRenew/AssignCar.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="null2initiator">
@@ -38,7 +38,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="ReviewAndRenew" name="财务部续保员续保" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/carRenew/RenewerConfirm.form">
+    <userTask id="ReviewAndRenew" name="财务部续保员续保" activiti:formKey="fm:file:bc-business-workflow/carRenew/RenewerConfirm.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -136,9 +136,6 @@
       <bpmndi:BPMNEdge bpmnElement="agreeFlow2" id="BPMNEdge_agreeFlow2">
         <omgdi:waypoint x="150" y="460"></omgdi:waypoint>
         <omgdi:waypoint x="150" y="490"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="10" y="-7"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="150" y="135"></omgdi:waypoint>
