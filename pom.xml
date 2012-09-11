@@ -17,7 +17,6 @@
 		<module>bc-business-workflow-confirmretiredcars</module>
 		<module>bc-business-workflow-carretired</module>
 		<module>bc-business-workflow-carrenew</module>
-		<module>bc-business-workflow-jiaoche</module>
 		<module>bc-business-workflow-carmanentry</module>
 	</modules>
 	<scm>
