@@ -5,24 +5,13 @@
       <activiti:executionListener event="start" delegateExpression="${processLogListener}"></activiti:executionListener>
       <activiti:executionListener event="end" delegateExpression="${processLogListener}"></activiti:executionListener>
     </extensionElements>
-    <userTask id="CarMan" name="填写司机资料，确认司机是否需要到指定车辆" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/carManEntry/CarMan.form">
+    <userTask id="CarMan" name="填写司机资料，确认司机是否愿意到指定车辆" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/carManEntry/CarMan.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="HRInitalCheck" name="司机入职管理员初次审查司机资料" activiti:formKey="fm:file:bc-business-workflow/carManEntry/HRInitalCheck.form">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
-          <activiti:field name="groupName">
-            <activiti:string>人力资源组司机入职管理员</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-      </extensionElements>
-    </userTask>
-    <userTask id="WrittenTest" name="司机笔试" activiti:formKey="fm:file:bc-business-workflow/carManEntry/WrittenTest.form">
+    <userTask id="CarManEntryManagerInitalCheck" name="司机入职管理员初次审查司机资料" activiti:formKey="fm:file:bc-business-workflow/carManEntry/CarManEntryManagerInitalCheck.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -33,11 +22,22 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="RoadTest" name="司机路试" activiti:formKey="fm:file:bc-business-workflow/carManEntry/RoadTest.form">
+    <userTask id="CarManWrittenTest" name="司机笔试" activiti:formKey="fm:file:bc-business-workflow/carManEntry/CarManWrittenTest.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
-            <activiti:string>营安部司机路试负责人</activiti:string>
+            <activiti:string>司机入职管理员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="OperationSecurityDepartmentCarManRoadTest" name="营安部司机路试" activiti:formKey="fm:file:bc-business-workflow/carManEntry/OperationSecurityDepartmentCarManRoadTest.form">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>营安部司机路试员</activiti:string>
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -60,7 +60,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="DGMcheck" name="副总经理审批" activiti:formKey="fm:file:bc-business-workflow/carManEntry/DGMcheck.form">
+    <userTask id="DGMcheck" name="营运副总经理司机入职聘用审批" activiti:formKey="fm:file:bc-business-workflow/carManEntry/DGMcheck.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -87,7 +87,7 @@
     </userTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <serviceTask id="servicetask1" name="自动发起出车流程处理"></serviceTask>
-    <userTask id="HRcomfire" name="确认司机是否需要到指定车辆">
+    <userTask id="HRcomfire" name="确认司机是否愿意到指定车辆">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -118,7 +118,7 @@
     <exclusiveGateway id="exclusivegateway10" name="Exclusive Gateway"></exclusiveGateway>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
     <inclusiveGateway id="inclusivegateway2" name="Inclusive Gateway"></inclusiveGateway>
-    <userTask id="DGMdecide" name="副总经理根据初审情况决定司机参加入职考核" activiti:formKey="fm:file:bc-business-workflow/carManEntry/DGMdecide.form">
+    <userTask id="OperationDeputyGeneralMangerDecide" name="营运副总经理根据初审情况决定司机参加入职考核" activiti:formKey="fm:file:bc-business-workflow/carManEntry/OperationDeputyGeneralMangerDecide.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -129,8 +129,8 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <exclusiveGateway id="exclusivegateway11" name="Exclusive Gateway" default="DGM_decide_disagree"></exclusiveGateway>
-    <userTask id="HRInformInterview" name="司机入职管理员通知司机到公司参加入职考核">
+    <exclusiveGateway id="exclusivegateway11" name="Exclusive Gateway" default="DGMD_disagree"></exclusiveGateway>
+    <userTask id="CarManEntryManagerInformInterview" name="司机入职管理员通知司机到公司参加入职考核" activiti:formKey="fm:file:bc-business-workflow/carManEntry/HRInformInterview.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -141,8 +141,30 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <exclusiveGateway id="exclusivegateway12" name="Exclusive Gateway" default="hrii_not_join"></exclusiveGateway>
-    <userTask id="usertask38" name="营安部司机面试">
+    <exclusiveGateway id="exclusivegateway12" name="Exclusive Gateway" default="carman_not_join"></exclusiveGateway>
+    <userTask id="OperationSecurityDepartmentCarManInterview" name="营安部司机面试" activiti:formKey="fm:file:bc-business-workflow/carManEntry/OperationSecurityDepartmentCarManInterview.form">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>营安部司机面试员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="DeputyGeneralManagerCarManInterview" name="副总经理司机面试" activiti:formKey="fm:file:bc-business-workflow/carManEntry/DeputyGeneralManagerCarManInterview.form">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>副总经理</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="UnitManagerCarManInterview" name="分公司经理司机面试" activiti:formKey="fm:file:bc-business-workflow/carManEntry/UnitManagerCarManInterview.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -156,96 +178,76 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="usertask39" name="总经理办公室司机面试">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
-          <activiti:field name="groupName">
-            <activiti:string>总经理办公室</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-      </extensionElements>
-    </userTask>
+    <userTask id="usertask40" name="财务部前台收取订金"></userTask>
+    <userTask id="usertask41" name="审查司机体检结果"></userTask>
+    <userTask id="usertask42" name="业务组主管审批司机是否可办理服务资格证"></userTask>
+    <userTask id="usertask43" name="司机已办服务资格证确认"></userTask>
+    <userTask id="usertask44" name="分公司确认接收服务资格证和司机入职审批表，并选择发起司机出车流程"></userTask>
     <sequenceFlow id="flow27" name="司机入职审批" sourceRef="startevent1" targetRef="CarMan"></sequenceFlow>
     <sequenceFlow id="flow28" name="" sourceRef="CarMan" targetRef="exclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="cmNoFlow" name="否" sourceRef="exclusivegateway1" targetRef="HRInitalCheck"></sequenceFlow>
+    <sequenceFlow id="cmNoFlow" name="否" sourceRef="exclusivegateway1" targetRef="CarManEntryManagerInitalCheck"></sequenceFlow>
     <sequenceFlow id="cmYesFlow" name="是" sourceRef="exclusivegateway1" targetRef="UnitManagerTalk">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${cmIs}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow39" name="" sourceRef="servicetask1" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow47" name="" sourceRef="HRcomfire" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow48" name="否" sourceRef="exclusivegateway2" targetRef="usertask37"></sequenceFlow>
+    <sequenceFlow id="hrii_join" name="否" sourceRef="exclusivegateway2" targetRef="usertask37">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${hriiJoin}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow49" name="是" sourceRef="exclusivegateway2" targetRef="usertask33"></sequenceFlow>
     <sequenceFlow id="flow73" name="否" sourceRef="exclusivegateway8" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow80" name="" sourceRef="DGMcheck" targetRef="exclusivegateway9"></sequenceFlow>
-    <sequenceFlow id="flow81" name="录用" sourceRef="exclusivegateway9" targetRef="HRcomfire"></sequenceFlow>
+    <sequenceFlow id="flow81" name="录用" sourceRef="exclusivegateway9" targetRef="exclusivegateway13"></sequenceFlow>
     <sequenceFlow id="flow82" name="不录用" sourceRef="exclusivegateway9" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow83" name="" sourceRef="usertask33" targetRef="exclusivegateway10"></sequenceFlow>
-    <sequenceFlow id="flow95" name="" sourceRef="inclusivegateway1" targetRef="RoadTest"></sequenceFlow>
-    <sequenceFlow id="flow99" name="" sourceRef="RoadTest" targetRef="inclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow95" name="" sourceRef="inclusivegateway1" targetRef="OperationSecurityDepartmentCarManRoadTest"></sequenceFlow>
+    <sequenceFlow id="flow99" name="" sourceRef="OperationSecurityDepartmentCarManRoadTest" targetRef="inclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow100" name="" sourceRef="inclusivegateway2" targetRef="DGMcheck"></sequenceFlow>
-    <sequenceFlow id="flow104" name="" sourceRef="DGMdecide" targetRef="exclusivegateway11"></sequenceFlow>
-    <sequenceFlow id="DGM_decide_disagree" name="不同意" sourceRef="exclusivegateway11" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow107" name="" sourceRef="UnitManagerTalk" targetRef="HRInitalCheck"></sequenceFlow>
-    <sequenceFlow id="flow108" name="" sourceRef="HRInitalCheck" targetRef="DGMdecide"></sequenceFlow>
-    <sequenceFlow id="flow109" name="" sourceRef="inclusivegateway1" targetRef="WrittenTest"></sequenceFlow>
-    <sequenceFlow id="DGM_decide_agree" name="同意" sourceRef="exclusivegateway11" targetRef="HRInformInterview">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dgmdAgree}]]></conditionExpression>
+    <sequenceFlow id="flow104" name="" sourceRef="OperationDeputyGeneralMangerDecide" targetRef="exclusivegateway11"></sequenceFlow>
+    <sequenceFlow id="DGMD_disagree" name="不同意" sourceRef="exclusivegateway11" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow107" name="" sourceRef="UnitManagerTalk" targetRef="CarManEntryManagerInitalCheck"></sequenceFlow>
+    <sequenceFlow id="flow108" name="" sourceRef="CarManEntryManagerInitalCheck" targetRef="OperationDeputyGeneralMangerDecide"></sequenceFlow>
+    <sequenceFlow id="flow109" name="" sourceRef="inclusivegateway1" targetRef="CarManWrittenTest"></sequenceFlow>
+    <sequenceFlow id="DGMD_agree" name="同意" sourceRef="exclusivegateway11" targetRef="CarManEntryManagerInformInterview">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${DGMDagree}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow112" name="" sourceRef="HRInformInterview" targetRef="exclusivegateway12"></sequenceFlow>
-    <sequenceFlow id="hrii_join" name="参加" sourceRef="exclusivegateway12" targetRef="inclusivegateway1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${hriiJoin}]]></conditionExpression>
+    <sequenceFlow id="flow112" name="" sourceRef="CarManEntryManagerInformInterview" targetRef="exclusivegateway12"></sequenceFlow>
+    <sequenceFlow id="carman_join" name="参加" sourceRef="exclusivegateway12" targetRef="inclusivegateway1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${carmanJoin}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="hrii_not_join" name="不参加" sourceRef="exclusivegateway12" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow116" name="" sourceRef="inclusivegateway1" targetRef="usertask38"></sequenceFlow>
-    <sequenceFlow id="flow117" name="" sourceRef="inclusivegateway1" targetRef="usertask39"></sequenceFlow>
-    <sequenceFlow id="flow118" name="" sourceRef="WrittenTest" targetRef="inclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow120" name="" sourceRef="usertask38" targetRef="inclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow121" name="" sourceRef="usertask39" targetRef="inclusivegateway2"></sequenceFlow>
-    <userTask id="UnitManagerInterview" name="分公司经理面试">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
-          <activiti:field name="groupName">
-            <activiti:string>分公司经理</activiti:string>
-          </activiti:field>
-          <activiti:field name="orgVariableName">
-            <activiti:string>verifyUnitId</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-      </extensionElements>
-    </userTask>
-    <sequenceFlow id="flow122" name="" sourceRef="inclusivegateway1" targetRef="UnitManagerInterview"></sequenceFlow>
-    <sequenceFlow id="flow123" name="" sourceRef="UnitManagerInterview" targetRef="inclusivegateway2"></sequenceFlow>
-    <userTask id="usertask40" name="财务部前台收取订金"></userTask>
+    <sequenceFlow id="carman_not_join" name="不参加" sourceRef="exclusivegateway12" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow116" name="" sourceRef="inclusivegateway1" targetRef="OperationSecurityDepartmentCarManInterview"></sequenceFlow>
+    <sequenceFlow id="flow117" name="" sourceRef="inclusivegateway1" targetRef="DeputyGeneralManagerCarManInterview"></sequenceFlow>
+    <sequenceFlow id="flow118" name="" sourceRef="CarManWrittenTest" targetRef="inclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow120" name="" sourceRef="OperationSecurityDepartmentCarManInterview" targetRef="inclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow121" name="" sourceRef="DeputyGeneralManagerCarManInterview" targetRef="inclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow122" name="" sourceRef="inclusivegateway1" targetRef="UnitManagerCarManInterview"></sequenceFlow>
+    <sequenceFlow id="flow123" name="" sourceRef="UnitManagerCarManInterview" targetRef="inclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow124" name="" sourceRef="usertask37" targetRef="usertask40"></sequenceFlow>
-    <userTask id="usertask41" name="审查司机体检结果"></userTask>
     <sequenceFlow id="flow125" name="" sourceRef="usertask40" targetRef="usertask41"></sequenceFlow>
     <sequenceFlow id="flow126" name="是" sourceRef="exclusivegateway10" targetRef="usertask40"></sequenceFlow>
     <sequenceFlow id="flow127" name="否" sourceRef="exclusivegateway10" targetRef="usertask41"></sequenceFlow>
-    <userTask id="usertask42" name="业务组主管审批司机是否可办理服务资格证" default=""></userTask>
     <sequenceFlow id="flow128" name="" sourceRef="usertask41" targetRef="usertask42"></sequenceFlow>
     <sequenceFlow id="flow129" name="" sourceRef="usertask42" targetRef="exclusivegateway8"></sequenceFlow>
-    <userTask id="usertask43" name="司机已办服务资格证确认"></userTask>
     <sequenceFlow id="flow130" name="是" sourceRef="exclusivegateway8" targetRef="usertask43"></sequenceFlow>
-    <userTask id="usertask44" name="分公司确认接收服务资格证和司机入职审批表，并选择发起司机出车流程"></userTask>
     <sequenceFlow id="flow131" name="" sourceRef="usertask43" targetRef="usertask44"></sequenceFlow>
     <sequenceFlow id="flow132" name="" sourceRef="usertask44" targetRef="servicetask1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway13" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow133" name="已愿意到车辆" sourceRef="exclusivegateway13" targetRef="usertask33"></sequenceFlow>
+    <sequenceFlow id="flow134" name="" sourceRef="exclusivegateway13" targetRef="HRcomfire"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_CarManEntry">
     <bpmndi:BPMNPlane bpmnElement="CarManEntry" id="BPMNPlane_CarManEntry">
       <bpmndi:BPMNShape bpmnElement="CarMan" id="BPMNShape_CarMan">
         <omgdc:Bounds height="55" width="141" x="160" y="18"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="HRInitalCheck" id="BPMNShape_HRInitalCheck">
+      <bpmndi:BPMNShape bpmnElement="CarManEntryManagerInitalCheck" id="BPMNShape_CarManEntryManagerInitalCheck">
         <omgdc:Bounds height="55" width="105" x="479" y="18"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="WrittenTest" id="BPMNShape_WrittenTest">
+      <bpmndi:BPMNShape bpmnElement="CarManWrittenTest" id="BPMNShape_CarManWrittenTest">
         <omgdc:Bounds height="55" width="105" x="880" y="18"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="RoadTest" id="BPMNShape_RoadTest">
+      <bpmndi:BPMNShape bpmnElement="OperationSecurityDepartmentCarManRoadTest" id="BPMNShape_OperationSecurityDepartmentCarManRoadTest">
         <omgdc:Bounds height="55" width="105" x="880" y="387"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
@@ -293,25 +295,25 @@
       <bpmndi:BPMNShape bpmnElement="inclusivegateway2" id="BPMNShape_inclusivegateway2">
         <omgdc:Bounds height="40" width="40" x="1006" y="394"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="DGMdecide" id="BPMNShape_DGMdecide">
+      <bpmndi:BPMNShape bpmnElement="OperationDeputyGeneralMangerDecide" id="BPMNShape_OperationDeputyGeneralMangerDecide">
         <omgdc:Bounds height="75" width="120" x="472" y="570"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway11" id="BPMNShape_exclusivegateway11">
         <omgdc:Bounds height="40" width="40" x="633" y="587"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="HRInformInterview" id="BPMNShape_HRInformInterview">
+      <bpmndi:BPMNShape bpmnElement="CarManEntryManagerInformInterview" id="BPMNShape_CarManEntryManagerInformInterview">
         <omgdc:Bounds height="70" width="105" x="601" y="11"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway12" id="BPMNShape_exclusivegateway12">
         <omgdc:Bounds height="40" width="40" x="730" y="25"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask38" id="BPMNShape_usertask38">
+      <bpmndi:BPMNShape bpmnElement="OperationSecurityDepartmentCarManInterview" id="BPMNShape_OperationSecurityDepartmentCarManInterview">
         <omgdc:Bounds height="55" width="105" x="880" y="198"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask39" id="BPMNShape_usertask39">
+      <bpmndi:BPMNShape bpmnElement="DeputyGeneralManagerCarManInterview" id="BPMNShape_DeputyGeneralManagerCarManInterview">
         <omgdc:Bounds height="55" width="105" x="880" y="271"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="UnitManagerInterview" id="BPMNShape_UnitManagerInterview">
+      <bpmndi:BPMNShape bpmnElement="UnitManagerCarManInterview" id="BPMNShape_UnitManagerCarManInterview">
         <omgdc:Bounds height="55" width="105" x="880" y="120"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask40" id="BPMNShape_usertask40">
@@ -328,6 +330,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask44" id="BPMNShape_usertask44">
         <omgdc:Bounds height="93" width="105" x="1800" y="120"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway13" id="BPMNShape_exclusivegateway13">
+        <omgdc:Bounds height="40" width="40" x="1114" y="135"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
         <omgdi:waypoint x="85" y="45"></omgdi:waypoint>
@@ -363,7 +368,7 @@
         <omgdi:waypoint x="1205" y="45"></omgdi:waypoint>
         <omgdi:waypoint x="1252" y="45"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
+      <bpmndi:BPMNEdge bpmnElement="hrii_join" id="BPMNEdge_hrii_join">
         <omgdi:waypoint x="1292" y="45"></omgdi:waypoint>
         <omgdi:waypoint x="1371" y="46"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
@@ -391,9 +396,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow81" id="BPMNEdge_flow81">
         <omgdi:waypoint x="1134" y="587"></omgdi:waypoint>
-        <omgdi:waypoint x="1134" y="73"></omgdi:waypoint>
+        <omgdi:waypoint x="1134" y="175"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
+          <omgdc:Bounds height="14" width="100" x="4" y="172"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow82" id="BPMNEdge_flow82">
@@ -425,7 +430,7 @@
         <omgdi:waypoint x="592" y="607"></omgdi:waypoint>
         <omgdi:waypoint x="633" y="607"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="DGM_decide_disagree" id="BPMNEdge_DGM_decide_disagree">
+      <bpmndi:BPMNEdge bpmnElement="DGMD_disagree" id="BPMNEdge_DGMD_disagree">
         <omgdi:waypoint x="653" y="627"></omgdi:waypoint>
         <omgdi:waypoint x="652" y="687"></omgdi:waypoint>
         <omgdi:waypoint x="800" y="687"></omgdi:waypoint>
@@ -448,30 +453,30 @@
         <omgdi:waypoint x="839" y="45"></omgdi:waypoint>
         <omgdi:waypoint x="880" y="45"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="DGM_decide_agree" id="BPMNEdge_DGM_decide_agree">
+      <bpmndi:BPMNEdge bpmnElement="DGMD_agree" id="BPMNEdge_DGMD_agree">
         <omgdi:waypoint x="653" y="587"></omgdi:waypoint>
         <omgdi:waypoint x="653" y="81"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
+          <omgdc:Bounds height="14" width="100" x="7" y="219"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow112" id="BPMNEdge_flow112">
         <omgdi:waypoint x="706" y="46"></omgdi:waypoint>
         <omgdi:waypoint x="730" y="45"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="hrii_join" id="BPMNEdge_hrii_join">
+      <bpmndi:BPMNEdge bpmnElement="carman_join" id="BPMNEdge_carman_join">
         <omgdi:waypoint x="770" y="45"></omgdi:waypoint>
         <omgdi:waypoint x="799" y="45"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14" width="100" x="-14" y="-27"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="hrii_not_join" id="BPMNEdge_hrii_not_join">
+      <bpmndi:BPMNEdge bpmnElement="carman_not_join" id="BPMNEdge_carman_not_join">
         <omgdi:waypoint x="750" y="65"></omgdi:waypoint>
         <omgdi:waypoint x="750" y="687"></omgdi:waypoint>
         <omgdi:waypoint x="1980" y="687"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="-304" y="-350"></omgdc:Bounds>
+          <omgdc:Bounds height="14" width="100" x="-304" y="-607"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow116" id="BPMNEdge_flow116">
@@ -555,6 +560,20 @@
       <bpmndi:BPMNEdge bpmnElement="flow132" id="BPMNEdge_flow132">
         <omgdi:waypoint x="1852" y="213"></omgdi:waypoint>
         <omgdi:waypoint x="1852" y="580"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow133" id="BPMNEdge_flow133">
+        <omgdi:waypoint x="1154" y="155"></omgdi:waypoint>
+        <omgdi:waypoint x="1220" y="155"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="-43" y="-25"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow134" id="BPMNEdge_flow134">
+        <omgdi:waypoint x="1134" y="135"></omgdi:waypoint>
+        <omgdi:waypoint x="1134" y="73"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
