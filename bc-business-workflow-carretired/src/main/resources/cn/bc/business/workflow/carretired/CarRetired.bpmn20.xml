@@ -4,11 +4,6 @@
     <extensionElements>
       <activiti:executionListener event="start" delegateExpression="${processLogListener}"></activiti:executionListener>
       <activiti:executionListener event="end" delegateExpression="${processLogListener}"></activiti:executionListener>
-      <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.Attach4ProcessListener">
-        <activiti:field name="attachCode">
-          <activiti:string>BC-WORKFLOW-CARRETIRED</activiti:string>
-        </activiti:field>
-      </activiti:executionListener>
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -48,7 +43,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t16FinanceTransactorCheck" name="财务部经办人结算" activiti:formKey="fm:file:bc-business-workflow/carRetired/FinanceTransactorCheck.form">
+    <userTask id="t17FinanceTransactorCheck" name="财务部经办人结算" activiti:formKey="fm:file:bc-business-workflow/carRetired/FinanceTransactorCheck.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -59,7 +54,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t18BGArchive" name="业务组归档">
+    <userTask id="t17BGArchive" name="业务组归档">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -155,7 +150,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t15BGLeaderConfirm" name="业务组主管确认" activiti:formKey="fm:file:bc-business-workflow/carRetired/BGLeaderConfirm.form">
+    <userTask id="t16BGLeaderConfirm" name="业务组主管确认" activiti:formKey="fm:file:bc-business-workflow/carRetired/BGLeaderConfirm.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -166,7 +161,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t17FinanceManagerConfirm" name="财务部经理确认" activiti:formKey="fm:file:bc-business-workflow/carRetired/FinanceManagerConfirm.form">
+    <userTask id="t18FinanceManagerConfirm" name="财务部经理确认" activiti:formKey="fm:file:bc-business-workflow/carRetired/FinanceManagerConfirm.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -201,7 +196,7 @@
     </userTask>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
     <inclusiveGateway id="inclusivegateway2" name="Inclusive Gateway"></inclusiveGateway>
-    <userTask id="t14BGCheckImpl" name="业务组经办人落实情况，确认司机已签名" activiti:formKey="fm:file:bc-business-workflow/carRetired/BGCheckImpl.form">
+    <userTask id="t15BGCheckImpl" name="业务组经办人落实情况，确认司机已签名" activiti:formKey="fm:file:bc-business-workflow/carRetired/BGCheckImpl.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -223,13 +218,24 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow16" name="" sourceRef="t18BGArchive" targetRef="endevent1"></sequenceFlow>
+    <userTask id="t14FinanceTransactorInovieRecliam" name="财务部回收发票" activiti:formKey="fm:file:bc-business-workflow/carRetired/FinanceTransactorInovieRecliam.form">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>财务部交车经办人</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow16" name="" sourceRef="t17BGArchive" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow3" name="" sourceRef="t02MotorcadeLeaderCheck" targetRef="t03UnitSafetyOfficerCheck"></sequenceFlow>
     <sequenceFlow id="flow4" name="" sourceRef="t03UnitSafetyOfficerCheck" targetRef="t04UnitManagerConfirm"></sequenceFlow>
     <sequenceFlow id="flow2" name="车辆交车处理流程" sourceRef="t01AssignCar" targetRef="t02MotorcadeLeaderCheck"></sequenceFlow>
     <sequenceFlow id="flow8" name="" sourceRef="t06GarageFinancerCheck" targetRef="t07GarageManagerConfirm"></sequenceFlow>
     <sequenceFlow id="flow1" name="" sourceRef="startevent1" targetRef="t01AssignCar"></sequenceFlow>
-    <sequenceFlow id="flow14" name="" sourceRef="t16FinanceTransactorCheck" targetRef="t17FinanceManagerConfirm"></sequenceFlow>
+    <sequenceFlow id="flow14" name="" sourceRef="t17FinanceTransactorCheck" targetRef="t18FinanceManagerConfirm"></sequenceFlow>
     <sequenceFlow id="flow21" name="" sourceRef="inclusivegateway1" targetRef="t11TechnicalGroupCheck"></sequenceFlow>
     <sequenceFlow id="flow22" name="" sourceRef="inclusivegateway1" targetRef="t09HRCheck"></sequenceFlow>
     <sequenceFlow id="flow23" name="" sourceRef="inclusivegateway1" targetRef="t08SecurityGroupCheck"></sequenceFlow>
@@ -238,17 +244,19 @@
     <sequenceFlow id="flow27" name="" sourceRef="t09HRCheck" targetRef="inclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow28" name="" sourceRef="t11TechnicalGroupCheck" targetRef="inclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow32" name="" sourceRef="t04UnitManagerConfirm" targetRef="inclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="flow43" name="" sourceRef="inclusivegateway2" targetRef="t14BGCheckImpl"></sequenceFlow>
+    <sequenceFlow id="flow43" name="" sourceRef="inclusivegateway2" targetRef="t15BGCheckImpl"></sequenceFlow>
     <sequenceFlow id="flow48" name="" sourceRef="t13BGCheckCert" targetRef="inclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow49" name="" sourceRef="inclusivegateway1" targetRef="t12returnCertificates"></sequenceFlow>
     <sequenceFlow id="flow50" name="" sourceRef="t12returnCertificates" targetRef="t13BGCheckCert"></sequenceFlow>
-    <sequenceFlow id="flow52" name="" sourceRef="t15BGLeaderConfirm" targetRef="t16FinanceTransactorCheck"></sequenceFlow>
-    <sequenceFlow id="flow53" name="" sourceRef="t17FinanceManagerConfirm" targetRef="t18BGArchive"></sequenceFlow>
+    <sequenceFlow id="flow52" name="" sourceRef="t16BGLeaderConfirm" targetRef="t17FinanceTransactorCheck"></sequenceFlow>
+    <sequenceFlow id="flow53" name="" sourceRef="t18FinanceManagerConfirm" targetRef="t17BGArchive"></sequenceFlow>
     <sequenceFlow id="flow56" name="" sourceRef="inclusivegateway1" targetRef="t05GarageTransactorCheck"></sequenceFlow>
     <sequenceFlow id="flow57" name="" sourceRef="inclusivegateway1" targetRef="t10HRTakeBackCard"></sequenceFlow>
     <sequenceFlow id="flow58" name="" sourceRef="t10HRTakeBackCard" targetRef="inclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow59" name="" sourceRef="t05GarageTransactorCheck" targetRef="t06GarageFinancerCheck"></sequenceFlow>
-    <sequenceFlow id="flow60" name="" sourceRef="t14BGCheckImpl" targetRef="t15BGLeaderConfirm"></sequenceFlow>
+    <sequenceFlow id="flow60" name="" sourceRef="t15BGCheckImpl" targetRef="t16BGLeaderConfirm"></sequenceFlow>
+    <sequenceFlow id="flow61" name="" sourceRef="inclusivegateway1" targetRef="t14FinanceTransactorInovieRecliam"></sequenceFlow>
+    <sequenceFlow id="flow62" name="" sourceRef="t14FinanceTransactorInovieRecliam" targetRef="inclusivegateway2"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_CarRetired">
     <bpmndi:BPMNPlane bpmnElement="CarRetired" id="BPMNPlane_CarRetired">
@@ -267,10 +275,10 @@
       <bpmndi:BPMNShape bpmnElement="t13BGCheckCert" id="BPMNShape_t13BGCheckCert">
         <omgdc:Bounds height="55" width="108" x="737" y="230"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t16FinanceTransactorCheck" id="BPMNShape_t16FinanceTransactorCheck">
+      <bpmndi:BPMNShape bpmnElement="t17FinanceTransactorCheck" id="BPMNShape_t17FinanceTransactorCheck">
         <omgdc:Bounds height="55" width="108" x="612" y="482"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t18BGArchive" id="BPMNShape_t18BGArchive">
+      <bpmndi:BPMNShape bpmnElement="t17BGArchive" id="BPMNShape_t17BGArchive">
         <omgdc:Bounds height="55" width="108" x="752" y="396"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t02MotorcadeLeaderCheck" id="BPMNShape_t02MotorcadeLeaderCheck">
@@ -294,10 +302,10 @@
       <bpmndi:BPMNShape bpmnElement="t01AssignCar" id="BPMNShape_t01AssignCar">
         <omgdc:Bounds height="55" width="108" x="70" y="10"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t15BGLeaderConfirm" id="BPMNShape_t15BGLeaderConfirm">
+      <bpmndi:BPMNShape bpmnElement="t16BGLeaderConfirm" id="BPMNShape_t16BGLeaderConfirm">
         <omgdc:Bounds height="55" width="108" x="612" y="396"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t17FinanceManagerConfirm" id="BPMNShape_t17FinanceManagerConfirm">
+      <bpmndi:BPMNShape bpmnElement="t18FinanceManagerConfirm" id="BPMNShape_t18FinanceManagerConfirm">
         <omgdc:Bounds height="55" width="108" x="752" y="482"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t08SecurityGroupCheck" id="BPMNShape_t08SecurityGroupCheck">
@@ -312,11 +320,14 @@
       <bpmndi:BPMNShape bpmnElement="inclusivegateway2" id="BPMNShape_inclusivegateway2">
         <omgdc:Bounds height="40" width="40" x="501" y="320"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t14BGCheckImpl" id="BPMNShape_t14BGCheckImpl">
+      <bpmndi:BPMNShape bpmnElement="t15BGCheckImpl" id="BPMNShape_t15BGCheckImpl">
         <omgdc:Bounds height="73" width="108" x="468" y="387"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t10HRTakeBackCard" id="BPMNShape_t10HRTakeBackCard">
         <omgdc:Bounds height="55" width="108" x="468" y="140"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t14FinanceTransactorInovieRecliam" id="BPMNShape_t14FinanceTransactorInovieRecliam">
+        <omgdc:Bounds height="55" width="108" x="885" y="140"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
         <omgdi:waypoint x="860" y="423"></omgdi:waypoint>
@@ -351,17 +362,17 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
         <omgdi:waypoint x="541" y="104"></omgdi:waypoint>
-        <omgdi:waypoint x="653" y="103"></omgdi:waypoint>
+        <omgdi:waypoint x="654" y="103"></omgdi:waypoint>
         <omgdi:waypoint x="654" y="140"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
         <omgdi:waypoint x="501" y="104"></omgdi:waypoint>
-        <omgdi:waypoint x="389" y="104"></omgdi:waypoint>
+        <omgdi:waypoint x="388" y="103"></omgdi:waypoint>
         <omgdi:waypoint x="389" y="140"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
         <omgdi:waypoint x="501" y="104"></omgdi:waypoint>
-        <omgdi:waypoint x="253" y="104"></omgdi:waypoint>
+        <omgdi:waypoint x="253" y="103"></omgdi:waypoint>
         <omgdi:waypoint x="254" y="140"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
@@ -375,7 +386,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
         <omgdi:waypoint x="389" y="195"></omgdi:waypoint>
-        <omgdi:waypoint x="389" y="339"></omgdi:waypoint>
+        <omgdi:waypoint x="389" y="340"></omgdi:waypoint>
         <omgdi:waypoint x="501" y="340"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
@@ -398,7 +409,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
         <omgdi:waypoint x="541" y="104"></omgdi:waypoint>
-        <omgdi:waypoint x="790" y="103"></omgdi:waypoint>
+        <omgdi:waypoint x="791" y="103"></omgdi:waypoint>
         <omgdi:waypoint x="791" y="140"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
@@ -433,6 +444,16 @@
       <bpmndi:BPMNEdge bpmnElement="flow60" id="BPMNEdge_flow60">
         <omgdi:waypoint x="576" y="423"></omgdi:waypoint>
         <omgdi:waypoint x="612" y="423"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow61" id="BPMNEdge_flow61">
+        <omgdi:waypoint x="541" y="104"></omgdi:waypoint>
+        <omgdi:waypoint x="938" y="103"></omgdi:waypoint>
+        <omgdi:waypoint x="939" y="140"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow62" id="BPMNEdge_flow62">
+        <omgdi:waypoint x="939" y="195"></omgdi:waypoint>
+        <omgdi:waypoint x="938" y="340"></omgdi:waypoint>
+        <omgdi:waypoint x="541" y="340"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
