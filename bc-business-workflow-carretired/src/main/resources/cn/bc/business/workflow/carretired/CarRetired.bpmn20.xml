@@ -4,6 +4,11 @@
     <extensionElements>
       <activiti:executionListener event="start" delegateExpression="${processLogListener}"></activiti:executionListener>
       <activiti:executionListener event="end" delegateExpression="${processLogListener}"></activiti:executionListener>
+      <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.Attach4ProcessListener">
+        <activiti:field name="attachCode">
+          <activiti:string>flowAttach.CarRetied</activiti:string>
+        </activiti:field>
+      </activiti:executionListener>
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -255,8 +260,10 @@
     <sequenceFlow id="flow58" name="" sourceRef="t10HRTakeBackCard" targetRef="inclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow59" name="" sourceRef="t05GarageTransactorCheck" targetRef="t06GarageFinancerCheck"></sequenceFlow>
     <sequenceFlow id="flow60" name="" sourceRef="t15BGCheckImpl" targetRef="t16BGLeaderConfirm"></sequenceFlow>
-    <sequenceFlow id="flow61" name="" sourceRef="inclusivegateway1" targetRef="t14FinanceTransactorInovieRecliam"></sequenceFlow>
     <sequenceFlow id="flow62" name="" sourceRef="t14FinanceTransactorInovieRecliam" targetRef="inclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow63" name="" sourceRef="inclusivegateway1" targetRef="t14FinanceTransactorInovieRecliam">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${mlcIsInovieRecliam}]]></conditionExpression>
+    </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_CarRetired">
     <bpmndi:BPMNPlane bpmnElement="CarRetired" id="BPMNPlane_CarRetired">
@@ -445,15 +452,18 @@
         <omgdi:waypoint x="576" y="423"></omgdi:waypoint>
         <omgdi:waypoint x="612" y="423"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow61" id="BPMNEdge_flow61">
-        <omgdi:waypoint x="541" y="104"></omgdi:waypoint>
-        <omgdi:waypoint x="938" y="103"></omgdi:waypoint>
-        <omgdi:waypoint x="939" y="140"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow62" id="BPMNEdge_flow62">
         <omgdi:waypoint x="939" y="195"></omgdi:waypoint>
         <omgdi:waypoint x="938" y="340"></omgdi:waypoint>
         <omgdi:waypoint x="541" y="340"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow63" id="BPMNEdge_flow63">
+        <omgdi:waypoint x="541" y="104"></omgdi:waypoint>
+        <omgdi:waypoint x="939" y="103"></omgdi:waypoint>
+        <omgdi:waypoint x="939" y="140"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
