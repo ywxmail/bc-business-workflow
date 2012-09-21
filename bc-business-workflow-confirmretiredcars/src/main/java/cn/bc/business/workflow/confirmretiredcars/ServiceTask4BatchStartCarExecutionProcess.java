@@ -13,7 +13,6 @@ import org.activiti.engine.impl.el.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import cn.bc.core.util.JsonUtils;
 import cn.bc.core.util.SpringUtils;
 import cn.bc.core.util.TemplateUtils;
 
@@ -57,19 +56,19 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 	
 
 	public void execute(DelegateExecution execution) throws Exception {
-		String carsVdStr = (String) execution.getVariable("list_vd_cars_gl");
+		@SuppressWarnings("unchecked")
+		List<Object> carVdList = (List<Object>) execution.getVariable("list_vd_cars_gl");
 		//车辆更多的信息
-		String carsGcStr = (String)execution.getVariable("list_gc_cars");
+		@SuppressWarnings("unchecked")
+		List<Object> carGcList = (List<Object>)execution.getVariable("list_gc_cars");
 		
 		long verifyUnitId= (Long) execution.getVariable("verifyUnitId");
 		
 		if (logger.isDebugEnabled()) {
 			logger.debug("from=" + execution.getProcessInstanceId());
 			logger.debug("ConfirmRetiredCars="
-					+ carsVdStr);
+					+ carVdList.toString());
 		}
-		List<Object> carVdList=(List<Object>) JsonUtils.toCollection(carsVdStr);
-		List<Object> carGcList=(List<Object>) JsonUtils.toCollection(carsGcStr);
 		
 		List<Map<String,Object>> carList=new ArrayList<Map<String,Object>>();
 		
