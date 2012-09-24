@@ -18,6 +18,7 @@
 		<module>bc-business-workflow-carretired</module>
 		<module>bc-business-workflow-carrenew</module>
 		<module>bc-business-workflow-carmanentry</module>
+		<module>bc-business-workflow-generalorder</module>
 	</modules>
 	<scm>
 		<connection>scm:git:git://localhost/bc-business-workflow.git</connection>
