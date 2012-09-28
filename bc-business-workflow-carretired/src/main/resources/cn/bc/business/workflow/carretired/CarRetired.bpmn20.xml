@@ -201,7 +201,7 @@
     </userTask>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
     <inclusiveGateway id="inclusivegateway2" name="Inclusive Gateway"></inclusiveGateway>
-    <userTask id="t15BGCheckImpl" name="业务组经办人落实情况，确认司机已签名" activiti:formKey="fm:file:bc-business-workflow/carRetired/BGCheckImpl.form">
+    <userTask id="t15BGCheckImpl" name="业务组经办人落实情况" activiti:formKey="fm:file:bc-business-workflow/carRetired/BGCheckImpl.form">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -261,7 +261,7 @@
     <sequenceFlow id="flow59" name="" sourceRef="t05GarageTransactorCheck" targetRef="t06GarageFinancerCheck"></sequenceFlow>
     <sequenceFlow id="flow60" name="" sourceRef="t15BGCheckImpl" targetRef="t16BGLeaderConfirm"></sequenceFlow>
     <sequenceFlow id="flow62" name="" sourceRef="t14FinanceTransactorInovieRecliam" targetRef="inclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow63" name="" sourceRef="inclusivegateway1" targetRef="t14FinanceTransactorInovieRecliam">
+    <sequenceFlow id="flow63" name="有发票" sourceRef="inclusivegateway1" targetRef="t14FinanceTransactorInovieRecliam">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${mlcIsInovieRecliam}]]></conditionExpression>
     </sequenceFlow>
   </process>
@@ -328,7 +328,7 @@
         <omgdc:Bounds height="40" width="40" x="501" y="320"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t15BGCheckImpl" id="BPMNShape_t15BGCheckImpl">
-        <omgdc:Bounds height="73" width="108" x="468" y="387"></omgdc:Bounds>
+        <omgdc:Bounds height="55" width="108" x="468" y="396"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t10HRTakeBackCard" id="BPMNShape_t10HRTakeBackCard">
         <omgdc:Bounds height="55" width="108" x="468" y="140"></omgdc:Bounds>
@@ -407,7 +407,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
         <omgdi:waypoint x="521" y="360"></omgdi:waypoint>
-        <omgdi:waypoint x="522" y="387"></omgdi:waypoint>
+        <omgdi:waypoint x="522" y="396"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
         <omgdi:waypoint x="791" y="285"></omgdi:waypoint>
@@ -462,7 +462,7 @@
         <omgdi:waypoint x="939" y="103"></omgdi:waypoint>
         <omgdi:waypoint x="939" y="140"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
+          <omgdc:Bounds height="14" width="100" x="192" y="8"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
