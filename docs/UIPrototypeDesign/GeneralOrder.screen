@@ -3,9 +3,9 @@
   <widgets xsi:type="model:Note" id="878" x="720" y="8" width="329" height="49" text="详见 bc-system-docs\设计文档\流程设计\通用工作单-其它.docx" measuredWidth="329" measuredHeight="49" annotation="true" textAlignment="Left">
     <font bold="false"/>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="879" x="8" y="8" measuredWidth="705" measuredHeight="201">
-    <widgets xsi:type="model:Accordion" id="880" width="705" height="201" text="{user}提出申请事项" measuredWidth="705" measuredHeight="201" selection="0">
-      <items x="0" y="2" width="705" height="27" text="{user}提出申请事项"/>
+  <widgets xsi:type="model:WidgetGroup" id="879" x="8" y="8" measuredWidth="705" measuredHeight="153">
+    <widgets xsi:type="model:Accordion" id="880" width="705" height="153" text="{user}提出申请事项（申请人不是部门经理时）" measuredWidth="705" measuredHeight="153" selection="0">
+      <items x="0" y="2" width="705" height="27" text="{user}提出申请事项（申请人不是部门经理时）"/>
     </widgets>
     <widgets xsi:type="model:WidgetGroup" id="936" x="488" y="4" measuredWidth="211" measuredHeight="25">
       <widgets xsi:type="model:Link" id="933" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
@@ -18,116 +18,33 @@
         <font/>
       </widgets>
     </widgets>
-    <widgets xsi:type="model:Group" id="1020" x="10" y="37" width="685" height="157" measuredWidth="685" measuredHeight="157">
+    <widgets xsi:type="model:Group" id="1020" x="10" y="37" width="685" height="108" measuredWidth="685" measuredHeight="108">
       <font/>
     </widgets>
     <widgets xsi:type="model:Label" id="1021" x="16" y="47" text="事项标题：" measuredWidth="65" measuredHeight="25">
       <font size="9" bold="false"/>
     </widgets>
-    <widgets xsi:type="model:Combo" id="1022" x="456" y="47" width="83" text="一分公司" measuredWidth="83" measuredHeight="25">
-      <font/>
-    </widgets>
-    <widgets xsi:type="model:Label" id="1023" x="392" y="47" text="申请部门：" measuredWidth="65" measuredHeight="25">
+    <widgets xsi:type="model:Label" id="1023" x="547" y="47" text="申请部门：" measuredWidth="65" measuredHeight="25">
       <font size="9" bold="false"/>
     </widgets>
-    <widgets xsi:type="model:TextField" id="1024" x="80" y="47" width="305" text="宝城公司粤A.XXXX某某特殊事项申请" measuredWidth="305" measuredHeight="25">
+    <widgets xsi:type="model:TextField" id="1024" x="80" y="47" width="457" text="宝城公司粤A.XXXX某某特殊事项申请" measuredWidth="457" measuredHeight="25">
       <font/>
     </widgets>
     <widgets xsi:type="model:Label" id="1025" x="16" y="74" text="申请事由：" measuredWidth="65" measuredHeight="25">
       <font size="9" bold="false"/>
     </widgets>
-    <widgets xsi:type="model:Table" id="1027" x="10" y="98" width="685" text="(w:20).序号,申请事项,(w:200).备注&#xA;1,测试申请事项1,测试备注信息&#xA;2,测试申请事项2,&#xA;3,测试申请事项3," measuredWidth="685" measuredHeight="96" selection="" horizontalLines="true" header="false">
-      <font/>
-    </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="1028" x="611" y="74" measuredWidth="74" measuredHeight="25">
-      <widgets xsi:type="model:Link" id="1029" x="13" measuredWidth="3" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Icon" id="1030" x="58" y="5" measuredWidth="16" measuredHeight="16" icon="circled-mul (small)"/>
-      <widgets xsi:type="model:Icon" id="1031" x="39" y="5" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
-      <widgets xsi:type="model:Icon" id="1032" x="19" y="5" measuredWidth="16" measuredHeight="16" icon="download (small)"/>
-      <widgets xsi:type="model:Icon" id="1033" y="5" measuredWidth="16" measuredHeight="16" icon="upload (small)"/>
-    </widgets>
-    <widgets xsi:type="model:Label" id="1127" x="547" y="47" text="部门经理：" measuredWidth="65" measuredHeight="25">
-      <font size="9" bold="false"/>
-    </widgets>
     <widgets xsi:type="model:WidgetGroup" id="1129" x="611" y="47" measuredWidth="77" measuredHeight="25">
-      <widgets xsi:type="model:TextField" id="1130" width="77" text="小明" measuredWidth="77" measuredHeight="25">
+      <widgets xsi:type="model:TextField" id="1130" width="77" text="一分公司" measuredWidth="77" measuredHeight="25">
         <font/>
       </widgets>
       <widgets xsi:type="model:Icon" id="1131" x="56" y="5" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
     </widgets>
-  </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="973" x="8" y="216" measuredWidth="705" measuredHeight="305">
-    <widgets xsi:type="model:Accordion" id="974" width="705" height="305" text="{user}部门经理确认" measuredWidth="705" measuredHeight="305" selection="0">
-      <items x="0" y="2" width="705" height="27" text="{user}部门经理确认"/>
-    </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="975" x="488" y="4" measuredWidth="211" measuredHeight="25">
-      <widgets xsi:type="model:Link" id="976" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="977" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="978" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
-        <font/>
-      </widgets>
-    </widgets>
-    <widgets xsi:type="model:Group" id="1014" x="10" y="38" width="685" height="239" measuredWidth="685" measuredHeight="239">
+    <widgets xsi:type="model:TextArea" id="1132" x="80" y="74" width="608" height="63" text="  " measuredWidth="608" measuredHeight="63">
       <font/>
     </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="1091" x="10" y="280" measuredWidth="681" measuredHeight="25">
-      <widgets xsi:type="model:Label" id="1092" text="{comments}测试办理意见1" measuredWidth="100" measuredHeight="25">
-        <font size="9" bold="false"/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1093" x="638" text="{delete}删除" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1094" x="590" text="{eye}查看" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1095" x="542" text="{edit}编辑" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-    </widgets>
-    <widgets xsi:type="model:Table" id="1112" x="10" y="38" width="685" text="(w:20). ,申请事项,(w:200).确认情况&#xA;1,测试申请事项1,协办后再定&#xA;2,测试申请事项2,情况属实&#xA;3,测试申请事项3," measuredWidth="685" measuredHeight="96" selection="" horizontalLines="true" header="false">
-      <font/>
-    </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="1120" x="10" y="133" measuredWidth="685" measuredHeight="144">
-      <widgets xsi:type="model:Label" id="1016" x="10" text="确定下一步的处理方式：" measuredWidth="137" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Table" id="1034" y="48" width="685" text="(w:20).  ,(w:200).协办部门,协办人&#xA;,信息技术部,张三，小红&#xA;,财务部,李四&#xA;,人力资源部,小明" measuredWidth="685" measuredHeight="96" selection="" horizontalLines="true" header="false">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:RadioButton" id="1086" x="146" text="部门内部办理" measuredWidth="92" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:RadioButton" id="1087" x="246" text="送相关部门协办" measuredWidth="104" measuredHeight="25" selected="true">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:RadioButton" id="1088" x="354" text="送营安部审批" measuredWidth="92" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:RadioButton" id="1089" x="454" text="送分管副总审批" measuredWidth="104" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Label" id="1090" x="10" y="24" text="指定协办部门和协办人：" measuredWidth="137" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:WidgetGroup" id="1113" x="601" y="24" measuredWidth="74" measuredHeight="25">
-        <widgets xsi:type="model:Link" id="1114" x="13" measuredWidth="3" measuredHeight="25">
-          <font/>
-        </widgets>
-        <widgets xsi:type="model:Icon" id="1115" x="58" y="5" measuredWidth="16" measuredHeight="16" icon="circled-mul (small)"/>
-        <widgets xsi:type="model:Icon" id="1116" x="39" y="5" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
-        <widgets xsi:type="model:Icon" id="1117" x="19" y="5" measuredWidth="16" measuredHeight="16" icon="download (small)"/>
-        <widgets xsi:type="model:Icon" id="1118" y="5" measuredWidth="16" measuredHeight="16" icon="upload (small)"/>
-      </widgets>
-    </widgets>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="1035" x="8" y="528" measuredWidth="705" measuredHeight="157">
-    <widgets xsi:type="model:Accordion" id="1036" width="705" height="157" text="{user}X部门协办" measuredWidth="705" measuredHeight="157" selection="0">
+  <widgets xsi:type="model:WidgetGroup" id="1035" x="8" y="760" measuredWidth="705" measuredHeight="121">
+    <widgets xsi:type="model:Accordion" id="1036" width="705" height="121" text="{user}X部门协办" measuredWidth="705" measuredHeight="121" selection="0">
       <items x="0" y="2" width="705" height="27" text="{user}X部门协办"/>
     </widgets>
     <widgets xsi:type="model:WidgetGroup" id="1037" x="488" y="4" measuredWidth="211" measuredHeight="25">
@@ -141,30 +58,16 @@
         <font/>
       </widgets>
     </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="1041" x="10" y="132" measuredWidth="681" measuredHeight="25">
-      <widgets xsi:type="model:Label" id="1042" text="{comments}测试协办意见" measuredWidth="93" measuredHeight="25">
-        <font size="9" bold="false"/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1043" x="638" text="{delete}删除" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1044" x="590" text="{eye}查看" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1045" x="542" text="{edit}编辑" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-    </widgets>
-    <widgets xsi:type="model:Group" id="1046" x="10" y="38" width="685" height="95" measuredWidth="685" measuredHeight="95">
-      <font/>
-    </widgets>
-    <widgets xsi:type="model:Table" id="1052" x="10" y="37" width="685" text="(w:20).序号,申请事项,(w:200).协办意见&#xA;1,测试申请事项1,(无意见)&#xA;2,测试申请事项2,建议......&#xA;3,测试申请事项3," measuredWidth="685" measuredHeight="96" selection="" horizontalLines="true" header="false">
+    <widgets xsi:type="model:TextArea" id="1199" x="10" y="37" width="685" height="76" text="【填写协办意见】" measuredWidth="685" measuredHeight="76">
       <font/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="1066" x="8" y="688" measuredWidth="705" measuredHeight="193">
-    <widgets xsi:type="model:Accordion" id="1067" width="705" height="193" text="{user}营安部审批" measuredWidth="705" measuredHeight="193" selection="0">
+  <widgets xsi:type="model:WidgetGroup" id="1066" x="8" y="888" measuredWidth="705" measuredHeight="153">
+    <widgets xsi:type="model:Accordion" id="1067" width="705" height="153" text="{user}营安部审批" measuredWidth="705" measuredHeight="153" selection="0">
       <items x="0" y="2" width="705" height="27" text="{user}营安部审批"/>
+    </widgets>
+    <widgets xsi:type="model:Group" id="1200" x="10" y="37" width="685" height="108" measuredWidth="685" measuredHeight="108">
+      <font/>
     </widgets>
     <widgets xsi:type="model:WidgetGroup" id="1068" x="488" y="4" measuredWidth="211" measuredHeight="25">
       <widgets xsi:type="model:Link" id="1069" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
@@ -177,77 +80,205 @@
         <font/>
       </widgets>
     </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="1072" x="10" y="168" measuredWidth="681" measuredHeight="25">
-      <widgets xsi:type="model:Label" id="1073" text="{comments}测试办理意见1" measuredWidth="100" measuredHeight="25">
-        <font size="9" bold="false"/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1074" x="638" text="{delete}删除" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1075" x="590" text="{eye}查看" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1076" x="542" text="{edit}编辑" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-    </widgets>
-    <widgets xsi:type="model:Group" id="1077" x="10" y="38" width="685" height="131" measuredWidth="685" measuredHeight="131">
-      <font/>
-    </widgets>
-    <widgets xsi:type="model:Table" id="1083" x="10" y="38" width="685" text="(w:20).序号,申请事项,(w:200).审批情况&#xA;1,测试申请事项1,同意&#xA;2,测试申请事项2,不同意&#xA;3,测试申请事项3,待定" measuredWidth="685" measuredHeight="96" selection="" horizontalLines="true" header="false">
-      <font/>
-    </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="1125" x="20" y="138" measuredWidth="489" measuredHeight="25">
+    <widgets xsi:type="model:WidgetGroup" id="1125" x="16" y="112" measuredWidth="465" measuredHeight="25">
       <widgets xsi:type="model:Label" id="1079" text="确定下一步的处理方式：" measuredWidth="137" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:RadioButton" id="1084" x="136" text="送部门经理落实执行" measuredWidth="128" measuredHeight="25">
+      <widgets xsi:type="model:RadioButton" id="1084" x="136" text="送部门经理落实" measuredWidth="104" measuredHeight="25">
         <font/>
       </widgets>
-      <widgets xsi:type="model:RadioButton" id="1085" x="276" text="送分管副总审批" measuredWidth="104" measuredHeight="25" selected="true">
+      <widgets xsi:type="model:RadioButton" id="1085" x="252" text="送分管副总审批" measuredWidth="104" measuredHeight="25" selected="true">
         <font/>
       </widgets>
-      <widgets xsi:type="model:WidgetGroup" id="1124" x="388" measuredWidth="101" measuredHeight="25">
+      <widgets xsi:type="model:WidgetGroup" id="1124" x="364" measuredWidth="101" measuredHeight="25">
         <widgets xsi:type="model:TextField" id="1122" width="101" text="小明" measuredWidth="101" measuredHeight="25">
           <font/>
         </widgets>
         <widgets xsi:type="model:Icon" id="1123" x="80" y="5" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
       </widgets>
     </widgets>
-  </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="1096" x="8" y="888" measuredWidth="705" measuredHeight="157">
-    <widgets xsi:type="model:Accordion" id="1097" width="705" height="157" text="{user}分管副总审批" measuredWidth="705" measuredHeight="157" selection="0">
-      <items x="0" y="2" width="705" height="27" text="{user}分管副总审批"/>
-    </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="1098" x="488" y="4" measuredWidth="211" measuredHeight="25">
-      <widgets xsi:type="model:Link" id="1099" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1100" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1101" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
-        <font/>
-      </widgets>
-    </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="1102" x="10" y="132" measuredWidth="681" measuredHeight="25">
-      <widgets xsi:type="model:Label" id="1103" text="{comments}测试办理意见1" measuredWidth="100" measuredHeight="25">
-        <font size="9" bold="false"/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1104" x="638" text="{delete}删除" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1105" x="590" text="{eye}查看" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-      <widgets xsi:type="model:Link" id="1106" x="542" text="{edit}编辑" measuredWidth="43" measuredHeight="25">
-        <font/>
-      </widgets>
-    </widgets>
-    <widgets xsi:type="model:Group" id="1107" x="10" y="38" width="685" height="95" measuredWidth="685" measuredHeight="95">
+    <widgets xsi:type="model:TextArea" id="1201" x="20" y="47" width="665" height="63" text="【填写审批意见】" measuredWidth="665" measuredHeight="63">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Table" id="1109" x="10" y="37" width="685" text="(w:20).序号,申请事项,(w:200).审批情况&#xA;1,测试申请事项1,同意&#xA;2,测试申请事项2,不同意&#xA;3,测试申请事项3,待定" measuredWidth="685" measuredHeight="96" selection="" horizontalLines="true" header="false">
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1133" x="8" y="168" measuredWidth="705" measuredHeight="289">
+    <widgets xsi:type="model:Accordion" id="1134" width="705" height="289" text="{user}提出申请事项（申请人是部门经理时）" measuredWidth="705" measuredHeight="289" selection="0">
+      <items x="0" y="2" width="705" height="27" text="{user}提出申请事项（申请人是部门经理时）"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1135" x="488" y="4" measuredWidth="211" measuredHeight="25">
+      <widgets xsi:type="model:Link" id="1136" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1137" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1138" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Group" id="1139" x="10" y="38" width="685" height="239" measuredWidth="685" measuredHeight="239">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1146" x="10" y="137" measuredWidth="685" measuredHeight="144">
+      <widgets xsi:type="model:Label" id="1147" x="10" text="确定下一步的处理方式：" measuredWidth="137" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Table" id="1148" y="48" width="685" text="(w:20).  ,(w:200).协办部门,协办人&#xA;,信息技术部,张三，小红&#xA;,财务部,李四&#xA;,人力资源部,小明" measuredWidth="685" measuredHeight="96" selection="" horizontalLines="true" header="false">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1150" x="150" text="送相关部门协办" measuredWidth="104" measuredHeight="25" selected="true">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1151" x="258" text="送营安部审批" measuredWidth="92" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1152" x="358" text="送分管副总审批" measuredWidth="104" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1153" x="10" y="24" text="指定协办部门和协办人：" measuredWidth="137" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:WidgetGroup" id="1154" x="601" y="24" measuredWidth="74" measuredHeight="25">
+        <widgets xsi:type="model:Link" id="1155" x="13" measuredWidth="3" measuredHeight="25">
+          <font/>
+        </widgets>
+        <widgets xsi:type="model:Icon" id="1156" x="58" y="5" measuredWidth="16" measuredHeight="16" icon="circled-mul (small)"/>
+        <widgets xsi:type="model:Icon" id="1157" x="39" y="5" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
+        <widgets xsi:type="model:Icon" id="1158" x="19" y="5" measuredWidth="16" measuredHeight="16" icon="download (small)"/>
+        <widgets xsi:type="model:Icon" id="1159" y="5" measuredWidth="16" measuredHeight="16" icon="upload (small)"/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1168" x="470" text="送董事长审批" measuredWidth="92" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1160" x="16" y="48" text="事项标题：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1161" x="547" y="48" text="申请部门：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1162" x="80" y="48" width="457" text="宝城公司粤A.XXXX某某特殊事项申请" measuredWidth="457" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1163" x="16" y="75" text="申请事由：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1164" x="611" y="48" measuredWidth="77" measuredHeight="25">
+      <widgets xsi:type="model:TextField" id="1165" width="77" text="一分公司" measuredWidth="77" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="1166" x="56" y="5" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
+    </widgets>
+    <widgets xsi:type="model:TextArea" id="1167" x="80" y="75" width="608" height="63" text="  " measuredWidth="608" measuredHeight="63">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1169" x="8" y="464" measuredWidth="705" measuredHeight="289">
+    <widgets xsi:type="model:Accordion" id="1170" width="705" height="289" text="{user}部门经理确认" measuredWidth="705" measuredHeight="289" selection="0">
+      <items x="0" y="2" width="705" height="27" text="{user}部门经理确认"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1171" x="488" y="4" measuredWidth="211" measuredHeight="25">
+      <widgets xsi:type="model:Link" id="1172" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1173" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1174" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Group" id="1175" x="10" y="38" width="685" height="239" measuredWidth="685" measuredHeight="239">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1176" x="10" y="110" measuredWidth="685" measuredHeight="144">
+      <widgets xsi:type="model:Label" id="1177" x="10" text="确定下一步的处理方式：" measuredWidth="137" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Table" id="1178" y="48" width="685" text="(w:20).  ,(w:200).协办部门,协办人&#xA;,信息技术部,张三，小红&#xA;,财务部,李四&#xA;,人力资源部,小明" measuredWidth="685" measuredHeight="96" selection="" horizontalLines="true" header="false">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1179" x="146" text="部门内部办理" measuredWidth="92" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1180" x="246" text="送相关部门协办" measuredWidth="104" measuredHeight="25" selected="true">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1181" x="354" text="送营安部审批" measuredWidth="92" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1182" x="454" text="送分管副总审批" measuredWidth="104" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1183" x="10" y="24" text="指定协办部门和协办人：" measuredWidth="137" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:WidgetGroup" id="1184" x="601" y="24" measuredWidth="74" measuredHeight="25">
+        <widgets xsi:type="model:Link" id="1185" x="13" measuredWidth="3" measuredHeight="25">
+          <font/>
+        </widgets>
+        <widgets xsi:type="model:Icon" id="1186" x="58" y="5" measuredWidth="16" measuredHeight="16" icon="circled-mul (small)"/>
+        <widgets xsi:type="model:Icon" id="1187" x="39" y="5" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
+        <widgets xsi:type="model:Icon" id="1188" x="19" y="5" measuredWidth="16" measuredHeight="16" icon="download (small)"/>
+        <widgets xsi:type="model:Icon" id="1189" y="5" measuredWidth="16" measuredHeight="16" icon="upload (small)"/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1190" x="566" text="送董事长审批" measuredWidth="92" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:TextArea" id="1198" x="20" y="48" width="665" height="63" text="【部门经理意见】" measuredWidth="665" measuredHeight="63">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1215" x="8" y="1048" measuredWidth="705" measuredHeight="153">
+    <widgets xsi:type="model:Accordion" id="1216" width="705" height="153" text="{user}分管副总审批" measuredWidth="705" measuredHeight="153" selection="0">
+      <items x="0" y="2" width="705" height="27" text="{user}分管副总审批"/>
+    </widgets>
+    <widgets xsi:type="model:Group" id="1217" x="10" y="37" width="685" height="108" measuredWidth="685" measuredHeight="108">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1218" x="488" y="4" measuredWidth="211" measuredHeight="25">
+      <widgets xsi:type="model:Link" id="1219" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1220" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1221" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1222" x="16" y="112" measuredWidth="344" measuredHeight="25">
+      <widgets xsi:type="model:Label" id="1223" text="确定下一步的处理方式：" measuredWidth="137" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1224" x="136" text="送部门经理落实" measuredWidth="104" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1225" x="252" text="送董事长审批" measuredWidth="92" measuredHeight="25" selected="true">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:TextArea" id="1229" x="20" y="47" width="665" height="63" text="【填写审批意见】" measuredWidth="665" measuredHeight="63">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1230" x="8" y="1208" measuredWidth="705" measuredHeight="129">
+    <widgets xsi:type="model:Accordion" id="1231" width="705" height="129" text="{user}董事长审批" measuredWidth="705" measuredHeight="129" selection="0">
+      <items x="0" y="2" width="705" height="27" text="{user}董事长审批"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1233" x="488" y="4" measuredWidth="211" measuredHeight="25">
+      <widgets xsi:type="model:Link" id="1234" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1235" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1236" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:TextArea" id="1242" x="10" y="39" width="685" height="76" text="【填写审批意见】" measuredWidth="685" measuredHeight="76">
       <font/>
     </widgets>
   </widgets>
