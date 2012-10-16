@@ -46,7 +46,7 @@ public class Assign2ChargerListener implements TaskListener {
 	 * 优先分配到指定办理人变量名(必须为全局变量)
 	 */
 	private Expression assignee;
-	
+
 	/**
 	 * 多个经理岗位名称,逗号隔开
 	 */
@@ -56,8 +56,6 @@ public class Assign2ChargerListener implements TaskListener {
 	 * 保存组织ID的流程变量名(必须为全局变量)
 	 */
 	private Expression orgVariableName;
-	
-	
 
 	public void notify(DelegateTask delegateTask) {
 		if (logger.isDebugEnabled()) {
@@ -65,46 +63,47 @@ public class Assign2ChargerListener implements TaskListener {
 					+ (orgVariableName != null ? orgVariableName
 							.getExpressionText() : null));
 			logger.debug("groupNames="
-					+ (groupNames != null ? groupNames.getExpressionText() : null));
+					+ (groupNames != null ? groupNames.getExpressionText()
+							: null));
 			logger.debug("taskDefinitionKey="
 					+ delegateTask.getTaskDefinitionKey());
 			logger.debug("taskId=" + delegateTask.getId());
 			logger.debug("eventName=" + delegateTask.getEventName());
 		}
 
-		List<Actor> groups=new ArrayList<Actor>();
+		List<Actor> groups = new ArrayList<Actor>();
 		Actor group;
 		ActorService actorService = SpringUtils.getBean("actorService",
 				ActorService.class);
-		
+
 		// 按岗位名称获取岗位
 		Long orgId = orgVariableName != null ? (Long) delegateTask
 				.getVariable(orgVariableName.getExpressionText()) : null;
 
-		if(assignee != null){
-			Object objCode=delegateTask.getVariable(assignee.getExpressionText());
-			if(objCode != null){//全局变量中有此值
+		if (assignee != null) {
+			Object objCode = delegateTask.getVariable(assignee
+					.getExpressionText());
+			if (objCode != null) {// 全局变量中有此值
 				group = actorService.loadByCode(objCode.toString());
-				//直接分配到此用户
+				// 直接分配到此用户
 				delegateTask.setAssignee(group.getCode());
 				return;
 			}
 		}
 
-	  String[] groupNamesArr=groupNames.getExpressionText().split(",");  
-	  String groupName="";
-	  for(String gn:groupNamesArr){
-		  groups = actorService.findFollowerWithName(orgId,
-					gn,
+		String[] groupNamesArr = groupNames.getExpressionText().split(",");
+		String groupName = "";
+		for (String gn : groupNamesArr) {
+			groups = actorService.findFollowerWithName(orgId, gn,
 					new Integer[] { ActorRelation.TYPE_BELONG },
 					new Integer[] { Actor.TYPE_GROUP },
 					new Integer[] { BCConstants.STATUS_ENABLED });
-		  
-		  if(!groups.isEmpty()){
-			  groupName=gn;
-			  break;
-		  }
-	  }
+
+			if (!groups.isEmpty()) {
+				groupName = gn;
+				break;
+			}
+		}
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("groups.size=" + groups.size());
@@ -112,16 +111,15 @@ public class Assign2ChargerListener implements TaskListener {
 		if (groups.isEmpty()) {
 			throw new CoreException("你所在的部门或单位没有配置的负责人岗位！");
 		} else if (groups.size() > 1) {
-			throw new CoreException("id=" + orgId + "的单位下有多个名称为“"
-					+ groupName + "”的岗位");
+			throw new CoreException("id=" + orgId + "的单位下有多个名称为“" + groupName
+					+ "”的岗位");
 		}
-		
-		
+
 		group = groups.get(0);
 		if (logger.isDebugEnabled()) {
 			logger.debug("group=" + group.getCode() + "," + group.getName());
 		}
-		
+
 		// 获取用户信息
 		List<Actor> users = actorService.findFollower(group.getId(),
 				new Integer[] { ActorRelation.TYPE_BELONG },
