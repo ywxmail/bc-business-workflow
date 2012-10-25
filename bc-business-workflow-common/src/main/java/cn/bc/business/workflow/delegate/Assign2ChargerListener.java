@@ -109,7 +109,7 @@ public class Assign2ChargerListener implements TaskListener {
 			logger.debug("groups.size=" + groups.size());
 		}
 		if (groups.isEmpty()) {
-			throw new CoreException("你所在的部门或单位没有配置的负责人岗位！");
+			throw new CoreException("你所在的部门没有配置“部门经理”岗位！");
 		} else if (groups.size() > 1) {
 			throw new CoreException("id=" + orgId + "的单位下有多个名称为“" + groupName
 					+ "”的岗位");
