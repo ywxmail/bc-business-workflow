@@ -32,6 +32,8 @@ import cn.bc.identity.service.ActorService;
  * 
  * @author lbj
  * 
+ * @deprecated 此累只针对公文处理流程，已在公文处理流程中创建此类
+ * 
  */
 public class Assign2ChargerListener implements TaskListener {
 	private static final Log logger = LogFactory
