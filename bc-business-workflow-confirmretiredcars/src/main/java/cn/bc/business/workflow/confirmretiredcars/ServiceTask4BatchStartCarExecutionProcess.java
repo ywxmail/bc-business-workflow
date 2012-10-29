@@ -89,24 +89,19 @@ public class ServiceTask4BatchStartCarExecutionProcess implements
 			}
 			carList.add(carVdMap);
 		}		
-		Map<String,Object> params;
 		Map<String, Object> variables;
 		for(Map<String, Object> car:carList){
-			//设置标题的替换参数
-			params= new HashMap<String, Object>();
-			params.put("plate", car.get("plate"));
-			params.put("unitCompany", car.get("unitCompany"));
 			// 设置流程变量
 			variables = new HashMap<String, Object>();
 			variables.put("from", execution.getProcessInstanceId());// 来源信息
 			variables.put("car", car);// 车辆信息
 			variables.put("verifyUnitId", verifyUnitId);//分公司ID
 			if("fireCarRetiredProcess".equals(car.get("executionType").toString())){
-				variables.put("subject", TemplateUtils.format(carRetiredSubject.getExpressionText(), params));
+				variables.put("subject", TemplateUtils.format(carRetiredSubject.getExpressionText(), car));
 				//发起车辆退出流程
 				runtimeService.startProcessInstanceByKey(carRetiredKey.getExpressionText(), variables);
 			}else if("fireCarRenewProcess".equals(car.get("executionType").toString())){
-				variables.put("subject", TemplateUtils.format(carRenewSubject.getExpressionText(), params));
+				variables.put("subject", TemplateUtils.format(carRenewSubject.getExpressionText(), car));
 				//发起车辆续保流程
 				runtimeService.startProcessInstanceByKey(carRenewKey.getExpressionText(), variables);
 			}

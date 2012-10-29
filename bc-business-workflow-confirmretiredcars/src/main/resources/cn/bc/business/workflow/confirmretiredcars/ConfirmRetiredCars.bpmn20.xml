@@ -12,14 +12,14 @@
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="t1GatherCars" name="汇总月即将退出营运车辆" activiti:assignee="${initiator}" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/GatherCars.form">
+    <userTask id="t1GatherCars" name="汇总月即将退出营运车辆" activiti:assignee="${initiator}" activiti:formKey="fm:wf:ConfirmRetiredCars/GatherCars">
       <documentation>确认即将退出营运的车辆</documentation>
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t2VerifyDate" name="确认交车日期" activiti:dueDate="${dueDate}" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/VerifyDate.form">
+    <userTask id="t2VerifyDate" name="确认交车日期" activiti:dueDate="${dueDate}" activiti:formKey="fm:wf:ConfirmRetiredCars/VerifyDate">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -38,20 +38,20 @@
         <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.AutoTaskLogListener"></activiti:executionListener>
         <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.AutoTaskLogListener"></activiti:executionListener>
         <activiti:field name="carRetiredSubject">
-          <activiti:expression>${plate}退出营运验收审批（${unitCompany}）</activiti:expression>
+          <activiti:expression>${plate}交车处理(${unitCompany}${sureReturnDate})</activiti:expression>
         </activiti:field>
         <activiti:field name="carRetiredKey">
           <activiti:string>CarRetired</activiti:string>
         </activiti:field>
         <activiti:field name="carRenewSubject">
-          <activiti:expression>${plate}续保处理（${unitCompany}）</activiti:expression>
+          <activiti:expression>${plate}续保处理(${unitCompany})</activiti:expression>
         </activiti:field>
         <activiti:field name="carRenewKey">
           <activiti:string>CarRenew</activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="t3ManagerVerify" name="分公司经理确认" activiti:dueDate="${dueDate}" activiti:formKey="fm:file:bc-business-workflow/confirmretiredcars/fallback.form">
+    <userTask id="t3ManagerConfirm" name="分公司经理确认" activiti:dueDate="${dueDate}" activiti:formKey="fm:wf:ConfirmRetiredCars/ManagerConfirm">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="orgVariableName">
@@ -68,8 +68,8 @@
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway" default="agreeFlow"></exclusiveGateway>
     <sequenceFlow id="flow1" name="月即将退出营运车辆确认流程" sourceRef="startevent1" targetRef="t1GatherCars"></sequenceFlow>
     <sequenceFlow id="flow2" name="" sourceRef="t1GatherCars" targetRef="t2VerifyDate"></sequenceFlow>
-    <sequenceFlow id="flow11" name="" sourceRef="t2VerifyDate" targetRef="t3ManagerVerify"></sequenceFlow>
-    <sequenceFlow id="flow13" name="" sourceRef="t3ManagerVerify" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow11" name="" sourceRef="t2VerifyDate" targetRef="t3ManagerConfirm"></sequenceFlow>
+    <sequenceFlow id="flow13" name="" sourceRef="t3ManagerConfirm" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="fallbackFlow" name="退回重新确认" sourceRef="exclusivegateway1" targetRef="t2VerifyDate">
       <extensionElements>
         <activiti:executionListener event="take" class="cn.bc.workflow.activiti.delegate.FlowLogListener"></activiti:executionListener>
@@ -98,7 +98,7 @@
       <bpmndi:BPMNShape bpmnElement="autoCarsOperation" id="BPMNShape_autoCarsOperation">
         <omgdc:Bounds height="55" width="161" x="20" y="400"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t3ManagerVerify" id="BPMNShape_t3ManagerVerify">
+      <bpmndi:BPMNShape bpmnElement="t3ManagerConfirm" id="BPMNShape_t3ManagerConfirm">
         <omgdc:Bounds height="55" width="161" x="20" y="250"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
