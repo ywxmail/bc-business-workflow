@@ -70,7 +70,6 @@ public class StartCarManDealWithCertListener implements ExecutionListener {
 				variables.put(vKey,execution.getVariable(_vKeys.get(vKey).toString()));
 			}
 		}
-		System.out.println("123");
 		runtimeService.startProcessInstanceByKey(key.getExpressionText(), variables);
 		
 	}
