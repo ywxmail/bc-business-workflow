@@ -9,9 +9,23 @@
           <activiti:string>GeneralOrder_commonTemplate</activiti:string>
         </activiti:field>
       </activiti:executionListener>
+      <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.IdGeneratorProcessListener">
+        <activiti:field name="type4Date">
+          <activiti:string>yyyyMM</activiti:string>
+        </activiti:field>
+        <activiti:field name="formatNumber">
+          <activiti:string>0000</activiti:string>
+        </activiti:field>
+        <activiti:field name="pattern">
+          <activiti:expression>GW${yyyy}${MM}${formatNumber}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="type4Code">
+          <activiti:string>GeneralOrder</activiti:string>
+        </activiti:field>
+      </activiti:executionListener>
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
-    <userTask id="t010ApplyMatter" name="提出申请事项" activiti:assignee="${initiator}" activiti:formKey="fm:wf:GeneralOrder/ApplyMatter">
+    <userTask id="t01ApplyMatter" name="提出申请事项" activiti:assignee="${initiator}" activiti:formKey="fm:wf:GeneralOrder/ApplyMatter">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -57,7 +71,7 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t020ManagerConfirm_s" name="部门经理确认" activiti:formKey="fm:wf:GeneralOrder/ManagerConfirm">
+    <userTask id="t02ManagerConfirm_s" name="部门经理确认" activiti:formKey="fm:wf:GeneralOrder/ManagerConfirm">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.business.workflow.generalorder.delegate.Assign2ChargerListener">
           <activiti:field name="assignee">
@@ -79,7 +93,7 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t050GeneralManagerGroupCheck_s" name="总经理组审批" activiti:formKey="fm:wf:GeneralOrder/GeneralManagerGroupCheck">
+    <userTask id="t05GeneralManagerGroupCheck_s" name="总经理组审批" activiti:formKey="fm:wf:GeneralOrder/GeneralManagerGroupCheck">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -92,6 +106,19 @@
       </extensionElements>
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_gmgc4assignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
     </userTask>
+    <userTask id="t03DepartmentCooperation_s" name="相关部门协办" activiti:formKey="fm:wf:GeneralOrder/DepartmentCooperation">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
+          <activiti:field name="hiddenButtonCodes">
+            <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
+    </userTask>
     <userTask id="t09SponserFile" name="申请人归档" activiti:assignee="${sponser}">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -103,7 +130,7 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t040OperationDirectorCheck_s" name="营运总监审批" activiti:formKey="fm:wf:GeneralOrder/OperationDirectorCheck">
+    <userTask id="t04OperationDirectorCheck_s" name="营运总监审批" activiti:formKey="fm:wf:GeneralOrder/OperationDirectorCheck">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -120,7 +147,7 @@
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway" default="flow71"></exclusiveGateway>
     <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway" default="to_managerConfirm_flow"></exclusiveGateway>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway" default="flow72"></exclusiveGateway>
-    <userTask id="t060ChairmanCheck_s" name="董事长审批" activiti:formKey="fm:wf:GeneralOrder/ChairmanCheck">
+    <userTask id="t06ChairmanCheck_s" name="董事长审批" activiti:formKey="fm:wf:GeneralOrder/ChairmanCheck">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -141,106 +168,65 @@
     </userTask>
     <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway" default="flow64"></exclusiveGateway>
     <endEvent id="endevent1" name="End"></endEvent>
-    <subProcess id="subprocess1" name="协办子流程">
-      <extensionElements>
-        <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
-        <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
-      </extensionElements>
-      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_dc4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
-      <userTask id="t030DepartmentCooperation_s" name="相关部门协办" activiti:formKey="fm:wf:GeneralOrder/DepartmentCooperation">
-        <extensionElements>
-          <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
-          <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-          <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-          <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
-            <activiti:field name="hiddenButtonCodes">
-              <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
-            </activiti:field>
-          </activiti:taskListener>
-        </extensionElements>
-        <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_dc4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
-      </userTask>
-      <userTask id="t031CooperationDepartmentInternalProcessing_s" name="协办部门内部处理" activiti:formKey="fm:wf:GeneralOrder/CooperationDepartmentInternalProcessing">
-        <extensionElements>
-          <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
-          <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-          <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-          <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
-            <activiti:field name="hiddenButtonCodes">
-              <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
-            </activiti:field>
-          </activiti:taskListener>
-        </extensionElements>
-        <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_cdip4assignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
-      </userTask>
-      <exclusiveGateway id="exclusivegateway7" name="Exclusive Gateway" default="flow66"></exclusiveGateway>
-      <startEvent id="startevent2" name="Start"></startEvent>
-      <endEvent id="endevent2" name="End"></endEvent>
-      <sequenceFlow id="flow74" name="" sourceRef="t030DepartmentCooperation_s" targetRef="exclusivegateway7"></sequenceFlow>
-      <sequenceFlow id="flow76" name="" sourceRef="t031CooperationDepartmentInternalProcessing_s" targetRef="t030DepartmentCooperation_s"></sequenceFlow>
-      <sequenceFlow id="flow75" name="" sourceRef="exclusivegateway7" targetRef="t031CooperationDepartmentInternalProcessing_s">
-        <conditionExpression xsi:type="tFormalExpression"><![CDATA[${is_DC_to_CDIP_flow}]]></conditionExpression>
-      </sequenceFlow>
-      <sequenceFlow id="flow77" name="" sourceRef="startevent2" targetRef="t030DepartmentCooperation_s"></sequenceFlow>
-      <sequenceFlow id="flow78" name="" sourceRef="t031CooperationDepartmentInternalProcessing_s" targetRef="endevent2"></sequenceFlow>
-      <sequenceFlow id="flow79" name="" sourceRef="exclusivegateway7" targetRef="endevent2"></sequenceFlow>
-    </subProcess>
-    <sequenceFlow id="OSC_to_ICDGMC_flow" name="" sourceRef="exclusivegateway3" targetRef="t050GeneralManagerGroupCheck_s">
+    <sequenceFlow id="OSC_to_ICDGMC_flow" name="" sourceRef="exclusivegateway3" targetRef="t05GeneralManagerGroupCheck_s">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${is_ODC_to_GMGC_flow}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow28" name="" sourceRef="t020ManagerConfirm_s" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow29" name="" sourceRef="exclusivegateway2" targetRef="t040OperationDirectorCheck_s">
+    <sequenceFlow id="flow28" name="" sourceRef="t02ManagerConfirm_s" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow29" name="" sourceRef="exclusivegateway2" targetRef="t04OperationDirectorCheck_s">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${is_ODC_flow}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow30" name="" sourceRef="t040OperationDirectorCheck_s" targetRef="exclusivegateway3"></sequenceFlow>
+    <sequenceFlow id="flow30" name="" sourceRef="t04OperationDirectorCheck_s" targetRef="exclusivegateway3"></sequenceFlow>
     <sequenceFlow id="SponserFile_flow" name="" sourceRef="exclusivegateway2" targetRef="exclusivegateway6"></sequenceFlow>
-    <sequenceFlow id="flow32" name="" sourceRef="exclusivegateway2" targetRef="t050GeneralManagerGroupCheck_s">
+    <sequenceFlow id="flow32" name="" sourceRef="exclusivegateway2" targetRef="t05GeneralManagerGroupCheck_s">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${is_GMGC_flow}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow34" name="" sourceRef="exclusivegateway2" targetRef="subprocess1">
+    <sequenceFlow id="flow34" name="" sourceRef="exclusivegateway2" targetRef="t03DepartmentCooperation_s">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${is_DC_flow}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow46" name="" sourceRef="startevent1" targetRef="t010ApplyMatter"></sequenceFlow>
-    <sequenceFlow id="flow47" name="" sourceRef="t010ApplyMatter" targetRef="exclusivegateway4"></sequenceFlow>
-    <sequenceFlow id="to_managerConfirm_flow" name="" sourceRef="exclusivegateway4" targetRef="t020ManagerConfirm_s"></sequenceFlow>
+    <sequenceFlow id="flow46" name="" sourceRef="startevent1" targetRef="t01ApplyMatter"></sequenceFlow>
+    <sequenceFlow id="flow47" name="" sourceRef="t01ApplyMatter" targetRef="exclusivegateway4"></sequenceFlow>
+    <sequenceFlow id="to_managerConfirm_flow" name="" sourceRef="exclusivegateway4" targetRef="t02ManagerConfirm_s"></sequenceFlow>
     <sequenceFlow id="flow49" name="" sourceRef="exclusivegateway4" targetRef="exclusivegateway2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isManager}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow50" name="" sourceRef="t050GeneralManagerGroupCheck_s" targetRef="exclusivegateway5"></sequenceFlow>
-    <sequenceFlow id="ICDGMC_to_CC_flow" name="" sourceRef="exclusivegateway5" targetRef="t060ChairmanCheck_s">
+    <sequenceFlow id="flow50" name="" sourceRef="t05GeneralManagerGroupCheck_s" targetRef="exclusivegateway5"></sequenceFlow>
+    <sequenceFlow id="ICDGMC_to_CC_flow" name="" sourceRef="exclusivegateway5" targetRef="t06ChairmanCheck_s">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${is_GMGC_to_CC_flow}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow54" name="" sourceRef="exclusivegateway2" targetRef="t060ChairmanCheck_s">
+    <sequenceFlow id="flow54" name="" sourceRef="exclusivegateway2" targetRef="t06ChairmanCheck_s">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${is_CC_flow}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow64" name="" sourceRef="exclusivegateway6" targetRef="t09SponserFile"></sequenceFlow>
     <sequenceFlow id="flow65" name="" sourceRef="t09SponserFile" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow66" name="" sourceRef="t03DepartmentCooperation_s" targetRef="t02ManagerConfirm_s"></sequenceFlow>
     <sequenceFlow id="flow70" name="" sourceRef="exclusivegateway6" targetRef="endevent1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isManager}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow71" name="" sourceRef="exclusivegateway3" targetRef="t020ManagerConfirm_s"></sequenceFlow>
-    <sequenceFlow id="flow72" name="" sourceRef="exclusivegateway5" targetRef="t020ManagerConfirm_s"></sequenceFlow>
-    <sequenceFlow id="flow73" name="" sourceRef="t060ChairmanCheck_s" targetRef="t020ManagerConfirm_s"></sequenceFlow>
-    <sequenceFlow id="flow66" name="" sourceRef="subprocess1" targetRef="t020ManagerConfirm_s"></sequenceFlow>
+    <sequenceFlow id="flow71" name="" sourceRef="exclusivegateway3" targetRef="t02ManagerConfirm_s"></sequenceFlow>
+    <sequenceFlow id="flow72" name="" sourceRef="exclusivegateway5" targetRef="t02ManagerConfirm_s"></sequenceFlow>
+    <sequenceFlow id="flow73" name="" sourceRef="t06ChairmanCheck_s" targetRef="t02ManagerConfirm_s"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_GeneralOrder">
     <bpmndi:BPMNPlane bpmnElement="GeneralOrder" id="BPMNPlane_GeneralOrder">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35" width="35" x="70" y="10"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t010ApplyMatter" id="BPMNShape_t010ApplyMatter">
+      <bpmndi:BPMNShape bpmnElement="t01ApplyMatter" id="BPMNShape_t01ApplyMatter">
         <omgdc:Bounds height="55" width="105" x="200" y="0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t020ManagerConfirm_s" id="BPMNShape_t020ManagerConfirm_s">
+      <bpmndi:BPMNShape bpmnElement="t02ManagerConfirm_s" id="BPMNShape_t02ManagerConfirm_s">
         <omgdc:Bounds height="55" width="105" x="200" y="156"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t050GeneralManagerGroupCheck_s" id="BPMNShape_t050GeneralManagerGroupCheck_s">
+      <bpmndi:BPMNShape bpmnElement="t05GeneralManagerGroupCheck_s" id="BPMNShape_t05GeneralManagerGroupCheck_s">
         <omgdc:Bounds height="55" width="105" x="200" y="333"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t03DepartmentCooperation_s" id="BPMNShape_t03DepartmentCooperation_s">
+        <omgdc:Bounds height="55" width="105" x="500" y="333"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t09SponserFile" id="BPMNShape_t09SponserFile">
         <omgdc:Bounds height="55" width="105" x="200" y="690"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t040OperationDirectorCheck_s" id="BPMNShape_t040OperationDirectorCheck_s">
+      <bpmndi:BPMNShape bpmnElement="t04OperationDirectorCheck_s" id="BPMNShape_t04OperationDirectorCheck_s">
         <omgdc:Bounds height="55" width="105" x="35" y="333"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
@@ -255,7 +241,7 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
         <omgdc:Bounds height="40" width="40" x="232" y="412"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t060ChairmanCheck_s" id="BPMNShape_t060ChairmanCheck_s">
+      <bpmndi:BPMNShape bpmnElement="t06ChairmanCheck_s" id="BPMNShape_t06ChairmanCheck_s">
         <omgdc:Bounds height="55" width="105" x="350" y="333"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway6" id="BPMNShape_exclusivegateway6">
@@ -264,52 +250,6 @@
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35" width="35" x="367" y="700"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="subprocess1" id="BPMNShape_subprocess1" isExpanded="true">
-        <omgdc:Bounds height="260" width="301" x="470" y="201"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t030DepartmentCooperation_s" id="BPMNShape_t030DepartmentCooperation_s">
-        <omgdc:Bounds height="55" width="105" x="580" y="259"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t031CooperationDepartmentInternalProcessing_s" id="BPMNShape_t031CooperationDepartmentInternalProcessing_s">
-        <omgdc:Bounds height="55" width="105" x="580" y="340"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway7" id="BPMNShape_exclusivegateway7">
-        <omgdc:Bounds height="40" width="40" x="520" y="320"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
-        <omgdc:Bounds height="35" width="35" x="615" y="210"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35" width="35" x="615" y="420"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow74" id="BPMNEdge_flow74">
-        <omgdi:waypoint x="580" y="286"></omgdi:waypoint>
-        <omgdi:waypoint x="540" y="285"></omgdi:waypoint>
-        <omgdi:waypoint x="540" y="320"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow76" id="BPMNEdge_flow76">
-        <omgdi:waypoint x="632" y="340"></omgdi:waypoint>
-        <omgdi:waypoint x="632" y="314"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow75" id="BPMNEdge_flow75">
-        <omgdi:waypoint x="540" y="360"></omgdi:waypoint>
-        <omgdi:waypoint x="540" y="368"></omgdi:waypoint>
-        <omgdi:waypoint x="580" y="367"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow77" id="BPMNEdge_flow77">
-        <omgdi:waypoint x="632" y="245"></omgdi:waypoint>
-        <omgdi:waypoint x="632" y="259"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow78" id="BPMNEdge_flow78">
-        <omgdi:waypoint x="632" y="395"></omgdi:waypoint>
-        <omgdi:waypoint x="632" y="420"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow79" id="BPMNEdge_flow79">
-        <omgdi:waypoint x="520" y="340"></omgdi:waypoint>
-        <omgdi:waypoint x="513" y="338"></omgdi:waypoint>
-        <omgdi:waypoint x="513" y="437"></omgdi:waypoint>
-        <omgdi:waypoint x="615" y="437"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="OSC_to_ICDGMC_flow" id="BPMNEdge_OSC_to_ICDGMC_flow">
         <omgdi:waypoint x="107" y="432"></omgdi:waypoint>
         <omgdi:waypoint x="167" y="432"></omgdi:waypoint>
@@ -343,8 +283,8 @@
       <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
         <omgdi:waypoint x="272" y="293"></omgdi:waypoint>
         <omgdi:waypoint x="442" y="293"></omgdi:waypoint>
-        <omgdi:waypoint x="469" y="293"></omgdi:waypoint>
-        <omgdi:waypoint x="470" y="331"></omgdi:waypoint>
+        <omgdi:waypoint x="552" y="293"></omgdi:waypoint>
+        <omgdi:waypoint x="552" y="333"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
         <omgdi:waypoint x="105" y="27"></omgdi:waypoint>
@@ -388,6 +328,13 @@
         <omgdi:waypoint x="305" y="717"></omgdi:waypoint>
         <omgdi:waypoint x="367" y="717"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow66" id="BPMNEdge_flow66">
+        <omgdi:waypoint x="552" y="388"></omgdi:waypoint>
+        <omgdi:waypoint x="552" y="488"></omgdi:waypoint>
+        <omgdi:waypoint x="634" y="488"></omgdi:waypoint>
+        <omgdi:waypoint x="634" y="183"></omgdi:waypoint>
+        <omgdi:waypoint x="305" y="183"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow70" id="BPMNEdge_flow70">
         <omgdi:waypoint x="272" y="640"></omgdi:waypoint>
         <omgdi:waypoint x="384" y="639"></omgdi:waypoint>
@@ -396,29 +343,21 @@
       <bpmndi:BPMNEdge bpmnElement="flow71" id="BPMNEdge_flow71">
         <omgdi:waypoint x="87" y="452"></omgdi:waypoint>
         <omgdi:waypoint x="87" y="488"></omgdi:waypoint>
-        <omgdi:waypoint x="790" y="488"></omgdi:waypoint>
-        <omgdi:waypoint x="790" y="183"></omgdi:waypoint>
+        <omgdi:waypoint x="634" y="488"></omgdi:waypoint>
+        <omgdi:waypoint x="634" y="183"></omgdi:waypoint>
         <omgdi:waypoint x="305" y="183"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow72" id="BPMNEdge_flow72">
         <omgdi:waypoint x="252" y="452"></omgdi:waypoint>
         <omgdi:waypoint x="252" y="488"></omgdi:waypoint>
-        <omgdi:waypoint x="790" y="488"></omgdi:waypoint>
-        <omgdi:waypoint x="790" y="183"></omgdi:waypoint>
+        <omgdi:waypoint x="634" y="488"></omgdi:waypoint>
+        <omgdi:waypoint x="634" y="183"></omgdi:waypoint>
         <omgdi:waypoint x="305" y="183"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow73" id="BPMNEdge_flow73">
         <omgdi:waypoint x="402" y="388"></omgdi:waypoint>
         <omgdi:waypoint x="402" y="488"></omgdi:waypoint>
-        <omgdi:waypoint x="790" y="488"></omgdi:waypoint>
-        <omgdi:waypoint x="790" y="183"></omgdi:waypoint>
-        <omgdi:waypoint x="305" y="183"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow66" id="BPMNEdge_flow66">
-        <omgdi:waypoint x="620" y="461"></omgdi:waypoint>
-        <omgdi:waypoint x="632" y="488"></omgdi:waypoint>
-        <omgdi:waypoint x="790" y="488"></omgdi:waypoint>
-        <omgdi:waypoint x="790" y="183"></omgdi:waypoint>
+        <omgdi:waypoint x="634" y="488"></omgdi:waypoint>
         <omgdi:waypoint x="634" y="183"></omgdi:waypoint>
         <omgdi:waypoint x="305" y="183"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
