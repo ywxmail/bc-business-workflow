@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:WidgetGroup" id="879" x="8" y="8" measuredWidth="705" measuredHeight="161">
+    <widgets xsi:type="model:Accordion" id="880" width="705" height="161" text="{user}安全管理组指定交通违法信息" measuredWidth="705" measuredHeight="161" selection="0">
+      <items x="0" y="2" width="705" height="27" text="{user}安全管理组指定交通违法信息"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="936" x="488" y="4" measuredWidth="211" measuredHeight="25">
+      <widgets xsi:type="model:Link" id="933" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="934" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="935" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Group" id="1020" x="10" y="37" width="685" height="115" measuredWidth="685" measuredHeight="115" alpha="0">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1023" x="472" y="68" text="本次扣分：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1130" x="536" y="68" width="152" text="3" measuredWidth="152" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1245" x="248" y="122" text="所属车队：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1247" x="312" y="122" width="152" text="X分公司" measuredWidth="152" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1251" x="23" y="41" text="违法行为：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1252" x="35" y="122" width="53" text="车号：" measuredWidth="53" measuredHeight="25" textAlignment="Right">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1253" x="23" y="68" text="违法地点：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1254" x="23" y="95" text="违法时间：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1256" x="248" y="95" text="违法代码：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1257" x="472" y="95" text="本次罚款：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1258" x="84" y="68" width="380" text="滨江中路海印桥上桥位" measuredWidth="380" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1259" x="84" y="95" width="152" text="2012-09-06 19:22" measuredWidth="152" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1260" x="472" y="122" text="信息来源：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1261" x="536" y="122" width="152" text="交警信函" measuredWidth="152" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1262" x="312" y="95" width="152" text="1001" measuredWidth="152" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1263" x="536" y="95" width="152" text="1500" measuredWidth="152" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1265" x="84" y="41" measuredWidth="604" measuredHeight="25">
+      <widgets xsi:type="model:TextField" id="1024" width="604" text="机动车违反禁止标线指示的" measuredWidth="604" measuredHeight="25" state="disabled">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Icon" id="1264" x="583" y="4" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1244" x="84" y="122" width="152" text="粤A.XXXX" measuredWidth="152" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1268" x="8" y="176" measuredWidth="705" measuredHeight="159">
+    <widgets xsi:type="model:Accordion" id="1269" width="705" height="159" text="{user}车队长确认违法驾驶员" measuredWidth="705" measuredHeight="159" selection="0">
+      <items x="0" y="2" width="705" height="27" text="{user}车队长确认违法驾驶员"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1270" x="488" y="4" measuredWidth="211" measuredHeight="25">
+      <widgets xsi:type="model:Link" id="1271" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1272" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1273" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Group" id="1274" x="10" y="37" width="685" height="111" measuredWidth="685" measuredHeight="111" alpha="0">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1279" x="40" y="41" text="当事司机：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1292" x="98" y="41" width="140" text="李XXX" measuredWidth="140" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Icon" id="1293" x="215" y="45" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
+    <widgets xsi:type="model:Label" id="1296" x="469" y="41" text="服务资格证号：" measuredWidth="89" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1297" x="551" y="41" width="140" text="222333" measuredWidth="140" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1298" x="469" y="68" text="初次领证时间：" measuredWidth="89" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1299" x="551" y="68" width="140" text="1995-01-19" measuredWidth="140" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1300" x="267" y="41" text="累计扣分：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1301" x="325" y="41" width="140" text="12" measuredWidth="140" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1302" x="243" y="68" text="剩余可用分值：" measuredWidth="89" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1303" x="325" y="68" width="140" text="0" measuredWidth="140" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1304" x="40" y="68" text="告知时间：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1305" x="98" y="68" width="140" text="2012-09-17" measuredWidth="140" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1306" x="40" y="95" text="告知方式：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Combo" id="1312" x="98" y="95" width="140" text="电话|信函|当面" measuredWidth="140" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Checkbox" id="1313" x="98" y="121" text="已通知司机停运" measuredWidth="105" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1314" x="202" y="122" text=" &lt;-- 累计扣分达12分时方显示此信息" measuredWidth="202" measuredHeight="25" foreground="#ff0000">
+      <font size="9" bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1339" x="243" y="95" text="年度发生宗数：" measuredWidth="89" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1340" x="325" y="95" width="140" text="2" measuredWidth="140" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1406" x="493" y="95" text="入职时间：" measuredWidth="65" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="1407" x="551" y="95" width="140" text="2006-11-06" measuredWidth="140" measuredHeight="25" state="disabled">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1315" x="8" y="344" measuredWidth="705" measuredHeight="201">
+    <widgets xsi:type="model:Accordion" id="1316" width="705" height="201" text="{user}车队长跟踪处理" measuredWidth="705" measuredHeight="201" selection="0">
+      <items x="0" y="2" width="705" height="27" text="{user}车队长跟踪处理"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1317" x="488" y="4" measuredWidth="211" measuredHeight="25">
+      <widgets xsi:type="model:Link" id="1318" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1319" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1320" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Group" id="1321" x="10" y="37" width="685" height="155" measuredWidth="685" measuredHeight="155" alpha="0">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1322" x="32" y="41" text="检查驾驶员的违法缴款凭证：" measuredWidth="161" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1338" x="360" y="95" text=" &lt;-- 累计扣分达12分时方显示此信息" measuredWidth="202" measuredHeight="25" foreground="#ff0000">
+      <font size="9" bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:RadioButton" id="1344" x="192" y="41" text="已检查" measuredWidth="56" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:RadioButton" id="1345" x="252" y="41" text="无法提供" measuredWidth="68" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1346" x="32" y="68" text="确认驾驶员已写违法承诺书：" measuredWidth="161" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:RadioButton" id="1347" x="192" y="68" text="已写" measuredWidth="44" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:RadioButton" id="1348" x="252" y="68" text="驾驶员拒绝写" measuredWidth="92" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1349" x="20" y="95" text="驾驶员能否提供有效分值证明：" measuredWidth="173" measuredHeight="25">
+      <font size="9" bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:RadioButton" id="1350" x="192" y="95" text="能" measuredWidth="32" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:RadioButton" id="1351" x="252" y="95" text="不能" measuredWidth="44" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="1352" x="360" y="68" text=" &lt;-- 累计扣分达3分以上时方显示此信息" measuredWidth="219" measuredHeight="25" foreground="#ff0000">
+      <font size="9" bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:TextArea" id="1353" x="20" y="119" width="665" height="63" text="【填写意见】" measuredWidth="665" measuredHeight="63">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1354" x="8" y="552" measuredWidth="705" measuredHeight="113">
+    <widgets xsi:type="model:Accordion" id="1355" width="705" height="113" text="{user}分公司经理确认 | 营运总监审批 | XX部门协办" measuredWidth="705" measuredHeight="113" selection="0">
+      <items x="0" y="2" width="705" height="27" text="{user}分公司经理确认 | 营运总监审批 | XX部门协办"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1357" x="488" y="4" measuredWidth="211" measuredHeight="25">
+      <widgets xsi:type="model:Link" id="1358" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1359" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1360" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:TextArea" id="1368" x="10" y="37" width="685" height="63" text="【填写意见】" measuredWidth="685" measuredHeight="63">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="1376" x="8" y="672" measuredWidth="705" measuredHeight="231">
+    <widgets xsi:type="model:Accordion" id="1377" width="705" height="231" text="{user}安全管理组确认 | 人力资源部停运处理" measuredWidth="705" measuredHeight="231" selection="0">
+      <items x="0" y="2" width="705" height="27" text="{user}安全管理组确认 | 人力资源部停运处理"/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1378" x="488" y="4" measuredWidth="211" measuredHeight="25">
+      <widgets xsi:type="model:Link" id="1379" x="72" text="{arrow-up}添加附件" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1380" x="144" text="{check}完成办理" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Link" id="1381" text="{new}添加意见" measuredWidth="67" measuredHeight="25">
+        <font/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:Group" id="1382" x="10" y="38" width="685" height="193" measuredWidth="685" measuredHeight="193">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:WidgetGroup" id="1383" x="10" y="110" measuredWidth="685" measuredHeight="121">
+      <widgets xsi:type="model:Label" id="1384" x="10" text="确定下一步的处理方式：" measuredWidth="137" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Table" id="1385" y="48" width="685" text="(w:20).  ,(w:200).协办部门,协办人&#xA;,信息技术部,张三，小红&#xA;,财务部,李四" measuredWidth="685" measuredHeight="73" selection="" horizontalLines="true" header="false">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1386" x="146" text="完成" measuredWidth="44" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:RadioButton" id="1387" x="198" text="送相关部门协办" measuredWidth="104" measuredHeight="25" selected="true">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:Label" id="1390" x="10" y="24" text="指定协办部门和协办人：" measuredWidth="137" measuredHeight="25">
+        <font/>
+      </widgets>
+      <widgets xsi:type="model:WidgetGroup" id="1391" x="601" y="24" measuredWidth="74" measuredHeight="25">
+        <widgets xsi:type="model:Link" id="1392" x="13" measuredWidth="3" measuredHeight="25">
+          <font/>
+        </widgets>
+        <widgets xsi:type="model:Icon" id="1393" x="58" y="5" measuredWidth="16" measuredHeight="16" icon="circled-mul (small)"/>
+        <widgets xsi:type="model:Icon" id="1394" x="39" y="5" measuredWidth="16" measuredHeight="16" icon="circled-plus (small)"/>
+        <widgets xsi:type="model:Icon" id="1395" x="19" y="5" measuredWidth="16" measuredHeight="16" icon="download (small)"/>
+        <widgets xsi:type="model:Icon" id="1396" y="5" measuredWidth="16" measuredHeight="16" icon="upload (small)"/>
+      </widgets>
+    </widgets>
+    <widgets xsi:type="model:TextArea" id="1398" x="20" y="48" width="665" height="63" text="【填写意见】" measuredWidth="665" measuredHeight="63">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Arrow" id="1408" x="691" y="61" width="38" height="17" measuredWidth="38" measuredHeight="17" annotation="true" foreground="#ea9999"/>
+  <widgets xsi:type="model:Note" id="1410" x="728" y="56" width="201" height="81" text="1）手动发起流程时，点此按钮从系统中选择要处理的交通违法信息&#xD;&#xA;2）从交通违法模块批量发起流程时自动填写相关信息" measuredWidth="201" measuredHeight="81" annotation="true" textAlignment="Left">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Arrow" id="1411" x="704" y="220" width="25" height="17" measuredWidth="25" measuredHeight="17" annotation="true" foreground="#ea9999"/>
+  <widgets xsi:type="model:Note" id="1412" x="728" y="215" width="201" height="81" text="选择司机信息后，系统自动填写相关信息的值" measuredWidth="201" measuredHeight="81" annotation="true" textAlignment="Left">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font/>
+</model:Screen>
