@@ -32,7 +32,11 @@ public class UpdateTempDriverStatusListener implements ExecutionListener {
 			logger.debug("proc_inst_id_="+execution.getProcessInstanceId());
 		}
 		
-		//获取司机入职是否通过控制至。
+		//没此公用变量 不自动发起流程；
+		if(!execution.hasVariable("isPass"))
+			return;
+
+		//获取司机入职是否通过的控制值。
 		boolean isPass=(Boolean) execution.getVariable("isPass");
 		if(isPass){
 			//获取司机入职是否放弃控制值	
