@@ -91,6 +91,11 @@
             <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
           </activiti:field>
         </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener">
+          <activiti:field name="detail">
+            <activiti:string>applyMatterDesc</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="t05GeneralManagerGroupCheck_s" name="总经理组审批" activiti:formKey="fm:wf:GeneralOrder/GeneralManagerGroupCheck">
@@ -101,6 +106,11 @@
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
           <activiti:field name="hiddenButtonCodes">
             <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener">
+          <activiti:field name="detail">
+            <activiti:string>applyMatterDesc</activiti:string>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -116,6 +126,7 @@
             <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
           </activiti:field>
         </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
       </extensionElements>
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
     </userTask>
@@ -128,6 +139,11 @@
             <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
           </activiti:field>
         </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener">
+          <activiti:field name="detail">
+            <activiti:string>applyMatterDesc</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="t04OperationDirectorCheck_s" name="营运总监审批" activiti:formKey="fm:wf:GeneralOrder/OperationDirectorCheck">
@@ -138,6 +154,11 @@
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
           <activiti:field name="hiddenButtonCodes">
             <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener">
+          <activiti:field name="detail">
+            <activiti:string>applyMatterDesc</activiti:string>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -162,6 +183,11 @@
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
           <activiti:field name="hiddenButtonCodes">
             <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener">
+          <activiti:field name="detail">
+            <activiti:string>applyMatterDesc</activiti:string>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
