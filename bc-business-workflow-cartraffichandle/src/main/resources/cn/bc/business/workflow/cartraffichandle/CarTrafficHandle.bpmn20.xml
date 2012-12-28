@@ -4,22 +4,36 @@
     <extensionElements>
       <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
       <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
+      <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.updateModleInfo4FlowListener">
+        <activiti:field name="serviceName">
+          <activiti:string>caseTrafficService</activiti:string>
+        </activiti:field>
+        <activiti:field name="serviceMethod">
+          <activiti:string>updateCaseTrafficInfo4Flow</activiti:string>
+        </activiti:field>
+        <activiti:field name="updateObjectId">
+          <activiti:expression>${case4InfractTraffic_id}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="parameter">
+          <activiti:expression>{"driver_name":"${driver}","driver_id":"${driverId}","status_":1}</activiti:expression>
+        </activiti:field>
+      </activiti:executionListener>
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
-    <userTask id="SpecifiesTrafficInfo " name="安全管理组指定交通违法信息" activiti:assignee="${initiator}" activiti:formKey="fm:wf:CarTrafficHandle/specifiesTrafficInfo">
+    <userTask id="t010SpecifiesTrafficInfo " name="安全管理组指定交通违法信息" activiti:assignee="${initiator}" activiti:formKey="fm:wf:CarTrafficHandle/specifiesTrafficInfo">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="ConfirmIllegal4Driver" name="车队长确认违法驾驶员" activiti:formKey="fm:wf:CarTrafficHandle/confirmIllegal4Driver">
+    <userTask id="t020ConfirmIllegal4Driver" name="车队长确认违法驾驶员" activiti:formKey="fm:wf:CarTrafficHandle/confirmIllegal4Driver">
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${assign2MotorcadeLeaderListener}"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="TrackingProcessing" name="车队长跟踪处理" activiti:formKey="fm:wf:CarTrafficHandle/trackingProcessing">
+    <userTask id="t030TrackingProcessing" name="车队长跟踪处理" activiti:formKey="fm:wf:CarTrafficHandle/trackingProcessing">
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${assign2MotorcadeLeaderListener}"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -27,7 +41,7 @@
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="BranchManagerToConfirm" name="分公司经理确认" activiti:formKey="fm:wf:CarTrafficHandle/branchManagerToConfirm">
+    <userTask id="t050BranchManagerToConfirm" name="分公司经理确认" activiti:formKey="fm:wf:CarTrafficHandle/branchManagerToConfirm">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -41,7 +55,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="DecommissioningProcessing" name="人力资源部停运处理" activiti:formKey="fm:wf:CarTrafficHandle/decommissioningProcessing">
+    <userTask id="t040DecommissioningProcessing" name="人力资源部停运处理" activiti:formKey="fm:wf:CarTrafficHandle/decommissioningProcessing">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -52,7 +66,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="ConfirmTrafficInfo " name="安全管理组确认" activiti:formKey="fm:wf:CarTrafficHandle/confirmTrafficInfo">
+    <userTask id="t070ConfirmTrafficInfo " name="安全管理组确认" activiti:formKey="fm:wf:CarTrafficHandle/confirmTrafficInfo">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -64,7 +78,7 @@
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="ExaminationAndapproval" name="营运总监审批" activiti:formKey="fm:wf:CarTrafficHandle/examinationAndapproval">
+    <userTask id="t060ExaminationAndapproval" name="营运总监审批" activiti:formKey="fm:wf:CarTrafficHandle/examinationAndapproval">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -76,60 +90,60 @@
       </extensionElements>
     </userTask>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow1" name="" sourceRef="startevent1" targetRef="SpecifiesTrafficInfo "></sequenceFlow>
-    <sequenceFlow id="flow2" name="" sourceRef="SpecifiesTrafficInfo " targetRef="ConfirmIllegal4Driver"></sequenceFlow>
-    <sequenceFlow id="flow3" name="" sourceRef="ConfirmIllegal4Driver" targetRef="TrackingProcessing"></sequenceFlow>
-    <sequenceFlow id="flow4" name="" sourceRef="TrackingProcessing" targetRef="exclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="BranchManagerToConfirmCondition" name="3分以上至11分或12分且能提供有效分值证明" sourceRef="exclusivegateway1" targetRef="BranchManagerToConfirm">
+    <sequenceFlow id="flow1" name="" sourceRef="startevent1" targetRef="t010SpecifiesTrafficInfo "></sequenceFlow>
+    <sequenceFlow id="flow2" name="" sourceRef="t010SpecifiesTrafficInfo " targetRef="t020ConfirmIllegal4Driver"></sequenceFlow>
+    <sequenceFlow id="flow3" name="" sourceRef="t020ConfirmIllegal4Driver" targetRef="t030TrackingProcessing"></sequenceFlow>
+    <sequenceFlow id="flow4" name="" sourceRef="t030TrackingProcessing" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="BranchManagerToConfirmCondition" name="3分以上至11分或12分且能提供有效分值证明" sourceRef="exclusivegateway1" targetRef="t050BranchManagerToConfirm">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${(accumulatedPoints>3 && accumulatedPoints<11) || (accumulatedPoints==12 && scoreProof==0)}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="DecommissioningProcessingCondition" name="12分且不能提供有效分值证明" sourceRef="exclusivegateway1" targetRef="DecommissioningProcessing">
+    <sequenceFlow id="DecommissioningProcessingCondition" name="12分且不能提供有效分值证明" sourceRef="exclusivegateway1" targetRef="t040DecommissioningProcessing">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${(accumulatedPoints>12 || accumulatedPoints==12) && scoreProof==1}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="ConfirmTrafficInfoCondition" name="3分及以下" sourceRef="exclusivegateway1" targetRef="ConfirmTrafficInfo ">
+    <sequenceFlow id="ConfirmTrafficInfoCondition" name="3分及以下" sourceRef="exclusivegateway1" targetRef="t070ConfirmTrafficInfo ">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accumulatedPoints<3 || accumulatedPoints==3}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow8" name="" sourceRef="BranchManagerToConfirm" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow10" name="" sourceRef="ConfirmTrafficInfo " targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow13" name="" sourceRef="DecommissioningProcessing" targetRef="ConfirmTrafficInfo "></sequenceFlow>
-    <sequenceFlow id="BranchToSecurityGroupCondition" name="" sourceRef="exclusivegateway2" targetRef="ConfirmTrafficInfo ">
+    <sequenceFlow id="flow8" name="" sourceRef="t050BranchManagerToConfirm" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow10" name="" sourceRef="t070ConfirmTrafficInfo " targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow13" name="" sourceRef="t040DecommissioningProcessing" targetRef="t070ConfirmTrafficInfo "></sequenceFlow>
+    <sequenceFlow id="BranchToSecurityGroupCondition" name="" sourceRef="exclusivegateway2" targetRef="t070ConfirmTrafficInfo ">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accumulatedPoints>3 && accumulatedPoints <7}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="ExaminationAndapprovalCondition" name="6分以上" sourceRef="exclusivegateway2" targetRef="ExaminationAndapproval">
+    <sequenceFlow id="ExaminationAndapprovalCondition" name="6分以上" sourceRef="exclusivegateway2" targetRef="t060ExaminationAndapproval">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${(accumulatedPoints>6 && accumulatedPoints <11) || (accumulatedPoints==12 && scoreProof==0)}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow16" name="" sourceRef="ExaminationAndapproval" targetRef="ConfirmTrafficInfo "></sequenceFlow>
+    <sequenceFlow id="flow16" name="" sourceRef="t060ExaminationAndapproval" targetRef="t070ConfirmTrafficInfo "></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_CarTrafficHandle">
     <bpmndi:BPMNPlane bpmnElement="CarTrafficHandle" id="BPMNPlane_CarTrafficHandle">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35" width="35" x="500" y="-100"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="SpecifiesTrafficInfo " id="BPMNShape_SpecifiesTrafficInfo ">
+      <bpmndi:BPMNShape bpmnElement="t010SpecifiesTrafficInfo " id="BPMNShape_t010SpecifiesTrafficInfo ">
         <omgdc:Bounds height="55" width="105" x="465" y="0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="ConfirmIllegal4Driver" id="BPMNShape_ConfirmIllegal4Driver">
+      <bpmndi:BPMNShape bpmnElement="t020ConfirmIllegal4Driver" id="BPMNShape_t020ConfirmIllegal4Driver">
         <omgdc:Bounds height="55" width="105" x="465" y="110"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="TrackingProcessing" id="BPMNShape_TrackingProcessing">
+      <bpmndi:BPMNShape bpmnElement="t030TrackingProcessing" id="BPMNShape_t030TrackingProcessing">
         <omgdc:Bounds height="55" width="105" x="465" y="200"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40" width="40" x="497" y="300"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="BranchManagerToConfirm" id="BPMNShape_BranchManagerToConfirm">
+      <bpmndi:BPMNShape bpmnElement="t050BranchManagerToConfirm" id="BPMNShape_t050BranchManagerToConfirm">
         <omgdc:Bounds height="55" width="105" x="790" y="293"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="DecommissioningProcessing" id="BPMNShape_DecommissioningProcessing">
+      <bpmndi:BPMNShape bpmnElement="t040DecommissioningProcessing" id="BPMNShape_t040DecommissioningProcessing">
         <omgdc:Bounds height="55" width="105" x="170" y="293"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="ConfirmTrafficInfo " id="BPMNShape_ConfirmTrafficInfo ">
+      <bpmndi:BPMNShape bpmnElement="t070ConfirmTrafficInfo " id="BPMNShape_t070ConfirmTrafficInfo ">
         <omgdc:Bounds height="55" width="105" x="465" y="435"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40" width="40" x="822" y="373"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="ExaminationAndapproval" id="BPMNShape_ExaminationAndapproval">
+      <bpmndi:BPMNShape bpmnElement="t060ExaminationAndapproval" id="BPMNShape_t060ExaminationAndapproval">
         <omgdc:Bounds height="55" width="105" x="1035" y="293"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
@@ -191,9 +205,6 @@
         <omgdi:waypoint x="842" y="413"></omgdi:waypoint>
         <omgdi:waypoint x="842" y="462"></omgdi:waypoint>
         <omgdi:waypoint x="570" y="462"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="ExaminationAndapprovalCondition" id="BPMNEdge_ExaminationAndapprovalCondition">
         <omgdi:waypoint x="862" y="393"></omgdi:waypoint>
