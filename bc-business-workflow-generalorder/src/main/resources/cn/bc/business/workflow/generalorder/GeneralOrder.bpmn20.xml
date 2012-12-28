@@ -126,7 +126,11 @@
             <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
           </activiti:field>
         </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener">
+          <activiti:field name="detail">
+            <activiti:string>applyMatterDesc</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
     </userTask>
