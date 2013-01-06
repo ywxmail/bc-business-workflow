@@ -15,7 +15,7 @@
           <activiti:expression>${case4InfractTraffic_id}</activiti:expression>
         </activiti:field>
         <activiti:field name="parameter">
-          <activiti:expression>{"driver_name":"${driver}","driver_id":"${driverId}","status_":1}</activiti:expression>
+          <activiti:expression>{"driver_name":"${driver}","driver_id":"${driverId}","status_":1,"driver_cert":"${cert4fwzg}"}</activiti:expression>
         </activiti:field>
         <activiti:field name="isExecuteUpdateMethod">
           <activiti:expression>${isClosed}</activiti:expression>
