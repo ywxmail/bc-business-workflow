@@ -20,6 +20,7 @@
 		<module>bc-business-workflow-carmanentry</module>
 		<module>bc-business-workflow-generalorder</module>
 		<module>bc-business-workflow-caractive</module>
+		<module>bc-business-workflow-requestservicecertificate</module>
 	</modules>
 	<scm>
 		<connection>scm:git:git://localhost/bc-business-workflow.git</connection>
