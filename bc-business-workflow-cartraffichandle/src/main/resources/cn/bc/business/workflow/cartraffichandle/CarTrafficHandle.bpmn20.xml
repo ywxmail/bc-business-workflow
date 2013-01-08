@@ -4,7 +4,7 @@
     <extensionElements>
       <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
       <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
-      <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.updateModleInfo4FlowListener">
+      <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.updateModuleInfo4FlowListener">
         <activiti:field name="serviceName">
           <activiti:string>caseTrafficService</activiti:string>
         </activiti:field>
@@ -87,6 +87,21 @@
       </extensionElements>
     </userTask>
     <endEvent id="endevent1" name="End"></endEvent>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <userTask id="t070DepartmentCooperation" name="相关部门协办" activiti:formKey="fm:wf:CarTrafficHandle/departmentCooperation">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
+          <activiti:field name="hiddenButtonCodes">
+            <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
+    </userTask>
     <sequenceFlow id="flow1" name="" sourceRef="startevent1" targetRef="t010SpecifiesTrafficInfo"></sequenceFlow>
     <sequenceFlow id="flow2" name="" sourceRef="t010SpecifiesTrafficInfo" targetRef="t020ConfirmIllegal4Driver"></sequenceFlow>
     <sequenceFlow id="flow3" name="" sourceRef="t020ConfirmIllegal4Driver" targetRef="t030TrackingProcessing"></sequenceFlow>
@@ -103,25 +118,12 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accumulatedPoints>3 && accumulatedPoints <7}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="ExaminationAndapprovalCondition" name="6分以上" sourceRef="exclusivegateway2" targetRef="t060ExaminationAndapproval">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${(accumulatedPoints>6 && accumulatedPoints <11) || (accumulatedPoints==12 && scoreProof==0)}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accumulatedPoints>6 && (accumulatedPoints<12 || accumulatedPoints==12)}]]></conditionExpression>
     </sequenceFlow>
-    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow11" name="" sourceRef="t060ExaminationAndapproval" targetRef="exclusivegateway3"></sequenceFlow>
-    <sequenceFlow id="flow12" name="" sourceRef="exclusivegateway3" targetRef="t080ConfirmTrafficInfo"></sequenceFlow>
-    <userTask id="t070DepartmentCooperation" name="相关部门协办" activiti:formKey="fm:wf:CarTrafficHandle/departmentCooperation">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
-          <activiti:field name="hiddenButtonCodes">
-            <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
-      </extensionElements>
-      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
-    </userTask>
+    <sequenceFlow id="flow12" name="" sourceRef="exclusivegateway3" targetRef="t080ConfirmTrafficInfo">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isDcFlow}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow13" name="送相关部门协办" sourceRef="exclusivegateway3" targetRef="t070DepartmentCooperation">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isDcFlow}]]></conditionExpression>
     </sequenceFlow>
