@@ -7,9 +7,9 @@
 		<version>1.0-SNAPSHOT</version>
 		<relativePath>../bc-business-workflow-parent/pom.xml</relativePath>
 	</parent>
-	<artifactId>bc-business-workflow-midwayreturncar</artifactId>
-	<name>bc-business-workflow-midwayreturncar</name>
-	<description>通用工作单-中途交车申请流程</description>
+	<artifactId>bc-business-workflow-carprepare</artifactId>
+	<name>bc-business-workflow-carprepare</name>
+	<description>车辆准备流程</description>
 	
 	<dependencies>
 		<dependency>
