@@ -44,7 +44,7 @@ public class StartCarManDealWithCertListener implements ExecutionListener {
 
 	public void notify(DelegateExecution execution) throws Exception {
 		if (logger.isDebugEnabled()) {
-			logger.debug("from=" + execution.getProcessInstanceId());
+			logger.debug("processInstanceId=" + execution.getProcessInstanceId());
 			logger.debug("key="
 					+ key.getExpressionText());
 			logger.debug("vKeys="
@@ -64,6 +64,9 @@ public class StartCarManDealWithCertListener implements ExecutionListener {
 		Map<String, Object> _vKeys=JsonUtils.toMap(vKeys.getExpressionText());
 		
 		Map<String, Object> variables=new HashMap<String, Object>();
+		
+		//设置司机入职流程的Id
+		variables.put("CarManEntry_ProcessInstanceId", execution.getProcessInstanceId());
 		
 		for(String vKey: _vKeys.keySet()){
 			if(execution.hasVariable(_vKeys.get(vKey).toString())){
