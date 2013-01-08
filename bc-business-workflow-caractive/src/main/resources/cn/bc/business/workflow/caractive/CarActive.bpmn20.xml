@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.bctaxi.com.cn/workflow">
+  <process id="CarActive" name="驾驶员出车审批流程">
+    <extensionElements>
+      <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
+      <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
+    </extensionElements>
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="FillInInfo" name="基本资料与变更的填写" activiti:formKey="fm:wf:CarActive/fillInInfo">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="orgVariableName">
+            <activiti:string>filialeId_gl</activiti:string>
+          </activiti:field>
+          <activiti:field name="groupName">
+            <activiti:string>分公司合同管理员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="Opinion4Filiale" name="分公司意见" activiti:formKey="fm:wf:CarActive/opinion4Filiale">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="orgVariableName">
+            <activiti:string>filialeId_gl</activiti:string>
+          </activiti:field>
+          <activiti:field name="groupName">
+            <activiti:string>分公司经理</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="CertificateApproval" name="证件审验" activiti:formKey="fm:wf:CarActive/certificateApproval">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="orgVariableName">
+            <activiti:string>filialeId_gl</activiti:string>
+          </activiti:field>
+          <activiti:field name="groupName">
+            <activiti:string>分公司合同管理员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="Office4ExaminationAndApproval" name="办公室审批" activiti:assignee="admin" activiti:formKey="fm:wf:CarActive/office4ExaminationAndApproval">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="Finance4ExaminationAndApproval" name="计财部审批" activiti:assignee="admin" activiti:formKey="fm:wf:CarActive/finance4ExaminationAndApproval">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <userTask id="Inform4dispatchCar" name="通知出车" activiti:assignee="admin" activiti:formKey="fm:wf:CarActive/inform4dispatchCar">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
+    <userTask id="ReceiveCar" name="确认接收车辆" activiti:assignee="admin" activiti:formKey="fm:wf:CarActive/receiveCar">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <inclusiveGateway id="inclusivegateway2" name="Inclusive Gateway"></inclusiveGateway>
+    <userTask id="Safety4ExaminationAndApproval" name="营安部审批" activiti:assignee="admin" activiti:formKey="fm:wf:CarActive/safety4ExaminationAndApproval">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" name="" sourceRef="FillInInfo" targetRef="Opinion4Filiale"></sequenceFlow>
+    <sequenceFlow id="flow3" name="" sourceRef="Opinion4Filiale" targetRef="CertificateApproval"></sequenceFlow>
+    <sequenceFlow id="flow7" name="" sourceRef="ReceiveCar" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow8" name="" sourceRef="startevent1" targetRef="Inform4dispatchCar"></sequenceFlow>
+    <sequenceFlow id="flow12" name="" sourceRef="CertificateApproval" targetRef="inclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow14" name="" sourceRef="inclusivegateway2" targetRef="Office4ExaminationAndApproval"></sequenceFlow>
+    <sequenceFlow id="flow15" name="" sourceRef="inclusivegateway2" targetRef="Finance4ExaminationAndApproval"></sequenceFlow>
+    <sequenceFlow id="flow17" name="" sourceRef="Office4ExaminationAndApproval" targetRef="inclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow18" name="" sourceRef="Finance4ExaminationAndApproval" targetRef="inclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow19" name="" sourceRef="inclusivegateway1" targetRef="ReceiveCar"></sequenceFlow>
+    <sequenceFlow id="flow20" name="" sourceRef="inclusivegateway2" targetRef="Safety4ExaminationAndApproval"></sequenceFlow>
+    <sequenceFlow id="flow21" name="" sourceRef="Safety4ExaminationAndApproval" targetRef="inclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow22" name="" sourceRef="Inform4dispatchCar" targetRef="FillInInfo"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_CarActive">
+    <bpmndi:BPMNPlane bpmnElement="CarActive" id="BPMNPlane_CarActive">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35" width="35" x="10" y="300"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="FillInInfo" id="BPMNShape_FillInInfo">
+        <omgdc:Bounds height="55" width="105" x="250" y="290"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Opinion4Filiale" id="BPMNShape_Opinion4Filiale">
+        <omgdc:Bounds height="55" width="105" x="400" y="289"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="CertificateApproval" id="BPMNShape_CertificateApproval">
+        <omgdc:Bounds height="55" width="105" x="560" y="289"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Office4ExaminationAndApproval" id="BPMNShape_Office4ExaminationAndApproval">
+        <omgdc:Bounds height="55" width="105" x="820" y="198"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Finance4ExaminationAndApproval" id="BPMNShape_Finance4ExaminationAndApproval">
+        <omgdc:Bounds height="55" width="105" x="820" y="393"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35" width="35" x="1250" y="304"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Inform4dispatchCar" id="BPMNShape_Inform4dispatchCar">
+        <omgdc:Bounds height="55" width="105" x="100" y="287"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="inclusivegateway1" id="BPMNShape_inclusivegateway1">
+        <omgdc:Bounds height="40" width="40" x="970" y="304"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ReceiveCar" id="BPMNShape_ReceiveCar">
+        <omgdc:Bounds height="55" width="105" x="1090" y="294"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="inclusivegateway2" id="BPMNShape_inclusivegateway2">
+        <omgdc:Bounds height="40" width="40" x="720" y="301"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Safety4ExaminationAndApproval" id="BPMNShape_Safety4ExaminationAndApproval">
+        <omgdc:Bounds height="55" width="105" x="820" y="297"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="355" y="317"></omgdi:waypoint>
+        <omgdi:waypoint x="400" y="316"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="505" y="316"></omgdi:waypoint>
+        <omgdi:waypoint x="560" y="316"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="1195" y="321"></omgdi:waypoint>
+        <omgdi:waypoint x="1250" y="321"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="45" y="317"></omgdi:waypoint>
+        <omgdi:waypoint x="100" y="314"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="665" y="316"></omgdi:waypoint>
+        <omgdi:waypoint x="720" y="321"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="740" y="301"></omgdi:waypoint>
+        <omgdi:waypoint x="740" y="233"></omgdi:waypoint>
+        <omgdi:waypoint x="820" y="225"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="740" y="341"></omgdi:waypoint>
+        <omgdi:waypoint x="740" y="420"></omgdi:waypoint>
+        <omgdi:waypoint x="820" y="420"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="925" y="225"></omgdi:waypoint>
+        <omgdi:waypoint x="990" y="225"></omgdi:waypoint>
+        <omgdi:waypoint x="990" y="304"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="925" y="420"></omgdi:waypoint>
+        <omgdi:waypoint x="990" y="420"></omgdi:waypoint>
+        <omgdi:waypoint x="990" y="344"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="1010" y="324"></omgdi:waypoint>
+        <omgdi:waypoint x="1090" y="321"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="760" y="321"></omgdi:waypoint>
+        <omgdi:waypoint x="820" y="324"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="925" y="324"></omgdi:waypoint>
+        <omgdi:waypoint x="970" y="324"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="205" y="314"></omgdi:waypoint>
+        <omgdi:waypoint x="250" y="317"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
