@@ -14,9 +14,6 @@
         <activiti:field name="key">
           <activiti:string>RequestServiceCertificate</activiti:string>
         </activiti:field>
-        <activiti:field name="vKeys">
-          <activiti:string>{"tempDriver_id":"tempDriver_id"}</activiti:string>
-        </activiti:field>
       </activiti:executionListener>
       <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.Attach4ProcessListener">
         <activiti:field name="resourceCode">
@@ -347,7 +344,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isPass}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow188" name="" sourceRef="t140InChargeOfOperationDeputyGeneralManagerCheck_s" targetRef="exclusivegateway20"></sequenceFlow>
-    <sequenceFlow id="flow189" name="送归档" sourceRef="exclusivegateway20" targetRef="t130RecruiterConfirmCheckResult_s"></sequenceFlow>
+    <sequenceFlow id="flow189" name="" sourceRef="exclusivegateway20" targetRef="t130RecruiterConfirmCheckResult_s"></sequenceFlow>
     <sequenceFlow id="flow190" name="送审批" sourceRef="exclusivegateway20" targetRef="t150ChairmanCheck_s">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isChairmanCheck}]]></conditionExpression>
     </sequenceFlow>
@@ -614,9 +611,6 @@
         <omgdi:waypoint x="1370" y="240"></omgdi:waypoint>
         <omgdi:waypoint x="1286" y="239"></omgdi:waypoint>
         <omgdi:waypoint x="1286" y="389"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="-21" y="-1"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow190" id="BPMNEdge_flow190">
         <omgdi:waypoint x="1390" y="220"></omgdi:waypoint>
