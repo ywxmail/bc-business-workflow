@@ -4,7 +4,7 @@
     <extensionElements>
       <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
       <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
-      <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.updateModleInfo4FlowListener">
+      <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.UpdateModuleInfo4FlowListener">
         <activiti:field name="serviceName">
           <activiti:string>caseAdviceService</activiti:string>
         </activiti:field>
@@ -34,7 +34,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t020HandleCaseAdviceInfo" name="车队长车队长核查处理" activiti:formKey="fm:wf:ComplainHandle/handleCaseAdviceInfo">
+    <userTask id="t020HandleCaseAdviceInfo" name="车队长核查处理" activiti:formKey="fm:wf:ComplainHandle/handleCaseAdviceInfo">
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${assign2MotorcadeLeaderListener}"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -92,6 +92,7 @@
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
       </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
     </userTask>
     <userTask id="t070ReplyKeGuanChu" name="车队长确定对客管处的回复" activiti:formKey="fm:wf:ComplainHandle/replyKeGuanChu">
       <extensionElements>
@@ -139,10 +140,10 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isReturn}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow18" name="" sourceRef="exclusivegateway3" targetRef="t070ReplyKeGuanChu">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isReturn && !isDcFlow}}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isReturn && !isDcFlow}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow19" name="" sourceRef="exclusivegateway3" targetRef="t060DepartmentCooperation">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isDcFlow}}}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isDcFlow}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow20" name="" sourceRef="t060DepartmentCooperation" targetRef="t050AccraditationCaseAdviceInfo"></sequenceFlow>
     <sequenceFlow id="flow21" name="" sourceRef="t080Affirm4MonitoringGroup" targetRef="exclusivegateway4"></sequenceFlow>
@@ -275,9 +276,6 @@
         <omgdi:waypoint x="350" y="394"></omgdi:waypoint>
         <omgdi:waypoint x="677" y="396"></omgdi:waypoint>
         <omgdi:waypoint x="677" y="375"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="625" y="347"></omgdi:waypoint>
