@@ -23,6 +23,7 @@
 		<module>bc-business-workflow-requestservicecertificate</module>
 		<module>bc-business-workflow-cartraffichandle</module>
 		<module>bc-business-workflow-complainhandle</module>
+		<module>bc-business-workflow-companycomplainhandle</module>
 		<module>bc-business-workflow-infractbusinesshandle</module>
 	</modules>
 	<scm>
