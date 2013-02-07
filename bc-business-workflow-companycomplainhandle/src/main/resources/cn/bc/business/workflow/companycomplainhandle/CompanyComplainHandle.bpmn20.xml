@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.bctaxi.com.cn/workflow">
-  <process id="CompanyComplainHandle" name="驾驶员公司投诉处理流程">
+  <process id="CompanyComplainHandle" name="驾驶员自接投诉处理流程">
     <extensionElements>
       <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
       <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
@@ -28,7 +28,7 @@
       </activiti:executionListener>
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
-    <userTask id="t010SpecifiesCaseAdviceInfo" name="服务监督组指定公司投诉信息" activiti:assignee="${initiator}" activiti:formKey="fm:wf:CompanyComplainHandle/specifiesCaseAdviceInfo">
+    <userTask id="t010SpecifiesCaseAdviceInfo" name="服务监督组指定自接投诉信息" activiti:assignee="${initiator}" activiti:formKey="fm:wf:CompanyComplainHandle/specifiesCaseAdviceInfo">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -94,7 +94,7 @@
       </extensionElements>
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
     </userTask>
-    <userTask id="t070CloseCase4MonitoringGroup" name="服务监督组结案" activiti:formKey="fm:wf:CompanyComplainHandle/closeCase4MonitoringGroup">
+    <userTask id="t080CloseCase4MonitoringGroup" name="服务监督组结案" activiti:formKey="fm:wf:CompanyComplainHandle/closeCase4MonitoringGroup">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -141,10 +141,10 @@
     <sequenceFlow id="flow25" name="退回" sourceRef="exclusivegateway5" targetRef="t050Auditing4MonitoringGroup">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isReturn}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow26" name="" sourceRef="exclusivegateway5" targetRef="t070CloseCase4MonitoringGroup">
+    <sequenceFlow id="flow26" name="" sourceRef="exclusivegateway5" targetRef="t080CloseCase4MonitoringGroup">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isReturn && !isDcFlow}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow30" name="" sourceRef="t070CloseCase4MonitoringGroup" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow30" name="" sourceRef="t080CloseCase4MonitoringGroup" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow31" name="" sourceRef="t010SpecifiesCaseAdviceInfo" targetRef="inclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow33" name="" sourceRef="inclusivegateway1" targetRef="t040Affirm4BranchManager"></sequenceFlow>
     <sequenceFlow id="flow51" name="" sourceRef="t020HandleCaseAdviceInfo" targetRef="parallelgateway4"></sequenceFlow>
@@ -196,7 +196,7 @@
       <bpmndi:BPMNShape bpmnElement="t070DepartmentCooperation" id="BPMNShape_t070DepartmentCooperation">
         <omgdc:Bounds height="55" width="105" x="298" y="400"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t070CloseCase4MonitoringGroup" id="BPMNShape_t070CloseCase4MonitoringGroup">
+      <bpmndi:BPMNShape bpmnElement="t080CloseCase4MonitoringGroup" id="BPMNShape_t080CloseCase4MonitoringGroup">
         <omgdc:Bounds height="55" width="105" x="465" y="513"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">

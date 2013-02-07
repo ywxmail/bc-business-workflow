@@ -1,4 +1,4 @@
-package cn.bc.business.workflow.companycomplainhandle;
+package cn.bc.business.workflow.complainhandle;
 
 import org.activiti.engine.delegate.DelegateExecution;
 

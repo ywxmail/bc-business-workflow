@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.bctaxi.com.cn/workflow">
+  <process id="RequestServiceCertificate" name="司机服务资格证办理流程">
+    <extensionElements>
+      <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
+      <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
+    </extensionElements>
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <userTask id="t010RecruiterSubmitRequestServiceCertificateApply" name="招聘专员提交办证申请" activiti:formKey="fm:wf:RequestServiceCertificate/t010RecruiterSubmitRequestServiceCertificateApply">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="null2initiator">
+            <activiti:string>true</activiti:string>
+          </activiti:field>
+          <activiti:field name="groupName">
+            <activiti:string>司机招聘专员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.business.workflow.requestservicecertificate.delegate.AddWorkflowModuleRelationTaskListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="t040ServiceCertificateQualificationCheck2HR_s" name="人力资源部办证资格审核" activiti:formKey="fm:wf:RequestServiceCertificate/t040ServiceCertificateQualificationCheck2HR">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>业务组主管</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="t020FinanceTakeNewCarDeposit" name="计财部收取新车订金" activiti:formKey="fm:wf:RequestServiceCertificate/t020FinanceTakeNewCarDeposit">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>计财部前台出纳员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="t060RequestServiceCertificateConfirm" name="司机服务资格证办理确认" activiti:formKey="fm:wf:RequestServiceCertificate/t060RequestServiceCertificateConfirm">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>司机招聘专员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="t050RecruiterDealWithException_s" name="招聘专员处理异常情况" activiti:formKey="fm:wf:RequestServiceCertificate/t050RecruiterDealWithException">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>司机招聘专员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
+          <activiti:field name="hiddenButtonCodes">
+            <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="t030RecruiterConfirmCertificateSituation" name="招聘专员确认办证情况" activiti:formKey="fm:wf:RequestServiceCertificate/t030RecruiterConfirmCertificateSituation">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>司机招聘专员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <userTask id="t070InChargeOfOperationDeputyGeneralManagerCheck" name="分管营运副总审批" activiti:formKey="fm:wf:RequestServiceCertificate/t070InChargeOfOperationDeputyGeneralManagerCheck">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>分管营运副总</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <inclusiveGateway id="inclusivegateway9" name="Inclusive Gateway"></inclusiveGateway>
+    <userTask id="t100FinanceCashierRefundNewCarDeposit" name="计财部退还新车订金" activiti:formKey="fm:wf:RequestServiceCertificate/t100FinanceCashierRefundNewCarDeposit">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>计财部前台出纳员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="t110RecruiterRefundCertificateInfoAndFee" name="招聘专员退还办证资料和费用" activiti:formKey="fm:wf:RequestServiceCertificate/t110RecruiterRefundCertificateInfoAndFee">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>司机招聘专员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <inclusiveGateway id="inclusivegateway10" name="Inclusive Gateway"></inclusiveGateway>
+    <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
+    <userTask id="t080FinanceGatherCount" name="计财部退费汇总核算" activiti:formKey="fm:wf:RequestServiceCertificate/t080FinanceGatherCount">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>计财部前台应收会计</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="t090FinanceAccountDirectorConfirm" name="计财部会计主管确认退费情况" activiti:formKey="fm:wf:RequestServiceCertificate/t090FinanceAccountDirectorConfirm">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>计财部会计主管</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" name="司机服务资格证办理流程" sourceRef="startevent1" targetRef="t010RecruiterSubmitRequestServiceCertificateApply"></sequenceFlow>
+    <sequenceFlow id="flow23" name="" sourceRef="exclusivegateway3" targetRef="t040ServiceCertificateQualificationCheck2HR_s">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isGiveUp}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow24" name="" sourceRef="t030RecruiterConfirmCertificateSituation" targetRef="exclusivegateway3"></sequenceFlow>
+    <sequenceFlow id="flow25" name="司机放弃办证" sourceRef="exclusivegateway3" targetRef="t070InChargeOfOperationDeputyGeneralManagerCheck">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isGiveUp}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow27" name="" sourceRef="t070InChargeOfOperationDeputyGeneralManagerCheck" targetRef="inclusivegateway9"></sequenceFlow>
+    <sequenceFlow id="flow29" name="" sourceRef="inclusivegateway9" targetRef="t110RecruiterRefundCertificateInfoAndFee"></sequenceFlow>
+    <sequenceFlow id="flow30" name="" sourceRef="t100FinanceCashierRefundNewCarDeposit" targetRef="inclusivegateway10"></sequenceFlow>
+    <sequenceFlow id="flow31" name="" sourceRef="t110RecruiterRefundCertificateInfoAndFee" targetRef="inclusivegateway10"></sequenceFlow>
+    <sequenceFlow id="flow32" name="" sourceRef="inclusivegateway10" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow33" name="" sourceRef="t040ServiceCertificateQualificationCheck2HR_s" targetRef="exclusivegateway4"></sequenceFlow>
+    <sequenceFlow id="flow35" name="" sourceRef="exclusivegateway4" targetRef="t050RecruiterDealWithException_s">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isException}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow36" name="" sourceRef="t050RecruiterDealWithException_s" targetRef="t040ServiceCertificateQualificationCheck2HR_s"></sequenceFlow>
+    <sequenceFlow id="flow39" name="" sourceRef="inclusivegateway9" targetRef="t080FinanceGatherCount"></sequenceFlow>
+    <sequenceFlow id="flow40" name="" sourceRef="t080FinanceGatherCount" targetRef="t090FinanceAccountDirectorConfirm"></sequenceFlow>
+    <sequenceFlow id="flow41" name="" sourceRef="t090FinanceAccountDirectorConfirm" targetRef="t100FinanceCashierRefundNewCarDeposit"></sequenceFlow>
+    <sequenceFlow id="flow45" name="" sourceRef="t060RequestServiceCertificateConfirm" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow50" name="" sourceRef="exclusivegateway4" targetRef="t060RequestServiceCertificateConfirm">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isException}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow51" name="" sourceRef="t010RecruiterSubmitRequestServiceCertificateApply" targetRef="t020FinanceTakeNewCarDeposit"></sequenceFlow>
+    <sequenceFlow id="flow52" name="" sourceRef="t020FinanceTakeNewCarDeposit" targetRef="t030RecruiterConfirmCertificateSituation"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_RequestServiceCertificate">
+    <bpmndi:BPMNPlane bpmnElement="RequestServiceCertificate" id="BPMNPlane_RequestServiceCertificate">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35" width="35" x="20" y="91"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35" width="35" x="20" y="240"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t010RecruiterSubmitRequestServiceCertificateApply" id="BPMNShape_t010RecruiterSubmitRequestServiceCertificateApply">
+        <omgdc:Bounds height="55" width="105" x="96" y="81"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t040ServiceCertificateQualificationCheck2HR_s" id="BPMNShape_t040ServiceCertificateQualificationCheck2HR_s">
+        <omgdc:Bounds height="55" width="105" x="661" y="230"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t020FinanceTakeNewCarDeposit" id="BPMNShape_t020FinanceTakeNewCarDeposit">
+        <omgdc:Bounds height="55" width="105" x="301" y="81"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t060RequestServiceCertificateConfirm" id="BPMNShape_t060RequestServiceCertificateConfirm">
+        <omgdc:Bounds height="55" width="105" x="301" y="230"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t050RecruiterDealWithException_s" id="BPMNShape_t050RecruiterDealWithException_s">
+        <omgdc:Bounds height="55" width="105" x="510" y="163"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t030RecruiterConfirmCertificateSituation" id="BPMNShape_t030RecruiterConfirmCertificateSituation">
+        <omgdc:Bounds height="58" width="105" x="510" y="80"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40" width="40" x="693" y="88"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t070InChargeOfOperationDeputyGeneralManagerCheck" id="BPMNShape_t070InChargeOfOperationDeputyGeneralManagerCheck">
+        <omgdc:Bounds height="55" width="105" x="661" y="346"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="inclusivegateway9" id="BPMNShape_inclusivegateway9">
+        <omgdc:Bounds height="40" width="40" x="582" y="353"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t100FinanceCashierRefundNewCarDeposit" id="BPMNShape_t100FinanceCashierRefundNewCarDeposit">
+        <omgdc:Bounds height="55" width="105" x="176" y="300"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t110RecruiterRefundCertificateInfoAndFee" id="BPMNShape_t110RecruiterRefundCertificateInfoAndFee">
+        <omgdc:Bounds height="55" width="105" x="301" y="393"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="inclusivegateway10" id="BPMNShape_inclusivegateway10">
+        <omgdc:Bounds height="40" width="40" x="90" y="353"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
+        <omgdc:Bounds height="40" width="40" x="542" y="237"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t080FinanceGatherCount" id="BPMNShape_t080FinanceGatherCount">
+        <omgdc:Bounds height="55" width="105" x="424" y="300"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t090FinanceAccountDirectorConfirm" id="BPMNShape_t090FinanceAccountDirectorConfirm">
+        <omgdc:Bounds height="55" width="105" x="301" y="300"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="55" y="108"></omgdi:waypoint>
+        <omgdi:waypoint x="96" y="108"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42" width="100" x="-25" y="-74"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="713" y="128"></omgdi:waypoint>
+        <omgdi:waypoint x="713" y="230"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="615" y="109"></omgdi:waypoint>
+        <omgdi:waypoint x="693" y="108"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="733" y="108"></omgdi:waypoint>
+        <omgdi:waypoint x="792" y="108"></omgdi:waypoint>
+        <omgdi:waypoint x="792" y="373"></omgdi:waypoint>
+        <omgdi:waypoint x="766" y="373"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="-63" y="-136"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="661" y="373"></omgdi:waypoint>
+        <omgdi:waypoint x="622" y="373"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="602" y="393"></omgdi:waypoint>
+        <omgdi:waypoint x="601" y="420"></omgdi:waypoint>
+        <omgdi:waypoint x="406" y="420"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="176" y="327"></omgdi:waypoint>
+        <omgdi:waypoint x="110" y="327"></omgdi:waypoint>
+        <omgdi:waypoint x="110" y="353"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="301" y="420"></omgdi:waypoint>
+        <omgdi:waypoint x="109" y="420"></omgdi:waypoint>
+        <omgdi:waypoint x="110" y="393"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="90" y="373"></omgdi:waypoint>
+        <omgdi:waypoint x="37" y="372"></omgdi:waypoint>
+        <omgdi:waypoint x="37" y="275"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="661" y="257"></omgdi:waypoint>
+        <omgdi:waypoint x="582" y="257"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="562" y="237"></omgdi:waypoint>
+        <omgdi:waypoint x="562" y="218"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="615" y="190"></omgdi:waypoint>
+        <omgdi:waypoint x="713" y="190"></omgdi:waypoint>
+        <omgdi:waypoint x="713" y="230"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="602" y="353"></omgdi:waypoint>
+        <omgdi:waypoint x="601" y="327"></omgdi:waypoint>
+        <omgdi:waypoint x="529" y="327"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="424" y="327"></omgdi:waypoint>
+        <omgdi:waypoint x="406" y="327"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="301" y="327"></omgdi:waypoint>
+        <omgdi:waypoint x="281" y="327"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
+        <omgdi:waypoint x="301" y="257"></omgdi:waypoint>
+        <omgdi:waypoint x="55" y="257"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
+        <omgdi:waypoint x="542" y="257"></omgdi:waypoint>
+        <omgdi:waypoint x="406" y="257"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow51" id="BPMNEdge_flow51">
+        <omgdi:waypoint x="201" y="108"></omgdi:waypoint>
+        <omgdi:waypoint x="301" y="108"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow52" id="BPMNEdge_flow52">
+        <omgdi:waypoint x="406" y="108"></omgdi:waypoint>
+        <omgdi:waypoint x="510" y="109"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

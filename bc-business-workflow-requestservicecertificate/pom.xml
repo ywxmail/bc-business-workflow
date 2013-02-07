@@ -17,5 +17,10 @@
 			<artifactId>bc-business-workflow-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>cn.bc.business</groupId>
+			<artifactId>bc-business-tempdriver</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>
