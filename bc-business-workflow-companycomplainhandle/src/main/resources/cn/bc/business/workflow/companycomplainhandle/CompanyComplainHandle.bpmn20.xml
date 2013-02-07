@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.bctaxi.com.cn/workflow">
-  <process id="ComplainHandle" name="驾驶员客管投诉处理流程">
+  <process id="CompanyComplainHandle" name="驾驶员自接投诉处理流程">
     <extensionElements>
       <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
       <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
@@ -21,23 +21,27 @@
           <activiti:expression>${isClosed}</activiti:expression>
         </activiti:field>
       </activiti:executionListener>
-      <activiti:executionListener event="start" class="cn.bc.business.workflow.complainhandle.ComplainHandleAttach4ProcessListener"></activiti:executionListener>
+      <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.Attach4ProcessListener">
+        <activiti:field name="resourceCode">
+          <activiti:string>companyComplainHandle_commonTemplate</activiti:string>
+        </activiti:field>
+      </activiti:executionListener>
     </extensionElements>
     <startEvent id="startevent1" name="Start" activiti:initiator="initiator"></startEvent>
-    <userTask id="t010SpecifiesCaseAdviceInfo" name="服务监督组指定客管投诉信息" activiti:assignee="${initiator}" activiti:formKey="fm:wf:ComplainHandle/specifiesCaseAdviceInfo">
+    <userTask id="t010SpecifiesCaseAdviceInfo" name="服务监督组指定自接投诉信息" activiti:assignee="${initiator}" activiti:formKey="fm:wf:CompanyComplainHandle/specifiesCaseAdviceInfo">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t020HandleCaseAdviceInfo" name="车队长核查处理" activiti:formKey="fm:wf:ComplainHandle/handleCaseAdviceInfo">
+    <userTask id="t020HandleCaseAdviceInfo" name="车队长核查处理" activiti:formKey="fm:wf:CompanyComplainHandle/handleCaseAdviceInfo">
       <extensionElements>
         <activiti:taskListener event="create" delegateExpression="${assign2MotorcadeLeaderListener}"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t030CheckingCaseAdviceInfo" name="服务督办员审核" activiti:formKey="fm:wf:ComplainHandle/checkingCaseAdviceInfo">
+    <userTask id="t030CheckingCaseAdviceInfo" name="服务督办员审核" activiti:formKey="fm:wf:CompanyComplainHandle/checkingCaseAdviceInfo">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -51,7 +55,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t040Affirm4BranchManager" name="分公司经理确认" activiti:formKey="fm:wf:ComplainHandle/affirm4BranchManager">
+    <userTask id="t040Affirm4BranchManager" name="分公司经理确认" activiti:formKey="fm:wf:CompanyComplainHandle/affirm4BranchManager">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -65,7 +69,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t060AccraditationCaseAdviceInfo" name="营运总监审批" activiti:formKey="fm:wf:ComplainHandle/accraditationCaseAdviceInfo">
+    <userTask id="t060AccraditationCaseAdviceInfo" name="营运总监审批" activiti:formKey="fm:wf:CompanyComplainHandle/accraditationCaseAdviceInfo">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -76,7 +80,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t070DepartmentCooperation" name="相关部门协办" activiti:formKey="fm:wf:ComplainHandle/departmentCooperation">
+    <userTask id="t070DepartmentCooperation" name="相关部门协办" activiti:formKey="fm:wf:CompanyComplainHandle/departmentCooperation">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -90,18 +94,7 @@
       </extensionElements>
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
     </userTask>
-    <userTask id="t080ConfirmReplyKeGuanChu" name="服务监督组确定对客管处的回复" activiti:formKey="fm:wf:ComplainHandle/confirmReplyKeGuanChu">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
-          <activiti:field name="groupName">
-            <activiti:string>服务监督组</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-      </extensionElements>
-    </userTask>
-    <userTask id="t100AffirmReplyKeGuanChu" name="服务监督组落实对客管处回复" activiti:formKey="fm:wf:ComplainHandle/affirmReplyKeGuanChu">
+    <userTask id="t080CloseCase4MonitoringGroup" name="服务监督组结案" activiti:formKey="fm:wf:CompanyComplainHandle/closeCase4MonitoringGroup">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -114,7 +107,7 @@
     </userTask>
     <endEvent id="endevent2" name="End"></endEvent>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="t050Auditing4MonitoringGroup" name="服务监督组审核" activiti:formKey="fm:wf:ComplainHandle/auditing4MonitoringGroup">
+    <userTask id="t050Auditing4MonitoringGroup" name="服务监督组审核" activiti:formKey="fm:wf:CompanyComplainHandle/auditing4MonitoringGroup">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -126,18 +119,6 @@
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="t090AccraditationCaseAdviceInfoAgain" name="营运总监审批" activiti:formKey="fm:wf:ComplainHandle/accraditationCaseAdviceInfoAgain">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
-          <activiti:field name="groupName">
-            <activiti:string>营运总监</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-      </extensionElements>
-    </userTask>
-    <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
     <inclusiveGateway id="inclusivegateway2" name="Inclusive Gateway"></inclusiveGateway>
     <parallelGateway id="parallelgateway4" name="Parallel Gateway"></parallelGateway>
@@ -145,7 +126,6 @@
     <parallelGateway id="parallelgateway3" name="Parallel Gateway"></parallelGateway>
     <exclusiveGateway id="exclusivegateway7" name="Exclusive Gateway" default="flow70"></exclusiveGateway>
     <sequenceFlow id="flow1" name="" sourceRef="startevent1" targetRef="t010SpecifiesCaseAdviceInfo"></sequenceFlow>
-    <sequenceFlow id="flow8" name="" sourceRef="t080ConfirmReplyKeGuanChu" targetRef="t090AccraditationCaseAdviceInfoAgain"></sequenceFlow>
     <sequenceFlow id="flow16" name="" sourceRef="t050Auditing4MonitoringGroup" targetRef="exclusivegateway3"></sequenceFlow>
     <sequenceFlow id="flow17" name="退回" sourceRef="exclusivegateway3" targetRef="inclusivegateway1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isReturn}]]></conditionExpression>
@@ -161,17 +141,10 @@
     <sequenceFlow id="flow25" name="退回" sourceRef="exclusivegateway5" targetRef="t050Auditing4MonitoringGroup">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isReturn}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow26" name="" sourceRef="exclusivegateway5" targetRef="t080ConfirmReplyKeGuanChu">
+    <sequenceFlow id="flow26" name="" sourceRef="exclusivegateway5" targetRef="t080CloseCase4MonitoringGroup">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isReturn && !isDcFlow}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow27" name="" sourceRef="t090AccraditationCaseAdviceInfoAgain" targetRef="exclusivegateway6"></sequenceFlow>
-    <sequenceFlow id="flow28" name="" sourceRef="exclusivegateway6" targetRef="t080ConfirmReplyKeGuanChu">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isReturn}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow29" name="" sourceRef="exclusivegateway6" targetRef="t100AffirmReplyKeGuanChu">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isReturn}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow30" name="" sourceRef="t100AffirmReplyKeGuanChu" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow30" name="" sourceRef="t080CloseCase4MonitoringGroup" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow31" name="" sourceRef="t010SpecifiesCaseAdviceInfo" targetRef="inclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow33" name="" sourceRef="inclusivegateway1" targetRef="t040Affirm4BranchManager"></sequenceFlow>
     <sequenceFlow id="flow51" name="" sourceRef="t020HandleCaseAdviceInfo" targetRef="parallelgateway4"></sequenceFlow>
@@ -200,8 +173,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!goTo}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_ComplainHandle">
-    <bpmndi:BPMNPlane bpmnElement="ComplainHandle" id="BPMNPlane_ComplainHandle">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_CompanyComplainHandle">
+    <bpmndi:BPMNPlane bpmnElement="CompanyComplainHandle" id="BPMNPlane_CompanyComplainHandle">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35" width="35" x="500" y="-230"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -223,14 +196,11 @@
       <bpmndi:BPMNShape bpmnElement="t070DepartmentCooperation" id="BPMNShape_t070DepartmentCooperation">
         <omgdc:Bounds height="55" width="105" x="298" y="400"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t080ConfirmReplyKeGuanChu" id="BPMNShape_t080ConfirmReplyKeGuanChu">
-        <omgdc:Bounds height="55" width="105" x="465" y="510"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t100AffirmReplyKeGuanChu" id="BPMNShape_t100AffirmReplyKeGuanChu">
-        <omgdc:Bounds height="55" width="105" x="465" y="730"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="t080CloseCase4MonitoringGroup" id="BPMNShape_t080CloseCase4MonitoringGroup">
+        <omgdc:Bounds height="55" width="105" x="465" y="513"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35" width="35" x="500" y="820"></omgdc:Bounds>
+        <omgdc:Bounds height="35" width="35" x="500" y="603"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40" width="40" x="330" y="315"></omgdc:Bounds>
@@ -240,12 +210,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
         <omgdc:Bounds height="40" width="40" x="670" y="407"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t090AccraditationCaseAdviceInfoAgain" id="BPMNShape_t090AccraditationCaseAdviceInfoAgain">
-        <omgdc:Bounds height="55" width="105" x="465" y="600"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway6" id="BPMNShape_exclusivegateway6">
-        <omgdc:Bounds height="40" width="40" x="497" y="669"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="inclusivegateway1" id="BPMNShape_inclusivegateway1">
         <omgdc:Bounds height="40" width="40" x="497" y="-80"></omgdc:Bounds>
@@ -268,10 +232,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="517" y="-195"></omgdi:waypoint>
         <omgdi:waypoint x="517" y="-160"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="517" y="565"></omgdi:waypoint>
-        <omgdi:waypoint x="517" y="600"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
         <omgdi:waypoint x="465" y="335"></omgdi:waypoint>
@@ -317,25 +277,11 @@
         <omgdi:waypoint x="710" y="427"></omgdi:waypoint>
         <omgdi:waypoint x="728" y="431"></omgdi:waypoint>
         <omgdi:waypoint x="728" y="538"></omgdi:waypoint>
-        <omgdi:waypoint x="570" y="537"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
-        <omgdi:waypoint x="517" y="655"></omgdi:waypoint>
-        <omgdi:waypoint x="517" y="669"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
-        <omgdi:waypoint x="497" y="689"></omgdi:waypoint>
-        <omgdi:waypoint x="405" y="689"></omgdi:waypoint>
-        <omgdi:waypoint x="405" y="537"></omgdi:waypoint>
-        <omgdi:waypoint x="465" y="537"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
-        <omgdi:waypoint x="517" y="709"></omgdi:waypoint>
-        <omgdi:waypoint x="517" y="730"></omgdi:waypoint>
+        <omgdi:waypoint x="570" y="540"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
-        <omgdi:waypoint x="517" y="785"></omgdi:waypoint>
-        <omgdi:waypoint x="517" y="820"></omgdi:waypoint>
+        <omgdi:waypoint x="517" y="568"></omgdi:waypoint>
+        <omgdi:waypoint x="517" y="603"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
         <omgdi:waypoint x="517" y="-105"></omgdi:waypoint>

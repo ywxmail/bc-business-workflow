@@ -21,6 +21,10 @@
 		<module>bc-business-workflow-generalorder</module>
 		<module>bc-business-workflow-caractive</module>
 		<module>bc-business-workflow-requestservicecertificate</module>
+		<module>bc-business-workflow-cartraffichandle</module>
+		<module>bc-business-workflow-complainhandle</module>
+		<module>bc-business-workflow-companycomplainhandle</module>
+		<module>bc-business-workflow-infractbusinesshandle</module>
 	</modules>
 	<scm>
 		<connection>scm:git:git://localhost/bc-business-workflow.git</connection>
