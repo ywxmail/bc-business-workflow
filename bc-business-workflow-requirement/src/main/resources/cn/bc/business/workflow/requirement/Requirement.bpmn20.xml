@@ -12,7 +12,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.IsAssigneeHaveAnyGroupListener">
           <activiti:field name="anyGroupNames">
-            <activiti:string>分公司经理,财务部经理,修理厂厂长,业务组主管,部门经理,办公室主任</activiti:string>
+            <activiti:string>分公司经理,财务部经理,修理厂厂长,业务组主管,部门经理,办公室主任,董事长,总经理,营运总监,分管营运副总</activiti:string>
           </activiti:field>
           <activiti:field name="customHaveGroupKey">
             <activiti:string>isManager</activiti:string>
@@ -48,6 +48,9 @@
           <activiti:field name="orgVariableName">
             <activiti:string>upperId</activiti:string>
           </activiti:field>
+          <activiti:field name="assignee">
+            <activiti:string>manager</activiti:string>
+          </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -57,7 +60,7 @@
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
-          <activiti:field name="hiddenButtonCodeS">
+          <activiti:field name="hiddenButtonCodes">
             <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
           </activiti:field>
         </activiti:taskListener>
@@ -108,7 +111,7 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t070DepartmentCooperation_s" name="相关部门协办" activiti:formKey="fm:wf:Requirement/t070DepartmentCooperation">
+    <userTask id="t070DepartmentCooperation_s" name="相关部门协办" activiti:formKey="fm:wf:Requirement/departmentCooperation">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -144,7 +147,7 @@
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway10" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="t050DepartmentCooperation_s" name="相关部门协办" activiti:formKey="fm:wf:Requirement/t050DepartmentCooperation">
+    <userTask id="t050DepartmentCooperation_s" name="相关部门协办" activiti:formKey="fm:wf:Requirement/departmentCooperation">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -162,7 +165,7 @@
       </extensionElements>
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
     </userTask>
-    <userTask id="t030DepartmentCooperation_s" name="相关部门协办" activiti:formKey="fm:wf:Requirement/t030DepartmentCooperation">
+    <userTask id="t030DepartmentCooperation_s" name="相关部门协办" activiti:formKey="fm:wf:Requirement/departmentCooperation">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -180,8 +183,8 @@
       </extensionElements>
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
     </userTask>
+    <endEvent id="endevent4" name="End"></endEvent>
     <sequenceFlow id="flow1" name="数据纠正处理流程" sourceRef="startevent1" targetRef="t010ApplyMatter_s"></sequenceFlow>
-    <sequenceFlow id="flow32" name="" sourceRef="exclusivegateway6" targetRef="t020ManagerCheck_s"></sequenceFlow>
     <sequenceFlow id="flow33" name="撤销申请" sourceRef="exclusivegateway6" targetRef="endevent3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isCancel}]]></conditionExpression>
     </sequenceFlow>
@@ -230,9 +233,8 @@
     </sequenceFlow>
     <sequenceFlow id="flow56" name="" sourceRef="t030DepartmentCooperation_s" targetRef="t020ManagerCheck_s"></sequenceFlow>
     <sequenceFlow id="flow57" name="行政办公室的申请" sourceRef="exclusivegateway7" targetRef="t060DevelopmentGroupHandle_s">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isBanGongShi}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isBanGongShi&&!isReturn&&!isCooperate}]]></conditionExpression>
     </sequenceFlow>
-    <endEvent id="endevent4" name="End"></endEvent>
     <sequenceFlow id="flow58" name="" sourceRef="exclusivegateway10" targetRef="endevent4"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Requirement">
@@ -291,10 +293,6 @@
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42" width="100" x="33" y="-26"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
-        <omgdi:waypoint x="237" y="-31"></omgdi:waypoint>
-        <omgdi:waypoint x="237" y="-11"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
         <omgdi:waypoint x="257" y="-51"></omgdi:waypoint>
