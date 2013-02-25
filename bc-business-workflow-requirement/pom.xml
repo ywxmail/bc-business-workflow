@@ -7,19 +7,14 @@
 		<version>1.0-SNAPSHOT</version>
 		<relativePath>../bc-business-workflow-parent/pom.xml</relativePath>
 	</parent>
-	<artifactId>bc-business-workflow-requestservicecertificate</artifactId>
-	<name>bc-business-workflow-requestservicecertificate</name>
-	<description>司机服务资格证办理流程</description>
+	<artifactId>bc-business-workflow-requirement</artifactId>
+	<name>bc-business-workflow-requirement</name>
+	<description>数据纠正处理流程</description>
 	
 	<dependencies>
 		<dependency>
 			<groupId>cn.bc.business.workflow</groupId>
 			<artifactId>bc-business-workflow-common</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>cn.bc.business</groupId>
-			<artifactId>bc-business-tempdriver</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
