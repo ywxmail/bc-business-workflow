@@ -65,30 +65,16 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t060AccraditationCaseAdviceInfo" name="营运总监审批" activiti:formKey="fm:wf:ComplainHandle/accraditationCaseAdviceInfo">
+    <userTask id="t060AccraditationCaseAdviceInfo" name="服务副总审批" activiti:formKey="fm:wf:ComplainHandle/accraditationCaseAdviceInfo">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
-            <activiti:string>营运总监</activiti:string>
+            <activiti:string>服务副总</activiti:string>
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
-    </userTask>
-    <userTask id="t070DepartmentCooperation" name="相关部门协办" activiti:formKey="fm:wf:ComplainHandle/departmentCooperation">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.MultiInstanceAssigneeListener"></activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
-          <activiti:field name="hiddenButtonCodes">
-            <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
-      </extensionElements>
-      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="list_co4departmentAndAssignee" activiti:elementVariable="multiInstanceCollentionKey"></multiInstanceLoopCharacteristics>
     </userTask>
     <userTask id="t080ConfirmReplyKeGuanChu" name="服务监督组确定对客管处的回复" activiti:formKey="fm:wf:ComplainHandle/confirmReplyKeGuanChu">
       <extensionElements>
@@ -126,11 +112,11 @@
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="t090AccraditationCaseAdviceInfoAgain" name="营运总监审批" activiti:formKey="fm:wf:ComplainHandle/accraditationCaseAdviceInfoAgain">
+    <userTask id="t090AccraditationCaseAdviceInfoAgain" name="服务副总审批" activiti:formKey="fm:wf:ComplainHandle/accraditationCaseAdviceInfoAgain">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
-            <activiti:string>营运总监</activiti:string>
+            <activiti:string>服务副总</activiti:string>
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -153,16 +139,12 @@
     <sequenceFlow id="flow18" name="" sourceRef="exclusivegateway3" targetRef="t060AccraditationCaseAdviceInfo">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isReturn}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow19" name="" sourceRef="exclusivegateway5" targetRef="t070DepartmentCooperation">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isDcFlow}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow20" name="" sourceRef="t070DepartmentCooperation" targetRef="t060AccraditationCaseAdviceInfo"></sequenceFlow>
     <sequenceFlow id="flow24" name="" sourceRef="t060AccraditationCaseAdviceInfo" targetRef="exclusivegateway5"></sequenceFlow>
     <sequenceFlow id="flow25" name="退回" sourceRef="exclusivegateway5" targetRef="t050Auditing4MonitoringGroup">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isReturn}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow26" name="" sourceRef="exclusivegateway5" targetRef="t080ConfirmReplyKeGuanChu">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isReturn && !isDcFlow}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isReturn}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow27" name="" sourceRef="t090AccraditationCaseAdviceInfoAgain" targetRef="exclusivegateway6"></sequenceFlow>
     <sequenceFlow id="flow28" name="" sourceRef="exclusivegateway6" targetRef="t080ConfirmReplyKeGuanChu">
@@ -219,9 +201,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t060AccraditationCaseAdviceInfo" id="BPMNShape_t060AccraditationCaseAdviceInfo">
         <omgdc:Bounds height="55" width="105" x="465" y="400"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t070DepartmentCooperation" id="BPMNShape_t070DepartmentCooperation">
-        <omgdc:Bounds height="55" width="105" x="298" y="400"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t080ConfirmReplyKeGuanChu" id="BPMNShape_t080ConfirmReplyKeGuanChu">
         <omgdc:Bounds height="55" width="105" x="465" y="510"></omgdc:Bounds>
@@ -288,17 +267,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
         <omgdi:waypoint x="350" y="355"></omgdi:waypoint>
-        <omgdi:waypoint x="517" y="400"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
-        <omgdi:waypoint x="690" y="447"></omgdi:waypoint>
-        <omgdi:waypoint x="690" y="479"></omgdi:waypoint>
-        <omgdi:waypoint x="529" y="479"></omgdi:waypoint>
-        <omgdi:waypoint x="361" y="479"></omgdi:waypoint>
-        <omgdi:waypoint x="350" y="455"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
-        <omgdi:waypoint x="403" y="427"></omgdi:waypoint>
+        <omgdi:waypoint x="350" y="428"></omgdi:waypoint>
         <omgdi:waypoint x="465" y="427"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
