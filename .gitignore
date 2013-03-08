@@ -11,3 +11,4 @@ Thumbs.db
 *.log.*
 build
 bin
+.DS_Store
