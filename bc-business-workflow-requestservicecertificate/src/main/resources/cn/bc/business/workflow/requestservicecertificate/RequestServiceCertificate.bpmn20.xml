@@ -10,19 +10,15 @@
     <userTask id="t010RecruiterSubmitRequestServiceCertificateApply" name="招聘专员提交办证申请" activiti:formKey="fm:wf:RequestServiceCertificate/t010RecruiterSubmitRequestServiceCertificateApply">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
-          <activiti:field name="null2initiator">
-            <activiti:string>true</activiti:string>
-          </activiti:field>
           <activiti:field name="groupName">
             <activiti:string>司机招聘专员</activiti:string>
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.business.workflow.requestservicecertificate.delegate.AddWorkflowModuleRelationTaskListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t040ServiceCertificateQualificationCheck2HR_s" name="人力资源部办证资格审核" activiti:formKey="fm:wf:RequestServiceCertificate/t040ServiceCertificateQualificationCheck2HR">
+    <userTask id="t040RecheckSeal2HR_s" name="人力资源部复核盖章" activiti:formKey="fm:wf:RequestServiceCertificate/t040RecheckSeal2HR">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -34,7 +30,7 @@
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t020FinanceTakeNewCarDeposit" name="计财部收取新车订金" activiti:formKey="fm:wf:RequestServiceCertificate/t020FinanceTakeNewCarDeposit">
+    <userTask id="t020FinanceTakeNewCarDeposit" name="计财部前台收取新车定金" activiti:formKey="fm:wf:RequestServiceCertificate/t020FinanceTakeNewCarDeposit">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -46,7 +42,7 @@
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t060RequestServiceCertificateConfirm" name="司机服务资格证办理确认" activiti:formKey="fm:wf:RequestServiceCertificate/t060RequestServiceCertificateConfirm">
+    <userTask id="t120RecruiterConfirm" name="招聘专员确认">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -58,7 +54,7 @@
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t050RecruiterDealWithException_s" name="招聘专员处理异常情况" activiti:formKey="fm:wf:RequestServiceCertificate/t050RecruiterDealWithException">
+    <userTask id="t050RecruiterRecheck_s" name="招聘专员复核" activiti:formKey="fm:wf:RequestServiceCertificate/t050RecruiterRecheck">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -75,7 +71,7 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t030RecruiterConfirmCertificateSituation" name="招聘专员确认办证情况" activiti:formKey="fm:wf:RequestServiceCertificate/t030RecruiterConfirmCertificateSituation">
+    <userTask id="t030RecruiterConfirmCertificateSituation_s" name="招聘专员确认办证情况" activiti:formKey="fm:wf:RequestServiceCertificate/t030RecruiterConfirmCertificateSituation">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -88,7 +84,7 @@
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="t070InChargeOfOperationDeputyGeneralManagerCheck" name="分管营运副总审批" activiti:formKey="fm:wf:RequestServiceCertificate/t070InChargeOfOperationDeputyGeneralManagerCheck">
+    <userTask id="t070InChargeOfOperationDeputyGeneralManagerCheck_s" name="分管营运副总审批" activiti:formKey="fm:wf:RequestServiceCertificate/t070InChargeOfOperationDeputyGeneralManagerCheck">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -98,10 +94,15 @@
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
+          <activiti:field name="hiddenButtonCodes">
+            <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <inclusiveGateway id="inclusivegateway9" name="Inclusive Gateway"></inclusiveGateway>
-    <userTask id="t100FinanceCashierRefundNewCarDeposit" name="计财部退还新车订金" activiti:formKey="fm:wf:RequestServiceCertificate/t100FinanceCashierRefundNewCarDeposit">
+    <userTask id="t100FinanceCashierRefundFee" name="计财部前台退费" activiti:formKey="fm:wf:RequestServiceCertificate/t100FinanceCashierRefundFee">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -127,7 +128,7 @@
     </userTask>
     <inclusiveGateway id="inclusivegateway10" name="Inclusive Gateway"></inclusiveGateway>
     <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="t080FinanceGatherCount" name="计财部退费汇总核算" activiti:formKey="fm:wf:RequestServiceCertificate/t080FinanceGatherCount">
+    <userTask id="t080FinanceGatherCount" name="计财部退费核算" activiti:formKey="fm:wf:RequestServiceCertificate/t080FinanceGatherCount">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -137,9 +138,14 @@
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
+          <activiti:field name="hiddenButtonCodes">
+            <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t090FinanceAccountDirectorConfirm" name="计财部会计主管确认退费情况" activiti:formKey="fm:wf:RequestServiceCertificate/t090FinanceAccountDirectorConfirm">
+    <userTask id="t090FinanceAccountDirectorCheck" name="计财部会计主管审核" activiti:formKey="fm:wf:RequestServiceCertificate/t090FinanceAccountDirectorCheck">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -149,178 +155,275 @@
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.InitHiddenButtons4TaskListener">
+          <activiti:field name="hiddenButtonCodes">
+            <activiti:string>BUTTON_ADDCOMMENT</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
+    <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
+    <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
+    <userTask id="t060MerchandiserCertificate" name="车技部业务员到客管处办证" activiti:formKey="fm:wf:RequestServiceCertificate/t060MerchandiserCertificate">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>车辆技术部业务员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskMailListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway7" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow1" name="司机服务资格证办理流程" sourceRef="startevent1" targetRef="t010RecruiterSubmitRequestServiceCertificateApply"></sequenceFlow>
-    <sequenceFlow id="flow23" name="" sourceRef="exclusivegateway3" targetRef="t040ServiceCertificateQualificationCheck2HR_s">
+    <sequenceFlow id="flow23" name="" sourceRef="exclusivegateway3" targetRef="t040RecheckSeal2HR_s">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isGiveUp}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow24" name="" sourceRef="t030RecruiterConfirmCertificateSituation" targetRef="exclusivegateway3"></sequenceFlow>
-    <sequenceFlow id="flow25" name="司机放弃办证" sourceRef="exclusivegateway3" targetRef="t070InChargeOfOperationDeputyGeneralManagerCheck">
+    <sequenceFlow id="flow24" name="" sourceRef="t030RecruiterConfirmCertificateSituation_s" targetRef="exclusivegateway3"></sequenceFlow>
+    <sequenceFlow id="flow25" name="司机放弃办证" sourceRef="exclusivegateway3" targetRef="t070InChargeOfOperationDeputyGeneralManagerCheck_s">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isGiveUp}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow27" name="" sourceRef="t070InChargeOfOperationDeputyGeneralManagerCheck" targetRef="inclusivegateway9"></sequenceFlow>
+    <sequenceFlow id="flow27" name="" sourceRef="exclusivegateway6" targetRef="inclusivegateway9">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isReturn}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow29" name="" sourceRef="inclusivegateway9" targetRef="t110RecruiterRefundCertificateInfoAndFee"></sequenceFlow>
-    <sequenceFlow id="flow30" name="" sourceRef="t100FinanceCashierRefundNewCarDeposit" targetRef="inclusivegateway10"></sequenceFlow>
+    <sequenceFlow id="flow30" name="" sourceRef="t100FinanceCashierRefundFee" targetRef="inclusivegateway10"></sequenceFlow>
     <sequenceFlow id="flow31" name="" sourceRef="t110RecruiterRefundCertificateInfoAndFee" targetRef="inclusivegateway10"></sequenceFlow>
     <sequenceFlow id="flow32" name="" sourceRef="inclusivegateway10" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow33" name="" sourceRef="t040ServiceCertificateQualificationCheck2HR_s" targetRef="exclusivegateway4"></sequenceFlow>
-    <sequenceFlow id="flow35" name="" sourceRef="exclusivegateway4" targetRef="t050RecruiterDealWithException_s">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isException}]]></conditionExpression>
+    <sequenceFlow id="flow33" name="" sourceRef="t040RecheckSeal2HR_s" targetRef="exclusivegateway4"></sequenceFlow>
+    <sequenceFlow id="flow35" name="不通过" sourceRef="exclusivegateway4" targetRef="t050RecruiterRecheck_s">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isPass}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow36" name="" sourceRef="t050RecruiterDealWithException_s" targetRef="t040ServiceCertificateQualificationCheck2HR_s"></sequenceFlow>
+    <sequenceFlow id="flow36" name="需重审" sourceRef="exclusivegateway7" targetRef="t040RecheckSeal2HR_s">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isRecheck}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow39" name="" sourceRef="inclusivegateway9" targetRef="t080FinanceGatherCount"></sequenceFlow>
-    <sequenceFlow id="flow40" name="" sourceRef="t080FinanceGatherCount" targetRef="t090FinanceAccountDirectorConfirm"></sequenceFlow>
-    <sequenceFlow id="flow41" name="" sourceRef="t090FinanceAccountDirectorConfirm" targetRef="t100FinanceCashierRefundNewCarDeposit"></sequenceFlow>
-    <sequenceFlow id="flow45" name="" sourceRef="t060RequestServiceCertificateConfirm" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow50" name="" sourceRef="exclusivegateway4" targetRef="t060RequestServiceCertificateConfirm">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isException}]]></conditionExpression>
+    <sequenceFlow id="flow40" name="" sourceRef="t080FinanceGatherCount" targetRef="t090FinanceAccountDirectorCheck"></sequenceFlow>
+    <sequenceFlow id="flow41" name="" sourceRef="t090FinanceAccountDirectorCheck" targetRef="t100FinanceCashierRefundFee"></sequenceFlow>
+    <sequenceFlow id="flow45" name="" sourceRef="t120RecruiterConfirm" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow50" name="" sourceRef="t060MerchandiserCertificate" targetRef="t120RecruiterConfirm"></sequenceFlow>
+    <sequenceFlow id="flow51" name="" sourceRef="exclusivegateway5" targetRef="t020FinanceTakeNewCarDeposit">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isPayDeposit}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow51" name="" sourceRef="t010RecruiterSubmitRequestServiceCertificateApply" targetRef="t020FinanceTakeNewCarDeposit"></sequenceFlow>
-    <sequenceFlow id="flow52" name="" sourceRef="t020FinanceTakeNewCarDeposit" targetRef="t030RecruiterConfirmCertificateSituation"></sequenceFlow>
+    <sequenceFlow id="flow52" name="" sourceRef="t020FinanceTakeNewCarDeposit" targetRef="t030RecruiterConfirmCertificateSituation_s"></sequenceFlow>
+    <sequenceFlow id="flow53" name="" sourceRef="t010RecruiterSubmitRequestServiceCertificateApply" targetRef="exclusivegateway5"></sequenceFlow>
+    <sequenceFlow id="flow54" name="不需收定金" sourceRef="exclusivegateway5" targetRef="t030RecruiterConfirmCertificateSituation_s">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isPayDeposit}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow55" name="" sourceRef="t070InChargeOfOperationDeputyGeneralManagerCheck_s" targetRef="exclusivegateway6"></sequenceFlow>
+    <sequenceFlow id="flow56" name="退回" sourceRef="exclusivegateway6" targetRef="t030RecruiterConfirmCertificateSituation_s">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isReturn}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow57" name="" sourceRef="exclusivegateway4" targetRef="t060MerchandiserCertificate">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isPass}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow58" name="" sourceRef="t050RecruiterRecheck_s" targetRef="exclusivegateway7"></sequenceFlow>
+    <sequenceFlow id="flow59" name="放弃办证" sourceRef="exclusivegateway7" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isRecheck}]]></conditionExpression>
+    </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_RequestServiceCertificate">
     <bpmndi:BPMNPlane bpmnElement="RequestServiceCertificate" id="BPMNPlane_RequestServiceCertificate">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35" width="35" x="20" y="91"></omgdc:Bounds>
+        <omgdc:Bounds height="35" width="35" x="299" y="10"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35" width="35" x="20" y="240"></omgdc:Bounds>
+        <omgdc:Bounds height="35" width="35" x="299" y="660"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t010RecruiterSubmitRequestServiceCertificateApply" id="BPMNShape_t010RecruiterSubmitRequestServiceCertificateApply">
-        <omgdc:Bounds height="55" width="105" x="96" y="81"></omgdc:Bounds>
+        <omgdc:Bounds height="55" width="105" x="264" y="70"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t040ServiceCertificateQualificationCheck2HR_s" id="BPMNShape_t040ServiceCertificateQualificationCheck2HR_s">
-        <omgdc:Bounds height="55" width="105" x="661" y="230"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="t040RecheckSeal2HR_s" id="BPMNShape_t040RecheckSeal2HR_s">
+        <omgdc:Bounds height="55" width="105" x="264" y="380"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t020FinanceTakeNewCarDeposit" id="BPMNShape_t020FinanceTakeNewCarDeposit">
-        <omgdc:Bounds height="55" width="105" x="301" y="81"></omgdc:Bounds>
+        <omgdc:Bounds height="55" width="105" x="264" y="150"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t060RequestServiceCertificateConfirm" id="BPMNShape_t060RequestServiceCertificateConfirm">
-        <omgdc:Bounds height="55" width="105" x="301" y="230"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="t120RecruiterConfirm" id="BPMNShape_t120RecruiterConfirm">
+        <omgdc:Bounds height="55" width="105" x="264" y="587"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t050RecruiterDealWithException_s" id="BPMNShape_t050RecruiterDealWithException_s">
-        <omgdc:Bounds height="55" width="105" x="510" y="163"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="t050RecruiterRecheck_s" id="BPMNShape_t050RecruiterRecheck_s">
+        <omgdc:Bounds height="55" width="105" x="120" y="445"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t030RecruiterConfirmCertificateSituation" id="BPMNShape_t030RecruiterConfirmCertificateSituation">
-        <omgdc:Bounds height="58" width="105" x="510" y="80"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="t030RecruiterConfirmCertificateSituation_s" id="BPMNShape_t030RecruiterConfirmCertificateSituation_s">
+        <omgdc:Bounds height="58" width="105" x="264" y="231"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
-        <omgdc:Bounds height="40" width="40" x="693" y="88"></omgdc:Bounds>
+        <omgdc:Bounds height="40" width="40" x="296" y="320"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t070InChargeOfOperationDeputyGeneralManagerCheck" id="BPMNShape_t070InChargeOfOperationDeputyGeneralManagerCheck">
-        <omgdc:Bounds height="55" width="105" x="661" y="346"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="t070InChargeOfOperationDeputyGeneralManagerCheck_s" id="BPMNShape_t070InChargeOfOperationDeputyGeneralManagerCheck_s">
+        <omgdc:Bounds height="55" width="105" x="407" y="313"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="inclusivegateway9" id="BPMNShape_inclusivegateway9">
-        <omgdc:Bounds height="40" width="40" x="582" y="353"></omgdc:Bounds>
+        <omgdc:Bounds height="40" width="40" x="592" y="320"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t100FinanceCashierRefundNewCarDeposit" id="BPMNShape_t100FinanceCashierRefundNewCarDeposit">
-        <omgdc:Bounds height="55" width="105" x="176" y="300"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="t100FinanceCashierRefundFee" id="BPMNShape_t100FinanceCashierRefundFee">
+        <omgdc:Bounds height="55" width="105" x="560" y="587"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t110RecruiterRefundCertificateInfoAndFee" id="BPMNShape_t110RecruiterRefundCertificateInfoAndFee">
-        <omgdc:Bounds height="55" width="105" x="301" y="393"></omgdc:Bounds>
+        <omgdc:Bounds height="55" width="105" x="407" y="445"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="inclusivegateway10" id="BPMNShape_inclusivegateway10">
-        <omgdc:Bounds height="40" width="40" x="90" y="353"></omgdc:Bounds>
+        <omgdc:Bounds height="40" width="40" x="439" y="594"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
-        <omgdc:Bounds height="40" width="40" x="542" y="237"></omgdc:Bounds>
+        <omgdc:Bounds height="40" width="40" x="296" y="452"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="t080FinanceGatherCount" id="BPMNShape_t080FinanceGatherCount">
-        <omgdc:Bounds height="55" width="105" x="424" y="300"></omgdc:Bounds>
+        <omgdc:Bounds height="55" width="105" x="560" y="445"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="t090FinanceAccountDirectorConfirm" id="BPMNShape_t090FinanceAccountDirectorConfirm">
-        <omgdc:Bounds height="55" width="105" x="301" y="300"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="t090FinanceAccountDirectorCheck" id="BPMNShape_t090FinanceAccountDirectorCheck">
+        <omgdc:Bounds height="55" width="105" x="560" y="512"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
+        <omgdc:Bounds height="40" width="40" x="184" y="77"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway6" id="BPMNShape_exclusivegateway6">
+        <omgdc:Bounds height="40" width="40" x="529" y="320"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="t060MerchandiserCertificate" id="BPMNShape_t060MerchandiserCertificate">
+        <omgdc:Bounds height="55" width="105" x="264" y="512"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway7" id="BPMNShape_exclusivegateway7">
+        <omgdc:Bounds height="40" width="40" x="152" y="594"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="55" y="108"></omgdi:waypoint>
-        <omgdi:waypoint x="96" y="108"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="45"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="70"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42" width="100" x="-25" y="-74"></omgdc:Bounds>
+          <omgdc:Bounds height="42" width="100" x="39" y="-49"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
-        <omgdi:waypoint x="713" y="128"></omgdi:waypoint>
-        <omgdi:waypoint x="713" y="230"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="360"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="380"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
-        <omgdi:waypoint x="615" y="109"></omgdi:waypoint>
-        <omgdi:waypoint x="693" y="108"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="289"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="320"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
-        <omgdi:waypoint x="733" y="108"></omgdi:waypoint>
-        <omgdi:waypoint x="792" y="108"></omgdi:waypoint>
-        <omgdi:waypoint x="792" y="373"></omgdi:waypoint>
-        <omgdi:waypoint x="766" y="373"></omgdi:waypoint>
+        <omgdi:waypoint x="336" y="340"></omgdi:waypoint>
+        <omgdi:waypoint x="407" y="340"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14" width="100" x="-63" y="-136"></omgdc:Bounds>
+          <omgdc:Bounds height="14" width="100" x="-38" y="-20"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
-        <omgdi:waypoint x="661" y="373"></omgdi:waypoint>
-        <omgdi:waypoint x="622" y="373"></omgdi:waypoint>
+        <omgdi:waypoint x="569" y="340"></omgdi:waypoint>
+        <omgdi:waypoint x="592" y="340"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
-        <omgdi:waypoint x="602" y="393"></omgdi:waypoint>
-        <omgdi:waypoint x="601" y="420"></omgdi:waypoint>
-        <omgdi:waypoint x="406" y="420"></omgdi:waypoint>
+        <omgdi:waypoint x="612" y="360"></omgdi:waypoint>
+        <omgdi:waypoint x="612" y="405"></omgdi:waypoint>
+        <omgdi:waypoint x="459" y="405"></omgdi:waypoint>
+        <omgdi:waypoint x="459" y="445"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
-        <omgdi:waypoint x="176" y="327"></omgdi:waypoint>
-        <omgdi:waypoint x="110" y="327"></omgdi:waypoint>
-        <omgdi:waypoint x="110" y="353"></omgdi:waypoint>
+        <omgdi:waypoint x="560" y="614"></omgdi:waypoint>
+        <omgdi:waypoint x="479" y="614"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
-        <omgdi:waypoint x="301" y="420"></omgdi:waypoint>
-        <omgdi:waypoint x="109" y="420"></omgdi:waypoint>
-        <omgdi:waypoint x="110" y="393"></omgdi:waypoint>
+        <omgdi:waypoint x="459" y="500"></omgdi:waypoint>
+        <omgdi:waypoint x="459" y="594"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
-        <omgdi:waypoint x="90" y="373"></omgdi:waypoint>
-        <omgdi:waypoint x="37" y="372"></omgdi:waypoint>
-        <omgdi:waypoint x="37" y="275"></omgdi:waypoint>
+        <omgdi:waypoint x="459" y="634"></omgdi:waypoint>
+        <omgdi:waypoint x="459" y="677"></omgdi:waypoint>
+        <omgdi:waypoint x="334" y="677"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
-        <omgdi:waypoint x="661" y="257"></omgdi:waypoint>
-        <omgdi:waypoint x="582" y="257"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="435"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="452"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
-        <omgdi:waypoint x="562" y="237"></omgdi:waypoint>
-        <omgdi:waypoint x="562" y="218"></omgdi:waypoint>
+        <omgdi:waypoint x="296" y="472"></omgdi:waypoint>
+        <omgdi:waypoint x="225" y="472"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="-10" y="-20"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
-        <omgdi:waypoint x="615" y="190"></omgdi:waypoint>
-        <omgdi:waypoint x="713" y="190"></omgdi:waypoint>
-        <omgdi:waypoint x="713" y="230"></omgdi:waypoint>
+        <omgdi:waypoint x="152" y="614"></omgdi:waypoint>
+        <omgdi:waypoint x="80" y="613"></omgdi:waypoint>
+        <omgdi:waypoint x="80" y="407"></omgdi:waypoint>
+        <omgdi:waypoint x="172" y="407"></omgdi:waypoint>
+        <omgdi:waypoint x="264" y="407"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="13" y="140"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
-        <omgdi:waypoint x="602" y="353"></omgdi:waypoint>
-        <omgdi:waypoint x="601" y="327"></omgdi:waypoint>
-        <omgdi:waypoint x="529" y="327"></omgdi:waypoint>
+        <omgdi:waypoint x="612" y="360"></omgdi:waypoint>
+        <omgdi:waypoint x="612" y="445"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
-        <omgdi:waypoint x="424" y="327"></omgdi:waypoint>
-        <omgdi:waypoint x="406" y="327"></omgdi:waypoint>
+        <omgdi:waypoint x="612" y="500"></omgdi:waypoint>
+        <omgdi:waypoint x="612" y="512"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
-        <omgdi:waypoint x="301" y="327"></omgdi:waypoint>
-        <omgdi:waypoint x="281" y="327"></omgdi:waypoint>
+        <omgdi:waypoint x="612" y="567"></omgdi:waypoint>
+        <omgdi:waypoint x="612" y="587"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
-        <omgdi:waypoint x="301" y="257"></omgdi:waypoint>
-        <omgdi:waypoint x="55" y="257"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="642"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="660"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
-        <omgdi:waypoint x="542" y="257"></omgdi:waypoint>
-        <omgdi:waypoint x="406" y="257"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="567"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="587"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow51" id="BPMNEdge_flow51">
-        <omgdi:waypoint x="201" y="108"></omgdi:waypoint>
-        <omgdi:waypoint x="301" y="108"></omgdi:waypoint>
+        <omgdi:waypoint x="204" y="117"></omgdi:waypoint>
+        <omgdi:waypoint x="204" y="177"></omgdi:waypoint>
+        <omgdi:waypoint x="264" y="177"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow52" id="BPMNEdge_flow52">
-        <omgdi:waypoint x="406" y="108"></omgdi:waypoint>
-        <omgdi:waypoint x="510" y="109"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="205"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="231"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow53" id="BPMNEdge_flow53">
+        <omgdi:waypoint x="264" y="97"></omgdi:waypoint>
+        <omgdi:waypoint x="224" y="97"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow54" id="BPMNEdge_flow54">
+        <omgdi:waypoint x="184" y="97"></omgdi:waypoint>
+        <omgdi:waypoint x="162" y="97"></omgdi:waypoint>
+        <omgdi:waypoint x="162" y="260"></omgdi:waypoint>
+        <omgdi:waypoint x="264" y="260"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="9" y="21"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow55" id="BPMNEdge_flow55">
+        <omgdi:waypoint x="512" y="340"></omgdi:waypoint>
+        <omgdi:waypoint x="529" y="340"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow56" id="BPMNEdge_flow56">
+        <omgdi:waypoint x="549" y="320"></omgdi:waypoint>
+        <omgdi:waypoint x="549" y="259"></omgdi:waypoint>
+        <omgdi:waypoint x="369" y="260"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="52" y="29"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow57" id="BPMNEdge_flow57">
+        <omgdi:waypoint x="316" y="492"></omgdi:waypoint>
+        <omgdi:waypoint x="316" y="512"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow58" id="BPMNEdge_flow58">
+        <omgdi:waypoint x="172" y="500"></omgdi:waypoint>
+        <omgdi:waypoint x="172" y="594"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow59" id="BPMNEdge_flow59">
+        <omgdi:waypoint x="172" y="634"></omgdi:waypoint>
+        <omgdi:waypoint x="172" y="677"></omgdi:waypoint>
+        <omgdi:waypoint x="299" y="677"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="-59" y="-43"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
