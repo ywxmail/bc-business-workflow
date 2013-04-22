@@ -90,6 +90,23 @@
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.UpdateModuleInfo4TaskListener">
+          <activiti:field name="serviceName">
+            <activiti:string>carService</activiti:string>
+          </activiti:field>
+          <activiti:field name="serviceMethod">
+            <activiti:string>update</activiti:string>
+          </activiti:field>
+          <activiti:field name="updateObjectId">
+            <activiti:expression>${carId_gl}</activiti:expression>
+          </activiti:field>
+          <activiti:field name="parameter">
+            <activiti:string>{"status":0}</activiti:string>
+          </activiti:field>
+          <activiti:field name="isExecuteUpdateMethod">
+            <activiti:expression>${isUpdate}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="t15AffirmReceivingCar" name="修理厂确认司机提车" activiti:formKey="fm:wf:CarActive/t15AffirmReceivingCar">
@@ -111,7 +128,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t07ContractSigned" name="人力资源部合同签署" activiti:formKey="fm:wf:CarActive/t07ContractSigned">
+    <userTask id="t07ContractSigned" name="人力资源部司机资料复核、合同签署" activiti:formKey="fm:wf:CarActive/t07ContractSigned">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -152,7 +169,7 @@
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
-            <activiti:string>人力资源部主管</activiti:string>
+            <activiti:string>人力资源部出车经办人</activiti:string>
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -205,7 +222,9 @@
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow12" name="" sourceRef="t02CertificateApproval" targetRef="inclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow14" name="" sourceRef="inclusivegateway2" targetRef="t08AuditFeeNotice"></sequenceFlow>
+    <sequenceFlow id="flow14" name="新车或重发包" sourceRef="inclusivegateway2" targetRef="t08AuditFeeNotice">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${carActiveType=='新车' || carActiveType=='重发包'}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow15" name="" sourceRef="inclusivegateway2" targetRef="t06CasualtyInsuranceTransact"></sequenceFlow>
     <sequenceFlow id="flow18" name="" sourceRef="t06CasualtyInsuranceTransact" targetRef="inclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow20" name="" sourceRef="inclusivegateway2" targetRef="t12UpdateCarByDriver"></sequenceFlow>
@@ -319,6 +338,9 @@
         <omgdi:waypoint x="287" y="390"></omgdi:waypoint>
         <omgdi:waypoint x="622" y="389"></omgdi:waypoint>
         <omgdi:waypoint x="622" y="434"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="105" y="19"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="287" y="390"></omgdi:waypoint>
