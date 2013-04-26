@@ -6,7 +6,7 @@
       <activiti:executionListener event="end" class="cn.bc.workflow.activiti.delegate.ProcessLogListener"></activiti:executionListener>
       <activiti:executionListener event="start" class="cn.bc.workflow.activiti.delegate.Attach4ProcessListener">
         <activiti:field name="resourceCode">
-          <activiti:string>carActive_commonTemplate</activiti:string>
+          <activiti:string>carActive_commonTemplate,carReceivingConfirmation_commonTemplate</activiti:string>
         </activiti:field>
       </activiti:executionListener>
     </extensionElements>
@@ -56,11 +56,11 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t06CasualtyInsuranceTransact" name="人力资源部办理人意险办理" activiti:formKey="fm:wf:CarActive/t06CasualtyInsuranceTransact">
+    <userTask id="t06CasualtyInsuranceTransact" name="人力资源部人意险办理" activiti:formKey="fm:wf:CarActive/t06CasualtyInsuranceTransact">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
-            <activiti:string>人力资源组合同管理员</activiti:string>
+            <activiti:string>人力资源部人意险办理员</activiti:string>
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -90,13 +90,30 @@
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.UpdateModuleInfo4TaskListener">
+          <activiti:field name="serviceName">
+            <activiti:string>carService</activiti:string>
+          </activiti:field>
+          <activiti:field name="serviceMethod">
+            <activiti:string>update</activiti:string>
+          </activiti:field>
+          <activiti:field name="updateObjectId">
+            <activiti:expression>${carId_gl}</activiti:expression>
+          </activiti:field>
+          <activiti:field name="parameter">
+            <activiti:string>{"status":0}</activiti:string>
+          </activiti:field>
+          <activiti:field name="isExecuteUpdateMethod">
+            <activiti:expression>${isUpdate}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="t15AffirmReceivingCar" name="修理厂确认司机提车" activiti:formKey="fm:wf:CarActive/t15AffirmReceivingCar">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
-            <activiti:string>修理厂交车经办人</activiti:string>
+            <activiti:string>修理厂出车经办人</activiti:string>
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -111,7 +128,7 @@
         <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="t07ContractSigned" name="人力资源部合同签署" activiti:formKey="fm:wf:CarActive/t07ContractSigned">
+    <userTask id="t07ContractSigned" name="人力资源部司机资料复核、合同签署" activiti:formKey="fm:wf:CarActive/t07ContractSigned">
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
@@ -152,7 +169,7 @@
       <extensionElements>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
           <activiti:field name="groupName">
-            <activiti:string>人力资源组合同管理员</activiti:string>
+            <activiti:string>人力资源部出车经办人</activiti:string>
           </activiti:field>
         </activiti:taskListener>
         <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
@@ -160,8 +177,54 @@
       </extensionElements>
     </userTask>
     <inclusiveGateway id="inclusivegateway5" name="Inclusive Gateway"></inclusiveGateway>
+    <userTask id="t08AuditFeeNotice" name="人力资源部主管审核收费通知" activiti:formKey="fm:wf:CarActive/t08AuditFeeNotice">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>人力资源部主管</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="t09ChargesCollectComputation" name="计财部收费汇总计算" activiti:formKey="fm:wf:CarActive/t09ChargesCollectComputation">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>计财部前台应收会计</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="t10AuditComputation" name="计财部会计主管审核" activiti:formKey="fm:wf:CarActive/t10AuditComputation">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>计财部会计主管</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="t05SocialSecurityTransact" name="人力资源部社保办理" activiti:formKey="fm:wf:CarActive/t05SocialSecurityTransact">
+      <extensionElements>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
+          <activiti:field name="groupName">
+            <activiti:string>人力资源部社保办理员</activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
     <sequenceFlow id="flow12" name="" sourceRef="t02CertificateApproval" targetRef="inclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow14" name="" sourceRef="inclusivegateway2" targetRef="t08AuditFeeNotice"></sequenceFlow>
+    <sequenceFlow id="flow14" name="新车或重发包" sourceRef="inclusivegateway2" targetRef="t08AuditFeeNotice">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${carActiveType=='新车' || carActiveType=='重发包'}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow15" name="" sourceRef="inclusivegateway2" targetRef="t06CasualtyInsuranceTransact"></sequenceFlow>
     <sequenceFlow id="flow18" name="" sourceRef="t06CasualtyInsuranceTransact" targetRef="inclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow20" name="" sourceRef="inclusivegateway2" targetRef="t12UpdateCarByDriver"></sequenceFlow>
@@ -182,40 +245,7 @@
     <sequenceFlow id="flow50" name="" sourceRef="t17Filing4cheliangjishubu" targetRef="inclusivegateway5"></sequenceFlow>
     <sequenceFlow id="flow51" name="" sourceRef="inclusivegateway5" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow52" name="" sourceRef="t16Filing4renliziyuanbu" targetRef="inclusivegateway5"></sequenceFlow>
-    <userTask id="t08AuditFeeNotice" name="人力资源部主管审核收费通知" activiti:formKey="fm:wf:CarActive/t08AuditFeeNotice">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
-          <activiti:field name="groupName">
-            <activiti:string>人力资源部主管</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-      </extensionElements>
-    </userTask>
-    <userTask id="t09ChargesCollectComputation" name="计财部收费汇总计算" activiti:formKey="fm:wf:CarActive/t09ChargesCollectComputation">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
-          <activiti:field name="groupName">
-            <activiti:string>计财部前台出纳员</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-      </extensionElements>
-    </userTask>
     <sequenceFlow id="flow53" name="" sourceRef="t08AuditFeeNotice" targetRef="t09ChargesCollectComputation"></sequenceFlow>
-    <userTask id="t10AuditComputation" name="计财部会计主管审核" activiti:formKey="fm:wf:CarActive/t10AuditComputation">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
-          <activiti:field name="groupName">
-            <activiti:string>计财部会计主管</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-      </extensionElements>
-    </userTask>
     <sequenceFlow id="flow54" name="" sourceRef="t09ChargesCollectComputation" targetRef="t10AuditComputation"></sequenceFlow>
     <sequenceFlow id="flow55" name="" sourceRef="t10AuditComputation" targetRef="t11Toll4FinancialDepartment"></sequenceFlow>
     <sequenceFlow id="flow56" name="" sourceRef="inclusivegateway1" targetRef="t14SignBroughtCertificate"></sequenceFlow>
@@ -223,17 +253,6 @@
     <sequenceFlow id="flow58" name="" sourceRef="inclusivegateway1" targetRef="t15AffirmReceivingCar"></sequenceFlow>
     <sequenceFlow id="flow59" name="" sourceRef="t13SendCertificate" targetRef="inclusivegateway3"></sequenceFlow>
     <sequenceFlow id="flow60" name="" sourceRef="t14SignBroughtCertificate" targetRef="inclusivegateway3"></sequenceFlow>
-    <userTask id="t05SocialSecurityTransact" name="人力资源部社保办理" activiti:formKey="fm:wf:CarActive/t05SocialSecurityTransact">
-      <extensionElements>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.Assign2GroupUserListener">
-          <activiti:field name="groupName">
-            <activiti:string>人力资源组合同管理员</activiti:string>
-          </activiti:field>
-        </activiti:taskListener>
-        <activiti:taskListener event="create" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-        <activiti:taskListener event="complete" class="cn.bc.workflow.activiti.delegate.TaskLogListener"></activiti:taskListener>
-      </extensionElements>
-    </userTask>
     <sequenceFlow id="flow61" name="" sourceRef="inclusivegateway2" targetRef="t05SocialSecurityTransact"></sequenceFlow>
     <sequenceFlow id="flow62" name="" sourceRef="t05SocialSecurityTransact" targetRef="inclusivegateway1"></sequenceFlow>
   </process>
@@ -319,6 +338,9 @@
         <omgdi:waypoint x="287" y="390"></omgdi:waypoint>
         <omgdi:waypoint x="622" y="389"></omgdi:waypoint>
         <omgdi:waypoint x="622" y="434"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="105" y="19"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="287" y="390"></omgdi:waypoint>

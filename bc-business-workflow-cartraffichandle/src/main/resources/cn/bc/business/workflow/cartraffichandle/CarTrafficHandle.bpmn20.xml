@@ -107,7 +107,7 @@
     <sequenceFlow id="flow3" name="" sourceRef="t020ConfirmIllegal4Driver" targetRef="t030TrackingProcessing"></sequenceFlow>
     <sequenceFlow id="flow4" name="" sourceRef="t030TrackingProcessing" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="BranchManagerToConfirmCondition" name="3分以上至11分或12分(不管是否能提供分值证明)" sourceRef="exclusivegateway1" targetRef="t050BranchManagerToConfirm">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accumulatedPoints>3 && (accumulatedPoints<12 || accumulatedPoints==12)}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accumulatedPoints>3 && (accumulatedPoints<12 || accumulatedPoints==12 || accumulatedPoints>12)}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="ConfirmTrafficInfoCondition" name="3分及以下" sourceRef="exclusivegateway1" targetRef="t080ConfirmTrafficInfo">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accumulatedPoints<3 || accumulatedPoints==3}]]></conditionExpression>
@@ -118,7 +118,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accumulatedPoints>3 && accumulatedPoints <7}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="ExaminationAndapprovalCondition" name="6分以上" sourceRef="exclusivegateway2" targetRef="t060ExaminationAndapproval">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accumulatedPoints>6 && (accumulatedPoints<12 || accumulatedPoints==12)}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accumulatedPoints>6 && (accumulatedPoints<12 || accumulatedPoints==12 || accumulatedPoints>12)}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow11" name="" sourceRef="t060ExaminationAndapproval" targetRef="exclusivegateway3"></sequenceFlow>
     <sequenceFlow id="flow12" name="" sourceRef="exclusivegateway3" targetRef="t080ConfirmTrafficInfo">
